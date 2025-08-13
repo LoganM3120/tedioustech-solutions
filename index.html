@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TediousTech Solutions | Automation & Analytics</title>
+  <meta name="description" content="TediousTech Solutions by Logan Meriwether — automation, dashboards, and controls for finance & operations teams using Alteryx, Tableau, and Python." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="images/favicon.png" />
+</head>
+<body>
+  <!-- Header / Nav -->
+  <header class="site-header">
+      <div class="container nav">
+        <a class="nav__brand" href="index.html" aria-label="TediousTech Solutions — Home">TediousTech Solutions</a>
+
+        <!-- Desktop nav (hidden on mobile) -->
+        <nav class="nav__links" aria-label="Primary">
+          <a href="index.html">Home</a>
+          <a href="portfolio.html">Work</a>
+          <a href="index.html#about">About</a>
+          <a href="index.html#contact">Contact</a>
+        </nav>
+
+        <!-- Mobile toggle (hidden on desktop) -->
+        <button id="menuBtn" class="mobile-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+            <span class="hamburger"></span>
+        </button>
+      </div>
+
+      <!-- Mobile menu (hidden by default, shown only when open on mobile) -->
+      <nav id="mobileMenu" class="mobile-nav" aria-label="Mobile">
+        <a href="index.html">Home</a>
+        <a href="portfolio.html">Work</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+  </header>
+
+
+
+  <!-- Hero (with background video) -->
+  <section class="hero hero--video">
+      <video class="hero__video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1" poster="images/hero-poster.jpg">
+          <source src="videos/neural_network.mp4" type="video/mp4" />
+      </video>
+  <div class="container--wide">
+      <h1>Automation that saves hours—every month.</h1>
+      <p>
+      I help finance & operations teams go from manual Excel/SharePoint workflows to reliable automations and dashboards,
+      using <strong>Alteryx</strong>, <strong>Tableau</strong>, and <strong>Python</strong>.
+      </p>
+      <div class="stack">
+          <a class="btn" href="https://calendly.com/YOUR-CALENDLY" target="_blank" rel="noopener">Book a 15-min intro</a>
+          <a class="btn btn--ghost" href="#services">View My Work</a>
+      </div>
+  </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="section">
+  <div class="container">
+    <h2>Services</h2>
+    <div class="grid">
+      <article class="card project-card">
+        <div class="thumb"><img src="images/service-automation.jpg" alt="Automated Excel/SharePoint workflow" /></div>
+        <h3>Excel → Automation</h3>
+        <p>Turn recurring clean-up, joins, and formatting into dependable runs. Export to Excel/CSV/SharePoint, on a schedule.</p>
+      </article>
+
+      <article class="card project-card">
+        <div class="thumb"><img src="images/service-dashboard.jpg" alt="Executive KPI dashboard" /></div>
+        <h3>Executive Dashboards</h3>
+        <p>KPIs leaders actually use. Drill-downs and trendlines with refresh pipelines you don’t have to babysit.</p>
+      </article>
+
+      <article class="card project-card">
+        <div class="thumb"><img src="images/service-controls.jpg" alt="Data controls and checks" /></div>
+        <h3>Controls & Data Checks</h3>
+        <p>File presence checks, schema validation, exception flags, and summaries—so issues surface early.</p>
+      </article>
+    </div>
+  </div>
+  </section>
+
+  <!-- Proof / KPIs -->
+  <section id="proof" class="section">
+    <div class="container">
+      <h2>Results</h2>
+      <div class="kpis">
+        <div class="kpi">
+          <div class="value">4h → 7m</div>
+          <div class="label">Month-end report time</div>
+        </div>
+        <div class="kpi">
+          <div class="value">–80%</div>
+          <div class="label">Prep errors before audit</div>
+        </div>
+        <div class="kpi">
+          <div class="value">+99%</div>
+          <div class="label">On-time refresh rate</div>
+        </div>
+        <div class="kpi">
+          <div class="value">10×</div>
+          <div class="label">Faster ad-hoc analysis</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="section">
+    <div class="container">
+      <h2>About</h2>
+      <div class="stack">
+        <p>
+          I’m Logan—Finance B.S., 3+ years building automation and analytics for controls and reporting.
+          I blend <strong>business context</strong> with <strong>engineering discipline</strong> to deliver solutions that stick:
+          clear logic, documented steps, and simple handoffs. Cybersecurity-aware by default.
+        </p>
+        <ul>
+          <li><strong>Tools:</strong> Alteryx, Tableau, Python, SQL, Excel, SharePoint</li>
+          <li><strong>Focus:</strong> Finance Ops, Risk & Controls, Regulatory reporting support</li>
+          <li><strong>Approach:</strong> Ship a quick win → document → iterate → scale</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact / CTA -->
+  <section id="contact" class="section">
+    <div class="container center stack">
+      <h2>Let’s cut your manual work</h2>
+      <p class="stack--s" style="max-width:65ch">
+        If your team is still stitching files together each month—or dashboards break at the worst moments—let’s fix that.
+      </p>
+      <div class="stack">
+        <a class="btn" href="https://calendly.com/YOUR-CALENDLY" target="_blank" rel="noopener">Book a 15-min intro</a>
+        <a class="btn btn--ghost" href="mailto:you@yourdomain.com">you@yourdomain.com</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap">
+      <div>© <span id="year"></span> TediousTech Solutions • by Logan Meriwether</div>
+      <div class="nav__links">
+        <a href="mailto:you@yourdomain.com" aria-label="Email">Email</a>
+        <a href="https://www.linkedin.com/in/YOUR-LINK" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
+        <a href="https://github.com/YOUR-USER" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // keep your simple filter JS here if you’re using it
+  </script>
+
+  <script src="js/nav.js" defer></script>
+  <script src="js/active-nav.js" defer></script>
+
+</body>
+</html>
