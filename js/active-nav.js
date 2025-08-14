@@ -179,31 +179,34 @@
     });
   };
   if (filterBtns.length) {
-    // Initialize: if none marked, make the first one active
-    const anyActive = filterBtns.some((b) => b.getAttribute("aria-pressed") === "true" || b.classList.contains("is-active"));
-    if (!anyActive) {
-      filterBtns[0].setAttribute("aria-pressed", "true");
-      filterBtns[0].classList.add("is-active");
-      applyFilter(filterBtns[0].dataset.filter);
-    } else {
-      // Normalize aria-pressed for any pre-tagged is-active
-      filterBtns.forEach((b) => {
-        b.setAttribute("aria-pressed", b.classList.contains("is-active") ? "true" : (b.getAttribute("aria-pressed") === "true" ? "true" : "false"));
-      });
-      const current = filterBtns.find((b) => b.getAttribute("aria-pressed") === "true" || b.classList.contains("is-active"));
-      applyFilter(current ? current.dataset.filter : "all");
-    }
+    // Keep track of the current filter and enforce it so one button is ALWAYS highlighted
+      const anyActive = filterBtns.some((b) => b.getAttribute("aria-pressed") === "true" || b.classList.contains("is-active"));
+      let currentFilter =
+          (anyActive && (filterBtns.find((b)=> b.getAttribute("aria-pressed")==="true" || b.classList.contains("is-active"))?.dataset.filter))
+      || filterBtns[0].dataset.filter
+      || "all";
+      const enforceActiveButton = () => {
+          filterBtns.forEach((b) => {
+              const on = (b.dataset.filter === currentFilter);
+              b.setAttribute("aria-pressed", on ? "true" : "false");
+              b.classList.toggle("is-active", on);
+          });
+      };
+      // Initialize state and grid
+      enforceActiveButton();
+      applyFilter(currentFilter);
 
     filterBtns.forEach((btn) => {
       btn.addEventListener("click", () => {
-        filterBtns.forEach((b) => {
-          b.setAttribute("aria-pressed", "false");
-          b.classList.remove("is-active");
-        });
-        btn.setAttribute("aria-pressed", "true");
-        btn.classList.add("is-active");
-        applyFilter(btn.dataset.filter);
+        currentFilter = btn.dataset.filter || "all";
+        enforceActiveButton();
+        applyFilter(currentFilter);
       });
     });
+    // Re-enforce highlight on generic taps/focus shifts so iOS can't "drop" the visual state
+    const reassert = () => { enforceActiveButton(); };
+    document.addEventListener("pointerdown", reassert, true);
+    document.addEventListener("focusin", reassert, true);
+    window.addEventListener("visibilitychange", reassert);
   }
 })();
