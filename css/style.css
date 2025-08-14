@@ -1,14 +1,15 @@
 /* ===============================
    TediousTech Solutions — UI
    Light-first, responsive, “Tron-ish but professional”
+   NOTE: Dark mode is disabled for parity across devices.
 ================================== */
 
 /* ---------- 0) Design Tokens ---------- */
 :root {
-  color-scheme: light;               /* lock to light for cross-browser parity */
+  color-scheme: light;               /* static light; no auto dark */
 
   /* Palette */
-  --bg: #f8f9fa;            /* page background (off-white) */
+  --bg: #ffffff;            /* page background (locked to white) */
   --surface: #ffffff;       /* cards, panels */
   --text: #1a1a1a;          /* primary text */
   --muted: #6b7280;         /* secondary text */
@@ -44,21 +45,7 @@
   --glow: 0 0 0px rgba(0, 247, 255, 0), 0 0 16px rgba(0, 231, 239, 0.25);
 }
 
-/* Force “light” tokens even if OS is dark, to avoid Safari vs Chrome mismatch */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #f8f9fa;
-    --surface: #ffffff;
-    --text: #1a1a1a;
-    --muted: #6b7280;
-    --border: #e5e7eb;
-    --shadow-1: 0 8px 24px rgba(10, 29, 54, 0.08);
-    --shadow-2: 0 16px 50px rgba(10, 29, 54, 0.12);
-    --glow: 0 0 0px rgba(0, 247, 255, 0), 0 0 16px rgba(0, 231, 239, 0.25);
-  }
-}
-
-/* Motion safety */
+/* Motion safety (keep) */
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
@@ -200,7 +187,7 @@ a:focus-visible {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover; z-index: 0; pointer-events: none; filter: saturate(1.05);
 }
-/* Scrim overlay for readability + Tron vibe */
+/* Scrim overlay for readability */
 .hero--video::after {
   content: ""; position: absolute; inset: 0; z-index: 1;
   background:
@@ -352,7 +339,7 @@ details.card + details.card { margin-top: var(--space-s); }
 /* Hamburger lines (blue) */
 .hamburger, .hamburger::before, .hamburger::after {
   content: ""; display: block; width: 24px; height: 3px;
-  background-color: #158bed; /* Tron blue per spec */
+  background-color: #158bed; /* Tron blue */
   border-radius: 2px; transition: all 0.3s ease-in-out; position: relative;
 }
 .hamburger::before, .hamburger::after { position: absolute; }
