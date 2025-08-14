@@ -143,3 +143,67 @@
     else applyActive("index.html");
   });
 })();
+
+// --- Button behavior: don't stay "pressed" except filters ---
+(function () {
+  // 1) Blur non-filter buttons after tap/click so they don't look stuck on mobile
+  const blurIfNonFilter = (e) => {
+    const el = e.target && e.target.closest && e.target.closest(".btn");
+    if (!el) return;
+    if (el.matches("[data-filter]")) return; // filters are allowed to stay active
+    // Let default action happen (navigate/scroll), then blur to clear focus/pressed style
+    setTimeout(() => { try { el.blur(); } catch (_) {} }, 120);
+  };
+  document.addEventListener("click", blurIfNonFilter, true);
+  document.addEventListener("pointerup", blurIfNonFilter, true);
+  // 2) Filter buttons: persistent active state + filtering of project cards
+  const filterBtns = Array.from(document.querySelectorAll("[data-filter]"));
+  const cards = Array.from(document.querySelectorAll("[data-tags]"));
+
+  // Show/hide cards based on data-tags (space- or comma-separated)
+  const applyFilter = (key) => {
+    const k = String(key || "all").toLowerCase();
+    cards.forEach((card) => {
+      const tags = (card.dataset.tags || "")
+        .toLowerCase()
+        .split(/[\s,]+/)
+        .filter(Boolean);
+      const match = k === "all" || tags.includes(k);
+      if (match) {
+        card.classList.remove("is-hidden");
+        card.removeAttribute("hidden");
+      } else {
+        card.classList.add("is-hidden");
+        card.setAttribute("hidden", "");
+      }
+    });
+  };
+  if (filterBtns.length) {
+    // Initialize: if none marked, make the first one active
+    const anyActive = filterBtns.some((b) => b.getAttribute("aria-pressed") === "true" || b.classList.contains("is-active"));
+    if (!anyActive) {
+      filterBtns[0].setAttribute("aria-pressed", "true");
+      filterBtns[0].classList.add("is-active");
+      applyFilter(filterBtns[0].dataset.filter);
+    } else {
+      // Normalize aria-pressed for any pre-tagged is-active
+      filterBtns.forEach((b) => {
+        b.setAttribute("aria-pressed", b.classList.contains("is-active") ? "true" : (b.getAttribute("aria-pressed") === "true" ? "true" : "false"));
+      });
+      const current = filterBtns.find((b) => b.getAttribute("aria-pressed") === "true" || b.classList.contains("is-active"));
+      applyFilter(current ? current.dataset.filter : "all");
+    }
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        filterBtns.forEach((b) => {
+          b.setAttribute("aria-pressed", "false");
+          b.classList.remove("is-active");
+        });
+        btn.setAttribute("aria-pressed", "true");
+        btn.classList.add("is-active");
+        applyFilter(btn.dataset.filter);
+      });
+    });
+  }
+})();

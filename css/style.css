@@ -305,6 +305,22 @@ a:focus-visible {
   box-shadow: var(--glow);
 }
 
++/* Filter buttons stay highlighted when active */
+.btn[data-filter][aria-pressed="true"],
+.btn[data-filter].is-active {
+  border-color: var(--accent);
+  box-shadow: var(--glow);
+  background: color-mix(in srgb, var(--accent) 12%, #ffffff 88%);
+  color: var(--primary);
+  text-decoration: none;
+}
+
+/* Hidden project cards (grid compacts cleanly) */
+.project-card.is-hidden,
+[data-tags].is-hidden {
+  display: none !important;
+}
+
 /* ---------- 7) Forms (future) ---------- */
 .input, .textarea {
   width: 100%;
