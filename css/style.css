@@ -1,6 +1,6 @@
 /* ===============================
    TediousTech Solutions — UI
-   Light-first, responsive, “Tron-ish but professional”
+   Light-first, responsive, subtle “Tron” accents
    NOTE: Dark mode is disabled for parity across devices.
 ================================== */
 
@@ -18,6 +18,11 @@
   --accent-strong: #00f7ff; /* brighter for glows/lines */
   --link: #0a84ff;          /* electric blue for body links */
   --border: #e5e7eb;        /* light borders */
+
+  /* Filter active visuals */
+  --filter-active-bg: color-mix(in srgb, var(--accent) 18%, #ffffff 82%);
+  --filter-active-border: var(--accent);
+  --filter-active-text: var(--primary);
 
   /* Layout widths */
   --container-max: 72rem;   /* ~1152px readable width */
@@ -45,7 +50,7 @@
   --glow: 0 0 0px rgba(0, 247, 255, 0), 0 0 16px rgba(0, 231, 239, 0.25);
 }
 
-/* Motion safety (keep) */
+/* Motion safety */
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
@@ -136,7 +141,7 @@ header.site-header {
 .nav__links a::after {
   content: "";
   position: absolute; left: 0; right: 0; bottom: -2px; height: 2px;
-  background: linear-gradient(90deg, #00e0e7, transparent 70%);
+  background: linear-gradient(90deg, #7c7488, transparent 70%);
   opacity: 0; transform: translateY(2px);
   transition: opacity .2s ease, transform .2s ease;
 }
@@ -276,7 +281,7 @@ a:focus-visible {
   font-weight: 700;
   border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--primary) 70%);
   background: linear-gradient(180deg, var(--accent), color-mix(in srgb, var(--accent) 40%, var(--primary) 60%));
-  color: var(--bg); /* readable on teal */
+  color: #001418; /* readable on teal */
   text-align: center;
   box-shadow: 0 10px 20px rgba(0, 224, 231, 0.25), var(--glow);
   transition: transform .06s ease, filter .15s ease, box-shadow .15s ease;
@@ -305,21 +310,28 @@ a:focus-visible {
   box-shadow: var(--glow);
 }
 
-+/* Filter buttons stay highlighted when active */
+/* Persistent active style for filter buttons (All/Automation/Dashboards/Controls) */
 .btn[data-filter][aria-pressed="true"],
-.btn[data-filter].is-active {
-  border-color: var(--accent);
-  box-shadow: var(--glow);
-  background: color-mix(in srgb, var(--accent) 12%, #ffffff 88%);
-  color: var(--primary);
+.btn[data-filter].is-active,
+.btn.btn--ghost[data-filter][aria-pressed="true"],
+.btn.btn--ghost[data-filter].is-active {
+  background: var(--filter-active-bg) !important;
+  border-color: var(--filter-active-border) !important;
+  color: var(--filter-active-text) !important;
   text-decoration: none;
+  box-shadow: var(--glow);
+}
+.btn[data-filter][aria-pressed="true"]:hover,
+.btn[data-filter].is-active:hover,
+.btn.btn--ghost[data-filter][aria-pressed="true"]:hover,
+.btn.btn--ghost[data-filter].is-active:hover {
+  filter: none !important;
+  transform: none !important;
 }
 
 /* Hidden project cards (grid compacts cleanly) */
 .project-card.is-hidden,
-[data-tags].is-hidden {
-  display: none !important;
-}
+[data-tags].is-hidden { display: none !important; }
 
 /* ---------- 7) Forms (future) ---------- */
 .input, .textarea {
@@ -352,10 +364,10 @@ details.card + details.card { margin-top: var(--space-s); }
   justify-content: center;
 }
 
-/* Hamburger lines (blue) */
+/* Hamburger lines — match brand navy */
 .hamburger, .hamburger::before, .hamburger::after {
   content: ""; display: block; width: 24px; height: 3px;
-  background-color: #0b1d36;
+  background-color: #0b1d36; /* brand navy */
   border-radius: 2px; transition: all 0.3s ease-in-out; position: relative;
 }
 .hamburger::before, .hamburger::after { position: absolute; }
@@ -376,8 +388,7 @@ body.menu-open .hamburger::after  { transform: rotate(-45deg); }
 .footer {
   border-top: 1px solid var(--border);
   padding-block: var(--space-l);
-  color: var(--bg);
-  background: var(--primary);
+  color: var(--muted);
 }
 
 /* ---------- 11) Responsiveness ---------- */
