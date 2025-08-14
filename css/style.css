@@ -281,7 +281,7 @@ a:focus-visible {
   font-weight: 700;
   border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--primary) 70%);
   background: linear-gradient(180deg, var(--accent), color-mix(in srgb, var(--accent) 40%, var(--primary) 60%));
-  color: #001418; /* readable on teal */
+  color: var(--bg); /* readable on teal */
   text-align: center;
   box-shadow: 0 10px 20px rgba(0, 224, 231, 0.25), var(--glow);
   transition: transform .06s ease, filter .15s ease, box-shadow .15s ease;
