@@ -291,7 +291,7 @@ a:focus-visible {
 
 .btn--ghost {
   background: transparent;
-  color: var(--bg);
+  color: var(--primary);
   border: 1px solid var(--border);
   box-shadow: none;
 }
