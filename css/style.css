@@ -137,11 +137,11 @@ header.site-header {
   color: #0b1d36; /* unified menu color */
 }
 
-/* Neon underline tint = #7c7488 */
+/* Neon underline tint = var(--accent) */
 .nav__links a::after {
   content: "";
   position: absolute; left: 0; right: 0; bottom: -2px; height: 2px;
-  background: linear-gradient(90deg, #7c7488, transparent 70%);
+  background: linear-gradient(90deg, var(--accent), transparent 70%);
   opacity: 0; transform: translateY(2px);
   transition: opacity .2s ease, transform .2s ease;
 }
