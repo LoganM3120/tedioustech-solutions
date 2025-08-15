@@ -7,6 +7,8 @@
   <meta name="description" content="TediousTech Solutions by Logan Meriwether — automation, dashboards, and controls for finance & operations teams using Alteryx, Tableau, and Python." />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="icon" href="images/favicon.png" />
+  <!-- Preload hero poster for faster first paint -->
+  <link rel="preload" as="image" href="images/neural_network%20-%20frame%20at%200m19s.jpg" />
 </head>
 <body>
   <!-- Header / Nav -->
@@ -37,8 +39,6 @@
       </nav>
   </header>
 
-
-
   <!-- Hero (with background video) -->
   <section class="hero hero--video">
       <video class="hero__video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1" poster="images/neural_network%20-%20frame%20at%200m19s.jpg">
@@ -51,7 +51,7 @@
       using <strong>Alteryx</strong>, <strong>Tableau</strong>, and <strong>Python</strong>.
       </p>
       <div class="stack">
-          <a class="btn" href="https://calendly.com/YOUR-CALENDLY" target="_blank" rel="noopener">Book a 15-min intro</a>
+          <a class="btn" href="https://calendly.com/YOUR-CALENDLY" target="_blank" rel="noopener noreferrer">Book a 15-min intro</a>
           <a class="btn btn--ghost" href="portfolio.html">View My Work</a>
       </div>
   </div>
@@ -61,35 +61,30 @@
   <section id="services" class="section">
   <div class="container">
     <h2>Services</h2>
-    <div class="grid">
+    <!-- Add a section-specific grid class so we can auto-balance columns -->
+    <div class="grid services-grid">
       <article class="card project-card">
-        <div class="thumb"><img src="images/service-automation.jpg" alt="Automated Excel/SharePoint workflow" /></div>
+        <div class="thumb"><img src="images/service-automation.jpg" alt="Automated Excel/SharePoint workflow" loading="lazy" decoding="async" /></div>
         <h3>Excel → Automation</h3>
         <p>Turn recurring clean-up, joins, and formatting into dependable runs. Export to Excel/CSV/SharePoint, on a schedule.</p>
       </article>
 
       <article class="card project-card">
-        <div class="thumb"><img src="images/service-dashboard.jpg" alt="Executive KPI dashboard" /></div>
+        <div class="thumb"><img src="images/service-dashboard.jpg" alt="Executive KPI dashboard" loading="lazy" decoding="async" /></div>
         <h3>Executive Dashboards</h3>
         <p>KPIs leaders actually use. Drill-downs and trendlines with refresh pipelines you don’t have to babysit.</p>
       </article>
 
       <article class="card project-card">
-        <div class="thumb"><img src="images/service-controls.jpg" alt="Data controls and checks" /></div>
-        <h3>Controls & Data Checks</h3>
-        <p>File presence checks, schema validation, exception flags, and summaries—so issues surface early.</p>
+        <div class="thumb">
+          <img src="images/websites-scratch.jpg" alt="Simple marketing websites" loading="lazy" decoding="async" />
+        </div>
+        <h3>Create Simple Websites</h3>
+        <p>
+          Fast, clean brochure sites like this one—built with HTML/CSS/JS,
+          optimized for mobile, and deployed on GitHub Pages with your domain.
+        </p>
       </article>
-
-        <article class="card project-card">
-            <div class="thumb">
-              <img src="images/websites-scratch.jpg" alt="Simple marketing websites" />
-            </div>
-            <h3>Create Simple Websites</h3>
-            <p>
-              Fast, clean brochure sites like this one—built with HTML/CSS/JS,
-              optimized for mobile, and deployed on GitHub Pages with your domain.
-            </p>
-        </article>
     </div>
   </div>
   </section>
@@ -146,7 +141,7 @@
         If your team is still stitching files together each month—or dashboards break at the worst moments—let’s fix that.
       </p>
       <div class="stack">
-        <a class="btn" href="https://calendly.com/YOUR-CALENDLY" target="_blank" rel="noopener">Book a 15-min intro</a>
+        <a class="btn" href="https://calendly.com/YOUR-CALENDLY" target="_blank" rel="noopener noreferrer">Book a 15-min intro</a>
         <a class="btn btn--ghost" href="mailto:you@yourdomain.com">you@yourdomain.com</a>
       </div>
     </div>
@@ -158,19 +153,18 @@
       <div>© <span id="year"></span> TediousTech Solutions • by Logan Meriwether</div>
       <div class="nav__links">
         <a href="mailto:loganm3210@gmail.com" aria-label="Email">Email</a>
-        <a href="https://www.linkedin.com/in/logan-meriwether-679330210" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
-        <a href="https://github.com/LoganM3120/tedioustech-solutions" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
+        <a href="https://www.linkedin.com/in/logan-meriwether-679330210" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
+        <a href="https://github.com/LoganM3120/tedioustech-solutions" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
       </div>
     </div>
   </footer>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-    // keep your simple filter JS here if you’re using it
   </script>
 
   <script src="js/nav.js" defer></script>
   <script src="js/active-nav.js" defer></script>
-
+  <script src="js/script.js" defer></script>
 </body>
 </html>

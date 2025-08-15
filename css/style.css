@@ -112,6 +112,10 @@ h3 { font-size: var(--step-2); line-height: 1.25; margin: var(--space-l) 0 var(-
 @media (min-width: 1280px) {
   .grid { grid-template-columns: repeat(4, 1fr); }
 }
+@media (min-width: 1280px){
+    .services-grid[data-cols="3"] { grid-template-columns: repeat(3, 1fr);}
+    .services-grid[data-cols="2"] { grid-template-columns: repeat(2, 1fr);}
+}
 
 /* Section dividers & rhythm */
 .section + .section {
@@ -405,7 +409,7 @@ body.menu-open .hamburger::after  { transform: rotate(-45deg); }
 }
 
 /* Foot links should be white */
-.footer a, .footer .nav--links a {
+.footer a, .footer .nav__links a {
     color: var(--bg);
 }
 
@@ -432,8 +436,11 @@ body.menu-open .hamburger::after  { transform: rotate(-45deg); }
   .section { padding-block: calc(var(--space-xl) + 0.5rem); }
 }
 
-/* ≥1280px (desktops) */   @media (min-width: 1280px) { :root { --container-max: 82rem; } }
-/* ≥1536px (large desktops) */ @media (min-width: 1536px) { :root { --container-max: 90rem; } }
+/* ≥1280px (desktops) */
+@media (min-width: 1280px) { :root { --container-max: 82rem; } }
+/* ≥1536px (large desktops) */
+
+@media (min-width: 1536px) { :root { --container-max: 90rem; } }
 /* ≥1920px (2K–4K) */
 @media (min-width: 1920px) {
   body { font-size: calc(var(--step-0) * 1.05); }
