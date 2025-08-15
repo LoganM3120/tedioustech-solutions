@@ -404,6 +404,11 @@ body.menu-open .hamburger::after  { transform: rotate(-45deg); }
   background: var(--primary);
 }
 
+/* Foot links should be white */
+.footer a, .footer .nav--links a {
+    color: var(--bg);
+}
+
 /* ---------- 11) Responsiveness ---------- */
 /* ≥480px */
 @media (min-width: 480px) { .nav__links { gap: var(--space-m); } }
