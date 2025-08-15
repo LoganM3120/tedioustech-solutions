@@ -98,7 +98,19 @@ h3 { font-size: var(--step-2); line-height: 1.25; margin: var(--space-l) 0 var(-
 .grid {
   display: grid;
   gap: var(--space-m);
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    /* Mobile-first: 1 column: we'll scale up later */
+  grid-template-columns: 1fr
+}
+
+/* Cap columns responsively: 2 → 3 → 4 max */
+@media (min-width: 640px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 960px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 1280px) {
+  .grid { grid-template-columns: repeat(4, 1fr); }
 }
 
 /* Section dividers & rhythm */
