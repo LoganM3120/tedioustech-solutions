@@ -398,7 +398,7 @@ body.menu-open .hamburger::after  { transform: rotate(-45deg); }
 /* Default desktop state */
 .mobile-toggle { display: none; }
 .mobile-nav { display: none; }
-.mobile-nav a { display: block; padding: 0.5rem 0; color: #0b1d36; } /* match desktop menu color */
+.mobile-nav a { display: block; padding: 0.5rem 0; color: #0b1d36; -webkit-tap-highlight-color: transparent; } /* match desktop menu color */
 
 /* ---------- 10) Footer ---------- */
 .footer {
