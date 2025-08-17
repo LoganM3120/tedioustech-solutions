@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Create Simple Websites | TediousTech Solutions</title>
+  <meta name="description" content="Fast, clean brochure sites for small businesses. Mobile-first, SEO-friendly, deployed with your domain via GitHub Pages.">
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="images/favicon.png" />
+</head>
+<body>
+
+  <!-- Header / Nav -->
+  <header class="site-header">
+      <div class="container nav">
+        <a class="nav__brand" href="index.html" aria-label="TediousTech Solutions — Home">TediousTech Solutions</a>
+
+        <!-- Desktop nav (hidden on mobile) -->
+        <nav class="nav__links" aria-label="Primary">
+          <a href="index.html">Home</a>
+          <a href="portfolio.html">Work</a>
+          <a href="index.html#about">About</a>
+          <a href="index.html#contact">Contact</a>
+        </nav>
+
+        <!-- Mobile toggle (hidden on desktop) -->
+        <button id="menuBtn" class="mobile-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+            <span class="hamburger"></span>
+        </button>
+      </div>
+
+      <!-- Mobile menu (hidden by default, shown only when open on mobile) -->
+      <nav id="mobileMenu" class="mobile-nav" aria-label="Mobile">
+        <a href="index.html">Home</a>
+        <a href="portfolio.html">Work</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container--wide">
+      <a href="index.html#services" style="display:inline-block;margin-bottom:0.5rem;color:var(--link);text-decoration:none;">← Back to Services</a>
+      <h1>Create Simple Websites</h1>
+      <p>
+        Fast, clean brochure sites like this one—mobile-optimized, SEO-friendly, and deployed on GitHub Pages with your custom domain.
+        Perfect for showcasing your business without the overhead of a complex CMS.
+      </p>
+      <div class="stack">
+        <a class="btn" href="https://calendly.com/YOUR-CALENDLY" target="_blank" rel="noopener noreferrer">Book a 15-min intro</a>
+        <a class="btn btn--ghost" href="mailto:you@yourdomain.com">Email me your ideas</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Value points -->
+  <section class="section">
+    <div class="container">
+      <h2>Why this works</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Mobile-first</h3>
+          <p>Looks great on phones and desktops. No fussy themes or plugins.</p>
+        </article>
+        <article class="card">
+          <h3>SEO-friendly</h3>
+          <p>Clean HTML structure, fast load, and metadata that helps you be found.</p>
+        </article>
+        <article class="card">
+          <h3>Low maintenance</h3>
+          <p>Static files—no servers to patch. Update text and images as needed.</p>
+        </article>
+        <article class="card">
+          <h3>Affordable</h3>
+          <p>Pay for the build; hosting on GitHub Pages is free. Use your own domain.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Example / mini case -->
+  <section class="section">
+    <div class="container stack">
+      <h2>Example snapshot</h2>
+      <div class="thumb" style="max-width: 900px;">
+        <img src="images/websites-scratch.jpg" alt="Sample brochure site layout" loading="lazy" decoding="async" />
+      </div>
+      <p class="muted" style="max-width:65ch">
+        Built with semantic HTML, modular CSS, and a sprinkle of JavaScript for interactions. Deployed to GitHub Pages with a custom domain, SSL, and clean URLs.
+      </p>
+    </div>
+  </section>
+
+  <!-- Deliverables / timeline -->
+  <section class="section">
+    <div class="container">
+      <h2>What you get</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Deliverables</h3>
+          <ul>
+            <li>1–3 page static site (Home, Work, Contact)</li>
+            <li>Brand-aligned colors and typography</li>
+            <li>Responsive layout & accessibility basics</li>
+            <li>Custom domain setup (DNS)</li>
+            <li>Basic SEO & metadata</li>
+            <li>Short handoff guide</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Timeline</h3>
+          <ul>
+            <li>Day 0–1: Brief & content collection</li>
+            <li>Day 2–3: Design mock & iteration</li>
+            <li>Day 4–7: Build + domain + QA</li>
+          </ul>
+          <p class="muted">Typical turnaround: ~1–2 weeks depending on scope and content readiness.</p>
+        </article>
+      </div>
+      <div class="stack" style="margin-top:1rem;">
+        <a class="btn" href="https://calendly.com/YOUR-CALENDLY" target="_blank" rel="noopener noreferrer">Book a 15-min intro</a>
+        <a class="btn btn--ghost" href="mailto:you@yourdomain.com">Email me your ideas</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="container">
+      <h2>FAQ</h2>
+      <details class="card">
+        <summary>Can I update the site myself?</summary>
+        <p>Yes. It’s plain HTML/CSS/JS. I’ll include a short guide and keep the code organized for easy edits.</p>
+      </details>
+      <details class="card">
+        <summary>Do you host it?</summary>
+        <p>I configure GitHub Pages (or your preferred host) and point your domain. SSL (HTTPS) is included.</p>
+      </details>
+      <details class="card">
+        <summary>What do you need from me?</summary>
+        <p>Logo/brand colors, text content, and any images. If you don’t have assets, I can help with a simple, clean default.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap">
+      <div>© <span id="year"></span> TediousTech Solutions • by Logan Meriwether</div>
+      <div class="nav__links">
+        <a href="mailto:loganm3210@gmail.com" aria-label="Email">Email</a>
+        <a href="https://www.linkedin.com/in/logan-meriwether-679330210" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
+        <a href="https://github.com/LoganM3120/tedioustech-solutions" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+  <script src="js/nav.js" defer></script>
+  <script src="js/active-nav.js" defer></script>
+</body>
+</html>
