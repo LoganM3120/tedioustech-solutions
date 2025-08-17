@@ -61,7 +61,6 @@
   <section id="services" class="section">
   <div class="container">
     <h2>Services</h2>
-    <!-- Add a section-specific grid class so we can auto-balance columns -->
     <div class="grid services-grid">
       <article class="card project-card">
         <div class="thumb"><img src="images/service-automation.jpg" alt="Automated Excel/SharePoint workflow" loading="lazy" decoding="async" /></div>
@@ -75,7 +74,8 @@
         <p>KPIs leaders actually use. Drill-downs and trendlines with refresh pipelines you don’t have to babysit.</p>
       </article>
 
-      <article class="card project-card">
+      <!-- Create Simple Websites card now clickable -->
+      <a href="portfolio.html#websites" class="card project-card" style="text-decoration:none;">
         <div class="thumb">
           <img src="images/websites-scratch.jpg" alt="Simple marketing websites" loading="lazy" decoding="async" />
         </div>
@@ -83,8 +83,9 @@
         <p>
           Fast, clean brochure sites like this one—built with HTML/CSS/JS,
           optimized for mobile, and deployed on GitHub Pages with your domain.
+          <br><span style="color: var(--link); font-weight:600;">Learn more →</span>
         </p>
-      </article>
+      </a>
     </div>
   </div>
   </section>
