@@ -74,6 +74,9 @@ body {
 img, svg, video, canvas, iframe { display: block; max-width: 100%; height: auto; }
 a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
+a, button {
+  -webkit-tap-highlight-color: transparent;
+}
 
 h1 { font-size: var(--step-4); line-height: 1.15; margin: 0 0 var(--space-m); color: var(--primary); }
 h2 { font-size: var(--step-3); line-height: 1.20; margin: var(--space-xl) 0 var(--space-s); color: var(--primary); }
