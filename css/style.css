@@ -204,6 +204,14 @@ a:focus-visible {
   background: linear-gradient(90deg, var(--accent-strong), transparent);
 }
 
+/* Rotating word — fix width to avoid layout shift (longest word: "months" = ~6ch) */
+.word-rotator {
+  display: inline-block;
+  min-width: 6ch;
+  will-change: contents, opacity;
+  transition: opacity .35s ease;
+}
+
 /* Background video */
 .hero--video { position: relative; overflow: clip; }
 .hero--video .container--wide { position: relative; z-index: 2; }
