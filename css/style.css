@@ -175,10 +175,20 @@ header.site-header {
 /* Dropdown menus */
 .nav__links details { position: relative; }
 .nav__links summary {
-  list-style: none;
-  cursor: pointer;
-  padding: 0.25rem 0.15rem;
-  color: #0b1d36;
+    list-style: none;
+    cursor: pointer;
+    padding: 0.25rem 0.15rem;
+    color: #0b1d36;
+    position: relative;
+}
+.nav__links summary:hover::after,
+.nav__links summary[aria-current="page"]::after { opacity: 1; transform: translateY(0); }
+.nav__links summary::after {
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: -2px; height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent 70%);
+  opacity: 0; transform: translateY(2px);
+  transition: opacity .2s ease, transform .2s ease;
 }
 .nav__links summary::-webkit-details-marker { display: none; }
 .nav__links details .dropdown-menu {

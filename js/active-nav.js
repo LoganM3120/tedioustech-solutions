@@ -18,18 +18,26 @@ window.initActiveNav = function () {
   };
 
   const applyActiveToList = (nodeList, targetHref) => {
-    nodeList.forEach((a) => {
-      a.removeAttribute("aria-current");
-      const href = a.getAttribute("href") || "";
+    nodeList.forEach((node) => {
+      node.removeAttribute("aria-current");
+      const href = node.getAttribute("href") || node.dataset.href || "";
       if (normalizeHref(href) === normalizeHref(targetHref)) {
-        a.setAttribute("aria-current", "page");
+        node.setAttribute("aria-current", "page");
       }
     });
   };
 
   const applyActive = (targetHref) => {
-    if ($desktopNav) applyActiveToList($desktopNav.querySelectorAll("a"), targetHref);
-    if ($mobileNav) applyActiveToList($mobileNav.querySelectorAll("a"), targetHref);
+    if ($desktopNav)
+      applyActiveToList(
+        $desktopNav.querySelectorAll("a, summary[data-href]"),
+        targetHref
+      );
+    if ($mobileNav)
+      applyActiveToList(
+        $mobileNav.querySelectorAll("a, summary[data-href]"),
+        targetHref
+      );
   };
 
   const pageName = () => (location.pathname.split("/").pop() || "index.html");
@@ -42,7 +50,8 @@ window.initActiveNav = function () {
     const hash = location.hash;
 
     if (page === "" || page === "index.html") {
-      if (hash === "#about") applyActive("index.html#about");
+      if (hash === "#services") applyActive("index.html#services");
+      else if (hash === "#about") applyActive("index.html#about");
       else if (hash === "#contact") applyActive("index.html#contact");
       else applyActive("index.html"); // Home
     } else if (page === "index.html") {
@@ -61,10 +70,11 @@ window.initActiveNav = function () {
     const page = pageName();
     if (!(page === "" || page === "index.html")) return;
 
+    const $services = document.getElementById("services");
     const $about = document.getElementById("about");
     const $contact = document.getElementById("contact");
     const $hero = document.querySelector(".hero");
-    if (!$about && !$contact) return;
+    if (!$services && !$about && !$contact) return;
 
     let currentHref = "";
 
@@ -77,6 +87,7 @@ window.initActiveNav = function () {
 
     if ("IntersectionObserver" in window) {
       const sections = [];
+      if ($services) sections.push({ el: $services, href: "index.html#services" });
       if ($about) sections.push({ el: $about, href: "index.html#about" });
       if ($contact) sections.push({ el: $contact, href: "index.html#contact" });
 
@@ -128,6 +139,8 @@ window.initActiveNav = function () {
           updateIfChanged("index.html#contact");
         } else if ($about && y >= $about.offsetTop) {
           updateIfChanged("index.html#about");
+        } else if ($services && y >= $services.offsetTop) {
+          updateIfChanged("index.html#services");
         } else {
           updateIfChanged("index.html");
         }
