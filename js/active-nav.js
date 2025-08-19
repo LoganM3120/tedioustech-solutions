@@ -2,13 +2,13 @@
  * active-nav.js
  * - Keeps the neon underline (aria-current) in sync with page/section.
  *   • index.html: "Home" (top), "About" (when #about in view), "Contact" (when #contact in view)
- *   • portfolio.html: "Work"
+ *   • index.html: "Work"
  *   • Applies to BOTH desktop and mobile menus.
  *
  * - Button behavior:
  *   • Normal CTAs (no data-filter) do NOT stay visually pressed on iOS; they blur after tap.
  *   • Filter buttons ([data-filter]) keep a persistent active highlight.
- *   • Filters show/hide project cards with [data-tags] on portfolio.html.
+ *   • Filters show/hide project cards with [data-tags] on index.html.
  */
 
 (function () {
@@ -52,8 +52,8 @@
       if (hash === "#about") applyActive("index.html#about");
       else if (hash === "#contact") applyActive("index.html#contact");
       else applyActive("index.html"); // Home
-    } else if (page === "portfolio.html") {
-      applyActive("portfolio.html"); // Work
+    } else if (page === "index.html") {
+      applyActive("index.html"); // Work
     } else {
       applyActive(page);
     }
@@ -170,11 +170,11 @@
   document.addEventListener("pointerup", blurIfNonFilter, true);
 
   /* --------------------------
-   * Portfolio filters (portfolio.html only)
+   * Portfolio filters (index.html only)
    * -------------------------- */
   (function filters() {
     const page = pageName();
-    if (page !== "portfolio.html") return;
+    if (page !== "index.html") return;
 
     const filterBtns = Array.from(document.querySelectorAll("[data-filter]"));
     const cards = Array.from(document.querySelectorAll("[data-tags]"));
