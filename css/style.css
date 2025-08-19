@@ -172,15 +172,6 @@ header.site-header {
 .mobile-nav a:hover  { text-decoration: none; }
 
 /* Dropdown menus */
-/* Dropdown menus */
-.nav__links details { position: relative; }
-.nav__links summary {
-    list-style: none;
-    cursor: pointer;
-    padding: 0.25rem 0.15rem;
-    color: #0b1d36;
-    position: relative;
-}
 .nav__links summary:hover::after,
 .nav__links summary[aria-current="page"]::after { opacity: 1; transform: translateY(0); }
 .nav__links summary::after {
@@ -190,8 +181,10 @@ header.site-header {
   opacity: 0; transform: translateY(2px);
   transition: opacity .2s ease, transform .2s ease;
 }
-.nav__links summary::-webkit-details-marker { display: none; }
-.nav__links details .dropdown-menu {
+
+.nav__links .dropdown { position: relative; }
+.nav__links .dropdown .dropdown-toggle { display: block; }
+.nav__links .dropdown-menu {
   position: absolute;
   top: 100%;
   left: 0;
@@ -203,8 +196,9 @@ header.site-header {
   min-width: 10rem;
   z-index: 10;
 }
-.nav__links details[open] .dropdown-menu { display: flex; }
-.nav__links details .dropdown-menu a {
+.nav__links .dropdown:hover .dropdown-menu,
+.nav__links .dropdown:focus-within .dropdown-menu { display: flex; }
+.nav__links .dropdown-menu a {
   padding: 0.25rem 0;
   white-space: nowrap;
   color: #0b1d36;
