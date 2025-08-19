@@ -1,17 +1,10 @@
 /**
  * active-nav.js
  * - Keeps the neon underline (aria-current) in sync with page/section.
- *   • index.html: "Home" (top), "About" (when #about in view), "Contact" (when #contact in view)
- *   • index.html: "Work"
- *   • Applies to BOTH desktop and mobile menus.
- *
- * - Button behavior:
- *   • Normal CTAs (no data-filter) do NOT stay visually pressed on iOS; they blur after tap.
- *   • Filter buttons ([data-filter]) keep a persistent active highlight.
- *   • Filters show/hide project cards with [data-tags] on index.html.
+ * - Button behavior and portfolio filters.
  */
 
-(function () {
+window.initActiveNav = function () {
   /* --------------------------
    * Helpers
    * -------------------------- */
@@ -198,36 +191,8 @@
       });
     };
 
-    // Determine initial filter: any pre-marked active, otherwise first button, else "all"
-    const existingActive =
-      filterBtns.find((b) => b.getAttribute("aria-pressed") === "true" || b.classList.contains("is-active"));
-    let currentFilter = existingActive?.dataset.filter || filterBtns[0]?.dataset.filter || "all";
-
-    const enforceActiveButton = () => {
-      filterBtns.forEach((b) => {
-        const on = (b.dataset.filter === currentFilter);
-        b.setAttribute("aria-pressed", on ? "true" : "false");
-        b.classList.toggle("is-active", on);
-      });
-    };
-
-    // Init
-    enforceActiveButton();
-    applyFilter(currentFilter);
-
-    // Handlers
-    filterBtns.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        currentFilter = btn.dataset.filter || "all";
-        enforceActiveButton();
-        applyFilter(currentFilter);
-      });
-    });
-
-    // Re-assert active highlight on generic taps/focus shifts (iOS quirk safety)
-    const reassert = () => enforceActiveButton();
-    document.addEventListener("pointerdown", reassert, true);
-    document.addEventListener("focusin", reassert, true);
-    window.addEventListener("visibilitychange", reassert);
+    filterBtns.forEach((btn) =>
+      btn.addEventListener("click", () => applyFilter(btn.dataset.filter))
+    );
   })();
-})();
+};

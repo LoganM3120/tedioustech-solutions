@@ -1,5 +1,7 @@
 // js/nav.js
-(function () {
+// Initializes desktop/mobile navigation behaviors.
+
+window.initNav = function () {
   const BREAKPOINT = 768; // px
   const btn = document.getElementById('menuBtn');
   const mobileMenu = document.getElementById('mobileMenu');
@@ -94,8 +96,6 @@
       setAriaHidden();
     }
   }
-  mq.addEventListener
-    ? mq.addEventListener('change', handleMQChange)
-    : mq.addListener(handleMQChange);
+  mq.addEventListener ? mq.addEventListener('change', handleMQChange) : mq.addListener(handleMQChange);
   handleMQChange();
-})();
+};

@@ -12,34 +12,7 @@
 </head>
 <body>
   <!-- Header / Nav -->
-  <header class="site-header">
-      <div class="container nav">
-        <a class="nav__brand" href="index.html" aria-label="TediousTech Solutions — Home">TediousTech Solutions</a>
-
-        <!-- Desktop nav (hidden on mobile) -->
-        <nav class="nav__links" aria-label="Primary">
-            <a href="index.html">Home</a>
-            <a href="index.html#services">Services</a>
-            <a href="work/index.html">Work</a>
-            <a href="index.html#about">About</a>
-            <a href="index.html#contact">Contact</a>
-        </nav>
-
-        <!-- Mobile toggle (hidden on desktop) -->
-        <button id="menuBtn" class="mobile-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-            <span class="hamburger"></span>
-        </button>
-      </div>
-
-      <!-- Mobile menu (hidden by default, shown only when open on mobile) -->
-      <nav id="mobileMenu" class="mobile-nav" aria-label="Mobile">
-          <a href="index.html">Home</a>
-          <a href="#">Services</a>
-          <a href="work/index.html">Work</a>
-          <a href="index.html#about">About</a>
-          <a href="index.html#contact">Contact</a>
-      </nav>
-  </header>
+  <div data-include="partials/nav.html"></div>
 
   <!-- Hero (with background video) -->
   <section class="hero hero--video">
@@ -67,20 +40,20 @@
   <div class="container">
     <h2>Services</h2>
     <div class="grid services-grid">
-      <article class="card project-card">
+      <article class="card project-card" id="automation">
         <div class="thumb"><img src="images/service-automation.jpg" alt="Automated Excel/SharePoint workflow" loading="lazy" decoding="async" /></div>
         <h3>Excel → Automation</h3>
         <p>Turn recurring clean-up, joins, and formatting into dependable runs. Export to Excel/CSV/SharePoint, on a schedule.</p>
       </article>
 
-      <article class="card project-card">
+      <article class="card project-card" id="dashboards">
         <div class="thumb"><img src="images/service-dashboard.jpg" alt="Executive KPI dashboard" loading="lazy" decoding="async" /></div>
         <h3>Executive Dashboards</h3>
         <p>KPIs leaders actually use. Drill-downs and trendlines with refresh pipelines you don’t have to babysit.</p>
       </article>
 
       <!-- Create Simple Websites card now links to dedicated service page -->
-      <a href="services/websites/index.html" class="card project-card" style="text-decoration:none;">
+      <a href="services/websites/index.html" class="card project-card" id="websites" style="text-decoration:none;">
         <div class="thumb">
           <img src="images/websites-scratch.jpg" alt="Simple marketing websites" loading="lazy" decoding="async" />
         </div>
@@ -131,7 +104,7 @@
           clear logic, documented steps, and simple handoffs. Cybersecurity-aware by default.
         </p>
         <ul>
-          <li><strong>Tools:</strong> Alteryx, Tableau, Python, SQL, Excel, SharePoint</li>
+          <li><strong>Tools:</strong> <span id="alteryx">Alteryx</span>, <span id="tableau">Tableau</span>, <span id="web-development">Web Development</span>, <span id="python">Python</span>, SQL, Excel, SharePoint</li>
           <li><strong>Focus:</strong> Finance Ops, Risk & Controls, Regulatory reporting support</li>
           <li><strong>Approach:</strong> Ship a quick win → document → iterate → scale</li>
         </ul>
@@ -165,12 +138,12 @@
     </div>
   </footer>
 
+  <script src="js/nav.js" defer></script>
+  <script src="js/active-nav.js" defer></script>
+  <script src="js/includes.js" defer></script>
+  <script src="js/script.js" defer></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
-
-  <script src="js/nav.js" defer></script>
-  <script src="js/active-nav.js" defer></script>
-  <script src="js/script.js" defer></script>
 </body>
 </html>

@@ -171,6 +171,51 @@ header.site-header {
 .nav__links a:hover { text-decoration: none; }
 .mobile-nav a:hover  { text-decoration: none; }
 
+/* Dropdown menus */
+/* Dropdown menus */
+.nav__links details { position: relative; }
+.nav__links summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 0.25rem 0.15rem;
+  color: #0b1d36;
+}
+.nav__links summary::-webkit-details-marker { display: none; }
+.nav__links details .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: none;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--border);
+  padding: 0.5rem;
+  min-width: 10rem;
+  z-index: 10;
+}
+.nav__links details[open] .dropdown-menu { display: flex; }
+.nav__links details .dropdown-menu a {
+  padding: 0.25rem 0;
+  white-space: nowrap;
+  color: #0b1d36;
+}
+
+/* Mobile dropdown */
+.mobile-nav details { width: 100%; }
+.mobile-nav summary {
+  list-style: none;
+  padding: 0.75rem 0;
+  cursor: pointer;
+}
+.mobile-nav summary::-webkit-details-marker { display: none; }
+.mobile-nav details .dropdown-menu {
+  display: none;
+  flex-direction: column;
+  padding-left: 1rem;
+}
+.mobile-nav details[open] .dropdown-menu { display: flex; }
+.mobile-nav details .dropdown-menu a { padding: 0.5rem 0; }
+
 /* Keyboard focus */
 .nav__links a:focus-visible,
 .mobile-nav a:focus-visible,

@@ -13,34 +13,7 @@
 <body>
 
   <!-- Header / Nav -->
-  <header class="site-header">
-      <div class="container nav">
-        <a class="nav__brand" href="../index.html" aria-label="TediousTech Solutions — Home">TediousTech Solutions</a>
-
-        <!-- Desktop nav (hidden on mobile) -->
-        <nav class="nav__links" aria-label="Primary">
-          <a href="../index.html">Home</a>
-          <a href="../index.html#services">Services</a>
-          <a href="../work/index.html">Work</a>
-          <a href="../index.html#about">About</a>
-          <a href="../index.html#contact">Contact</a>
-        </nav>
-
-        <!-- Mobile toggle (hidden on desktop) -->
-        <button id="menuBtn" class="mobile-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-            <span class="hamburger"></span>
-        </button>
-      </div>
-
-      <!-- Mobile menu (hidden by default, shown only when open on mobile) -->
-      <nav id="mobileMenu" class="mobile-nav" aria-label="Mobile">
-          <a href="../index.html">Home</a>
-          <a href="../index.html#services">Services</a>
-          <a href="../work/index.html">Work</a>
-          <a href="../index.html#about">About</a>
-          <a href="../index.html#contact">Contact</a>
-      </nav>
-  </header>
+  <div data-include="../partials/nav.html"></div>
 
   <!-- Intro / Hero with background video -->
   <section class="hero hero--video">
@@ -170,13 +143,12 @@
     </div>
   </footer>
 
+  <script src="../js/nav.js" defer></script>
+  <script src="../js/active-nav.js" defer></script>
+  <script src="../js/includes.js" defer></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
-
-  <script src="../js/nav.js" defer></script>
-  <script src="../js/active-nav.js" defer></script>
-
 </body>
 </html>
 
