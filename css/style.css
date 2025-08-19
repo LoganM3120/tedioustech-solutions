@@ -210,14 +210,24 @@ header.site-header {
   list-style: none;
   padding: 0.75rem 0;
   cursor: pointer;
+  display  : flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .mobile-nav summary::-webkit-details-marker { display: none; }
+.mobile-nav summary::after {
+  content: "\25BE"; /* downwards caret */
+  transition: transform 0.2s;
+}
 .mobile-nav details .dropdown-menu {
   display: none;
   flex-direction: column;
   padding-left: 1rem;
 }
 .mobile-nav details[open] .dropdown-menu { display: flex; }
+.mobile-nav details[open] summary::after {
+  transform: rotate(180deg);
+}
 .mobile-nav details .dropdown-menu a { padding: 0.5rem 0; }
 
 /* Keyboard focus */
