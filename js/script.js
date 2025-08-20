@@ -61,3 +61,34 @@
     show(i);
   }, 2400);
 })();
+
+// 3) Software slider — cycles through tech icons
+(function () {
+  const slider = document.querySelector('.tech-slider');
+  if (!slider) return;
+
+  const track = slider.querySelector('.tech-slider__track');
+  const prev = slider.querySelector('.tech-slider__btn--prev');
+  const next = slider.querySelector('.tech-slider__btn--next');
+  const slides = track.children;
+  let index = 0;
+
+  function update() {
+    track.style.transform = `translateX(-${index * 100}%)`;
+  }
+
+  function goNext() {
+    index = (index + 1) % slides.length;
+    update();
+  }
+
+  function goPrev() {
+    index = (index - 1 + slides.length) % slides.length;
+    update();
+  }
+
+  next.addEventListener('click', goNext);
+  prev.addEventListener('click', goPrev);
+
+  setInterval(goNext, 4000);
+})();

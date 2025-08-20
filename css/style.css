@@ -450,6 +450,39 @@ a:focus-visible {
 details.card summary { cursor: pointer; }
 details.card + details.card { margin-top: var(--space-s); }
 
+/* ---------- Software Slider ---------- */
+.tech-slider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+}
+.tech-slider__viewport {
+  overflow: hidden;
+  flex: 1;
+}
+.tech-slider__track {
+  display: flex;
+  transition: transform 0.4s ease;
+}
+.tech-slide {
+  flex: 0 0 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-m) 0;
+}
+.tech-slide img {
+  width: 64px;
+  height: 64px;
+}
+.tech-slider__btn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: 2rem;
+  cursor: pointer;
+}
+
 /* ---------- 9) Mobile Menu (structure & animation) ---------- */
 /* touch targets */
 #mobileMenu a { padding: 0.5rem 0; display: block; }
