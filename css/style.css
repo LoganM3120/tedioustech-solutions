@@ -208,11 +208,6 @@ header.site-header {
 
 .nav__links .dropdown-menu a:hover,
 .nav__links .dropdown-menu a:focus {
-  background: color-mix(in srgb, var(--primary) 3%, transparent);
-}
-
-.nav__links .dropdown-menu a:hover,
-.nav__links .dropdown-menu a:focus {
   background: color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
@@ -244,7 +239,7 @@ header.site-header {
 
 .mobile-nav a[aria-current="page"],
 .mobile-nav summary[aria-current="page"] {
-  background: color-mix(in srgb, var(--accent) 25%, transparent);
+  background: color-mix(in srgb, var(--primary) 5%, transparent);
   border-radius: 6px;
 }
 
