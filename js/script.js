@@ -72,23 +72,35 @@
   const next = slider.querySelector('.tech-slider__btn--next');
   const slides = track.children;
   let index = 0;
+  let perView = window.matchMedia('(min-width: 768px)').matches ? 3 : 1;
 
   function update() {
-    track.style.transform = `translateX(-${index * 100}%)`;
+    const offset = 100 / perView;
+    track.style.transform = `translateX(-${index * offset}%)`;
   }
 
   function goNext() {
-    index = (index + 1) % slides.length;
+    index++;
+    if (index > slides.length - perView) index = 0;
     update();
   }
 
   function goPrev() {
-    index = (index - 1 + slides.length) % slides.length;
+    index--;
+    if (index < 0) index = slides.length - perView;
     update();
   }
 
+  function handleResize() {
+    perView = window.matchMedia('(min-width: 768px)').matches ? 3 : 1;
+    if (index > slides.length - perView) index = 0;
+    update();
+  }
+
+  window.addEventListener('resize', handleResize);
   next.addEventListener('click', goNext);
   prev.addEventListener('click', goPrev);
 
   setInterval(goNext, 4000);
+  update();
 })();

@@ -471,6 +471,9 @@ details.card + details.card { margin-top: var(--space-s); }
   align-items: center;
   padding: var(--space-m) 0;
 }
+@media (min-width: 768px) {
+  .tech-slide { flex: 0 0 33.3333%; }
+}
 .tech-slide img {
   width: 64px;
   height: 64px;
