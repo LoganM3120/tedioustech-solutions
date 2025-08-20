@@ -230,6 +230,12 @@ header.site-header {
 }
 .mobile-nav details .dropdown-menu a { padding: 0.5rem 0; }
 
+.mobile-nav a[aria-current="page"],
+.mobile-nav summary[aria-current="page"] {
+  background: color-mix(in srgb, var(--accent) 25%, transparent);
+  border-radius: 6px;
+}
+
 /* Keyboard focus */
 .nav__links a:focus-visible,
 .mobile-nav a:focus-visible,
