@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Services | TediousTech Solutions</title>
+  <meta name="description" content="Explore all automation, dashboard, and website services offered by TediousTech Solutions." />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="icon" href="../images/favicon.png" />
+</head>
+<body>
+  <div data-include="../partials/nav.html"></div>
+
+  <section class="section">
+    <div class="container">
+      <h1>All Services</h1>
+      <div class="grid services-grid">
+        <a href="automation/" class="card project-card" id="automation" style="text-decoration:none;">
+          <div class="thumb"><img src="../images/service-automation.jpg" alt="Automated Excel/SharePoint workflow" loading="lazy" decoding="async" /></div>
+          <h3>Excel → Automation</h3>
+          <p>Turn recurring clean-up, joins, and formatting into dependable runs. Export to Excel/CSV/SharePoint, on a schedule.</p>
+        </a>
+
+        <a href="dashboards/" class="card project-card" id="dashboards" style="text-decoration:none;">
+          <div class="thumb"><img src="../images/service-dashboard.jpg" alt="Executive KPI dashboard" loading="lazy" decoding="async" /></div>
+          <h3>Executive Dashboards</h3>
+          <p>KPIs leaders actually use. Drill-downs and trendlines with refresh pipelines you don’t have to babysit.</p>
+        </a>
+
+        <a href="websites/" class="card project-card" id="websites" style="text-decoration:none;">
+          <div class="thumb"><img src="../images/websites-scratch.jpg" alt="Simple marketing websites" loading="lazy" decoding="async" /></div>
+          <h3>Create Simple Websites</h3>
+          <p>
+            Fast, clean brochure sites like this one—built with HTML/CSS/JS,
+            optimized for mobile, and deployed on GitHub Pages with your domain.
+            <br><span style="color: var(--link); font-weight:600;">Learn more →</span>
+          </p>
+        </a>
+
+        <article class="card project-card" style="text-decoration:none;">
+          <div class="thumb"><img src="../images/service-automation.jpg" alt="" loading="lazy" decoding="async" /></div>
+          <h3>More services coming soon</h3>
+          <p>Additional offerings will appear here as they're ready.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap">
+      <div>© <span id="year"></span> TediousTech Solutions • by Logan Meriwether</div>
+      <div class="nav__links">
+        <a href="mailto:loganm3210@gmail.com" aria-label="Email">Email</a>
+        <a href="https://www.linkedin.com/in/logan-meriwether-679330210" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
+        <a href="https://github.com/LoganM3120/tedioustech-solutions" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/nav.js" defer></script>
+  <script src="../js/active-nav.js" defer></script>
+  <script src="../js/includes.js" defer></script>
+  <script src="../js/script.js" defer></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
