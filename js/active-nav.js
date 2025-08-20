@@ -183,11 +183,9 @@ window.initActiveNav = function () {
   document.addEventListener("pointerup", blurIfNonFilter, true);
 
   /* --------------------------
-   * Portfolio filters (index.html only)
+   * Portfolio filters
    * -------------------------- */
   (function filters() {
-    const page = pageName();
-    if (page !== "index.html") return;
 
     const filterBtns = Array.from(document.querySelectorAll("[data-filter]"));
     const cards = Array.from(document.querySelectorAll("[data-tags]"));
@@ -211,8 +209,22 @@ window.initActiveNav = function () {
       });
     };
 
+    const setActive = (activeBtn) => {
+      filterBtns.forEach((btn) => {
+        const isActive = btn === activeBtn;
+        btn.classList.toggle("is-active", isActive);
+        btn.setAttribute("aria-pressed", isActive ? "true" : "false");
+      });
+    };
+
     filterBtns.forEach((btn) =>
-      btn.addEventListener("click", () => applyFilter(btn.dataset.filter))
+      btn.addEventListener("click", () => {
+          setActive(btn);
+          applyFilter(btn.dataset.filter);
+      })
     );
+    // Initialize with the first button (typically "All")
+    setActive(filterBtns[0]);
+    applyFilter(filterBtns[0].dataset.filter);
   })();
 };

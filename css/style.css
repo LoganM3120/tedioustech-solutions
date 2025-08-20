@@ -553,7 +553,7 @@ body.menu-open .hamburger::after  { transform: rotate(-45deg); }
 
 /* ≥1024px (laptops) */
 @media (min-width: 1024px) {
-  .nav { padding-block: var(--space-m); }
+  .nav { padding-block: var(--space-s); }
   .section { padding-block: var(--space-l); }
   .section--tight { padding-block: var(--space-m); }
 }
