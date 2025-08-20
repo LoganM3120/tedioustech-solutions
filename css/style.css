@@ -208,7 +208,7 @@ header.site-header {
 
 .nav__links .dropdown-menu a:hover,
 .nav__links .dropdown-menu a:focus {
-  background: color-mix(in srgb, var(--accent) 30%, transparent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
 .nav__links .dropdown-menu a:hover,
