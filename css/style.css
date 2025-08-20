@@ -541,7 +541,7 @@ body.menu-open .hamburger::after  { transform: rotate(-45deg); }
 /* ≥768px (tablets) */
 @media (min-width: 768px) {
   :root { --container-max: 78rem; }
-  .hero { padding-block: calc(var(--space-2xl) + 0.5rem); }
+  .hero { padding-block: var(--space-2xl); }
   .grid { gap: var(--space-l); }
 }
 
@@ -554,7 +554,8 @@ body.menu-open .hamburger::after  { transform: rotate(-45deg); }
 /* ≥1024px (laptops) */
 @media (min-width: 1024px) {
   .nav { padding-block: var(--space-m); }
-  .section { padding-block: calc(var(--space-xl) + 0.5rem); }
+  .section { padding-block: var(--space-l); }
+  .section--tight { padding-block: var(--space-m); }
 }
 
 /* ≥1280px (desktops) */
@@ -565,7 +566,7 @@ body.menu-open .hamburger::after  { transform: rotate(-45deg); }
 /* ≥1920px (2K–4K) */
 @media (min-width: 1920px) {
   body { font-size: calc(var(--step-0) * 1.05); }
-  .hero { padding-block: calc(var(--space-2xl) + 1rem); }
+  .hero { padding-block: calc(var(--space-2xl) + 0.5rem); }
 }
 /* ≥2560px (ultrawide) */  @media (min-width: 2560px) { :root { --container-max: 96rem; } }
 
