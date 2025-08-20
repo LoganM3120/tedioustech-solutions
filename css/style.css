@@ -204,6 +204,11 @@ header.site-header {
   color: #0b1d36;
 }
 
+.nav__links .dropdown-menu a:hover,
+.nav__links .dropdown-menu a:focus {
+  background: color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
 /* Mobile dropdown */
 .mobile-nav details { width: 100%; }
 .mobile-nav summary {

@@ -12,9 +12,12 @@ window.initActiveNav = function () {
   const $mobileNav = document.querySelector(".mobile-nav");
 
   const normalizeHref = (href) => {
-    if (!href) return "";
+    if (!href) return "index.html";
     // strip leading ./ or /, keep hash, remove trailing slash
-    return href.replace(/^(\.\/|\/)/, "").replace(/\/$/, "");
+    let clean = href.replace(/^(\.\/|\/)/, "").replace(/\/$/, "");
+    // treat hash-only URLs as index.html#hash
+    if (clean.startsWith("#")) clean = `index.html${clean}`;
+    return clean || "index.html";
   };
 
   const applyActiveToList = (nodeList, targetHref) => {
@@ -40,7 +43,13 @@ window.initActiveNav = function () {
       );
   };
 
-  const pageName = () => (location.pathname.split("/").pop() || "index.html");
+  const pageName = () => {
+    let path = location.pathname
+      .replace(/\/index\.html$/, "")
+      .replace(/^\//, "")
+      .replace(/\/$/, "");
+    return path || "index.html";
+  };
 
   /* --------------------------
    * Initial highlight
@@ -49,13 +58,11 @@ window.initActiveNav = function () {
     const page = pageName();
     const hash = location.hash;
 
-    if (page === "" || page === "index.html") {
+    if (page === "index.html") {
       if (hash === "#services") applyActive("index.html#services");
       else if (hash === "#about") applyActive("index.html#about");
       else if (hash === "#contact") applyActive("index.html#contact");
       else applyActive("index.html"); // Home
-    } else if (page === "index.html") {
-      applyActive("index.html"); // Work
     } else {
       applyActive(page);
     }
@@ -68,7 +75,7 @@ window.initActiveNav = function () {
    * -------------------------- */
   (function scrollSpy() {
     const page = pageName();
-    if (!(page === "" || page === "index.html")) return;
+    if (page !== "index.html") return;
 
     const $services = document.getElementById("services");
     const $about = document.getElementById("about");
