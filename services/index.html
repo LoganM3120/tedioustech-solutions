@@ -29,7 +29,7 @@
 
   <section class="section">
     <div class="container">
-        <details class="service-section" open>
+        <details id="websites" class="service-section">
         <summary>Websites &amp; Digital Presence</summary>
         <div class="grid services-grid">
             <article class="card project-card">
@@ -37,11 +37,12 @@
             <h3>Resume Upload → Resume Website</h3>
             <p>Convert a resume into a clean single‑page site with optional “About” polish and structure improvements.</p>
           </article>
-          <article class="card project-card">
+          <a href="/services/websites/" class="card project-card" style="text-decoration: none">
             <div class="thumb"><img src="../images/websites-scratch.jpg" alt="Personal website layout" loading="lazy" decoding="async" /></div>
             <h3>Personal Website (1–2 pages)</h3>
             <p>Portfolio or resume site with contact form, mobile‑first layout, hosted on GitHub Pages with your domain.</p>
-          </article>
+            <br><span style="color: var(--link); font-weight:600;">Learn more →</span>
+          </a>
           <article class="card project-card">
             <div class="thumb"><img src="../images/websites-scratch.jpg" alt="Small business site example" loading="lazy" decoding="async" /></div>
             <h3>Small Business Website (3–5 pages)</h3>
@@ -50,7 +51,7 @@
         </div>
       </details>
 
-      <details class="service-section" open>
+      <details id="automation" class="service-section">
         <summary>Automation &amp; Workflows</summary>
         <div class="grid services-grid">
           <article class="card project-card">
@@ -71,7 +72,7 @@
         </div>
       </details>
 
-        <details class="service-section" open>
+        <details id="dashboards" class="service-section">
         <summary>Dashboards &amp; Reporting</summary>
         <div class="grid services-grid">
           <article class="card project-card">
@@ -111,6 +112,23 @@
   <script src="../js/script.js" defer></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const openParam = params.get('open');
+      const sections = document.querySelectorAll('.service-section');
+      if (openParam === 'all') {
+        sections.forEach(sec => {
+          sec.open = true;
+        });
+      } else if (openParam) {
+        const target = document.getElementById(openParam);
+        if (target) {
+          target.open = true;
+        }
+      }
+    });
   </script>
 </body>
 </html>
