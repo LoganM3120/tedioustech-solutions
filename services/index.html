@@ -11,9 +11,45 @@
 <body>
   <div data-include="../partials/nav.html"></div>
 
+  <!-- Hero -->
+  <section class="hero hero--video">
+     <video class="hero__video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1" poster="../images/universal_network%20-%20frame%20at%200m2s.jpg">
+      <source src="../videos/universal_network.mp4" type="video/mp4" />
+    </video>
+      <div class="container--wide">
+          <h1>All Services</h1>
+          <p>
+            Welcome to the Services page. Here you’ll find all available offerings, organized into three categories:
+              <strong>Automation & Workflows, Dashboards & Reporting, and Websites & Digital Presence</strong>. Each category expands into
+              specific services — for example, Excel automation under Automation & Workflows, or personal websites under
+              Websites & Digital Presence. You can click into any category or service to see details, pricing, and what’s included.
+          </p>
+      </div>
+  </section>
+
   <section class="section">
     <div class="container">
-      <h1>All Services</h1>
+        <details class="service-section" open>
+        <summary>Websites &amp; Digital Presence</summary>
+        <div class="grid services-grid">
+            <article class="card project-card">
+            <div class="thumb"><img src="../images/websites-scratch.jpg" alt="Resume to website example" loading="lazy" decoding="async" /></div>
+            <h3>Resume Upload → Resume Website</h3>
+            <p>Convert a resume into a clean single‑page site with optional “About” polish and structure improvements.</p>
+          </article>
+          <article class="card project-card">
+            <div class="thumb"><img src="../images/websites-scratch.jpg" alt="Personal website layout" loading="lazy" decoding="async" /></div>
+            <h3>Personal Website (1–2 pages)</h3>
+            <p>Portfolio or resume site with contact form, mobile‑first layout, hosted on GitHub Pages with your domain.</p>
+          </article>
+          <article class="card project-card">
+            <div class="thumb"><img src="../images/websites-scratch.jpg" alt="Small business site example" loading="lazy" decoding="async" /></div>
+            <h3>Small Business Website (3–5 pages)</h3>
+            <p>Brochure site with Home, About, Services, Contact and basic SEO for fast, secure pages.</p>
+          </article>
+        </div>
+      </details>
+
       <details class="service-section" open>
         <summary>Automation &amp; Workflows</summary>
         <div class="grid services-grid">
@@ -52,27 +88,6 @@
             <div class="thumb"><img src="../images/controls.jpg" alt="Operations dashboard" loading="lazy" decoding="async" /></div>
             <h3>Operations Scorecard</h3>
             <p>Track daily operations metrics and highlight anomalies automatically.</p>
-          </article>
-        </div>
-      </details>
-
-        <details class="service-section" open>
-        <summary>Websites &amp; Digital Presence</summary>
-        <div class="grid services-grid">
-            <article class="card project-card">
-            <div class="thumb"><img src="../images/websites-scratch.jpg" alt="Resume to website example" loading="lazy" decoding="async" /></div>
-            <h3>Resume Upload → Resume Website</h3>
-            <p>Convert a resume into a clean single‑page site with optional “About” polish and structure improvements.</p>
-          </article>
-          <article class="card project-card">
-            <div class="thumb"><img src="../images/websites-scratch.jpg" alt="Personal website layout" loading="lazy" decoding="async" /></div>
-            <h3>Personal Website (1–2 pages)</h3>
-            <p>Portfolio or resume site with contact form, mobile‑first layout, hosted on GitHub Pages with your domain.</p>
-          </article>
-          <article class="card project-card">
-            <div class="thumb"><img src="../images/websites-scratch.jpg" alt="Small business site example" loading="lazy" decoding="async" /></div>
-            <h3>Small Business Website (3–5 pages)</h3>
-            <p>Brochure site with Home, About, Services, Contact and basic SEO for fast, secure pages.</p>
           </article>
         </div>
       </details>
