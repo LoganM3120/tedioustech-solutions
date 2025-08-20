@@ -3,28 +3,28 @@
 // 1) Services grid auto-balance on desktop (so 3 cards fill width evenly)
 (function () {
   const DESKTOP_Q = '(min-width: 1280px)';
-  const grid = document.querySelector('.services-grid');
-  if (!grid) return;
+  const grids = document.querySelectorAll('.services-grid');
+  if (!grids.length) return;
 
-  function getCardCount() {
-    return grid.querySelectorAll('.project-card').length;
-  }
-
-  function updateCols() {
+  function updateGrid(grid) {
     const mql = window.matchMedia(DESKTOP_Q);
     if (mql.matches) {
-      const count = Math.min(getCardCount(), 4); // cap at 4 per design
+      const count = Math.min(grid.querySelectorAll('.project-card').length, 4);
       grid.setAttribute('data-cols', String(count));
     } else {
-      grid.removeAttribute('data-cols'); // fall back to global 1→2→3 responsive rules
+      grid.removeAttribute('data-cols');
     }
   }
 
+  function updateAll() {
+    grids.forEach(updateGrid);
+  }
+
   // Init + respond to viewport changes
-  updateCols();
+  updateAll();
 
   const mql = window.matchMedia(DESKTOP_Q);
-  const onChange = () => updateCols();
+  const onChange = () => updateAll();
   if (mql.addEventListener) mql.addEventListener('change', onChange);
   else mql.addListener(onChange);
 })();

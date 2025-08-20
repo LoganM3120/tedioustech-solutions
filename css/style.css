@@ -450,6 +450,16 @@ a:focus-visible {
 details.card summary { cursor: pointer; }
 details.card + details.card { margin-top: var(--space-s); }
 
+/* Collapsible service sections */
+.service-section { margin-bottom: var(--space-l); }
+.service-section summary {
+  font-size: var(--step-3);
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: var(--space-s);
+}
+.service-section[open] summary { margin-bottom: var(--space-m); }
+
 /* ---------- Software Slider ---------- */
 .tech-slider {
   display: flex;
