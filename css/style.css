@@ -192,6 +192,8 @@ header.site-header {
   flex-direction: column;
   background: #fff;
   border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
   padding: 0.5rem;
   min-width: 10rem;
   z-index: 10;
@@ -207,6 +209,11 @@ header.site-header {
 .nav__links .dropdown-menu a:hover,
 .nav__links .dropdown-menu a:focus {
   background: color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+.nav__links .dropdown-menu a:hover,
+.nav__links .dropdown-menu a:focus {
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
 /* Mobile dropdown */
