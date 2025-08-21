@@ -60,7 +60,12 @@
 *::before,
 *::after { box-sizing: border-box; }
 
-html { font-size: 16px; -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+html { 
+  font-size: 16px; 
+  -webkit-text-size-adjust: 100%; 
+  scroll-behavior: smooth; 
+  height: 100%;
+}
 
 body {
   margin: 0;
@@ -69,6 +74,9 @@ body {
   line-height: 1.6;
   color: var(--text);
   background: var(--bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 img, svg, video, canvas, iframe { display: block; max-width: 100%; height: auto; }
@@ -555,6 +563,7 @@ body.menu-open .hamburger::after  { transform: rotate(-45deg); }
   padding-block: var(--space-l);
   color: var(--bg);
   background: var(--primary);
+  margin-top: auto;
 }
 
 /* Foot links should be white */
