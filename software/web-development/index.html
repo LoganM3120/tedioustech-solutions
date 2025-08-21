@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HTML, CSS & JavaScript | Software</title>
+  <meta name="description" content="Learn about the core web technologies: HTML, CSS, and JavaScript." />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="icon" href="../../images/favicon.png" />
+</head>
+<body>
+  <div data-include="../../partials/nav.html"></div>
+
+  <section class="hero hero--video">
+    <video class="hero__video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1" poster="../../images/neural_network%20-%20frame%20at%200m19s.jpg">
+          <source src="../../videos/websites.mp4" type="video/mp4" />
+    </video>
+    <div class="container--wide">
+      <h1>HTML, CSS & JavaScript</h1>
+      <p>These three technologies form the backbone of modern web development.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <a href="/software/" style="display:inline-block;margin-bottom:0.5rem;color:var(--link);text-decoration:none;">← Back to Software</a>
+      <p>Together they structure pages, style them, and add interactivity.</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap">
+      <div>© <span id="year"></span> TediousTech Solutions • by Logan Meriwether</div>
+      <div class="nav__links">
+        <a href="mailto:loganm3210@gmail.com" aria-label="Email">Email</a>
+        <a href="https://www.linkedin.com/in/logan-meriwether-679330210" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
+        <a href="https://github.com/LoganM3120/tedioustech-solutions" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/nav.js" defer></script>
+  <script src="../../js/active-nav.js" defer></script>
+  <script src="../../js/includes.js" defer></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

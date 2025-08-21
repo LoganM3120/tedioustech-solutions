@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tableau | Software</title>
+  <meta name="description" content="Learn about Tableau, a tool for interactive data visualization." />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="icon" href="../../images/favicon.png" />
+</head>
+<body>
+  <div data-include="../../partials/nav.html"></div>
+
+  <section class="hero">
+    <div class="container--wide">
+      <h1>Tableau</h1>
+      <p>Tableau turns data into interactive dashboards and visual analytics.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <a href="/software/" style="display:inline-block;margin-bottom:0.5rem;color:var(--link);text-decoration:none;">← Back to Software</a>
+      <p>It helps teams explore trends and share insights with minimal code.</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap">
+      <div>© <span id="year"></span> TediousTech Solutions • by Logan Meriwether</div>
+      <div class="nav__links">
+        <a href="mailto:loganm3210@gmail.com" aria-label="Email">Email</a>
+        <a href="https://www.linkedin.com/in/logan-meriwether-679330210" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
+        <a href="https://github.com/LoganM3120/tedioustech-solutions" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/nav.js" defer></script>
+  <script src="../../js/active-nav.js" defer></script>
+  <script src="../../js/includes.js" defer></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
