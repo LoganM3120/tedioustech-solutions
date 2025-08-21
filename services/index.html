@@ -126,6 +126,7 @@
         const target = document.getElementById(openParam);
         if (target) {
           target.open = true;
+          target.scrollIntoView({behavior: 'smooth', block: 'start'});
         }
       }
     });
