@@ -309,6 +309,27 @@ a:focus-visible {
     linear-gradient(180deg, rgba(11, 29, 54, 0.72), rgba(11, 29, 54, 0.58));
   pointer-events: none;
 }
+/* Background image */
+.hero--image { position: relative; overflow: clip; background: none; }
+.hero--image .container--wide { position: relative; z-index: 2; }
+.hero--image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--hero-image) center/cover no-repeat;
+  z-index: 0;
+  filter: saturate(1.05);
+}
+.hero--image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(800px 300px at 85% 5%, rgba(0, 224, 231, 0.10), transparent 60%) no-repeat,
+    linear-gradient(180deg, rgba(11, 29, 54, 0.72), rgba(11, 29, 54, 0.58));
+  pointer-events: none;
+}
 /* Respect reduced motion: hide video (poster remains) */
 @media (prefers-reduced-motion: reduce) { .hero__video { display: none; } }
 
