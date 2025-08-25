@@ -9,8 +9,10 @@
   function updateGrid(grid) {
     const mql = window.matchMedia(DESKTOP_Q);
     if (mql.matches) {
-      const count = Math.min(grid.querySelectorAll('.project-card').length, 4);
-      grid.setAttribute('data-cols', String(count));
+     const cardCount = grid.querySelectorAll('.project-card').length;
+    const cols = cardCount === 1 ? 3 :
+Math.min(cardCount, 4);
+grid.setAttribute( 'data-cols', String(cols));
     } else {
       grid.removeAttribute('data-cols');
     }
