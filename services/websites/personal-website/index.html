@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Personal Websites | TediousTech Solutions</title>
+  <meta name="description" content="Clean, fast sites that convert visitors into customers without agency pricing." />
+  <link rel="stylesheet" href="../../../css/style.css" />
+  <link rel="icon" href="../../../images/favicon.png" />
+  <style>
+    /* Page-specific styles */
+    .hero__grid{display:grid;gap:var(--space-l);align-items:center;grid-template-columns:1fr;}@media(min-width:768px){.hero__grid{grid-template-columns:1fr 1fr;}}
+    .eyebrow{font-size:var(--step--1);text-transform:uppercase;color:#fff;letter-spacing:.05em;margin:0 0 var(--space-s);}
+    .micro-trust{list-style:none;padding:0;margin:var(--space-m)0 0;display:flex;flex-wrap:wrap;gap:var(--space-s);font-size:var(--step--1);} .micro-trust li{background:rgba(255,255,255,0.1);padding:0.25rem 0.5rem;border-radius:var(--radius);}
+    .carousel{position:relative;overflow:hidden;border-radius:var(--radius);box-shadow:var(--shadow-1);} .carousel__item{position:absolute;inset:0;opacity:0;transition:opacity .6s ease;} .carousel__item.active{opacity:1;position:relative;} .carousel__item img{width:100%;height:auto;} .carousel__item p{margin:0;padding:var(--space-s);background:var(--surface);color:var(--primary);}
+    .mini-nav{position:sticky;top:0;background:var(--surface);border-bottom:1px solid var(--border);z-index:40;} .mini-nav.collapsed{display:none;} .mini-nav .container{display:flex;gap:var(--space-s);padding:var(--space-s)0;justify-content:center;} .mini-nav a{color:var(--primary);font-weight:500;}
+    .persuasion-strip .grid{grid-template-columns:1fr;}@media(min-width:768px){.persuasion-strip .grid{grid-template-columns:repeat(3,1fr);}} .persuasion-strip .card{text-align:center;}
+    .package-tabs{display:flex;gap:var(--space-s);margin-bottom:var(--space-m);} .package-tabs .tab{flex:1;padding:var(--space-s);border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);cursor:pointer;text-align:center;} .package-tabs .tab.active{background:var(--primary);color:#fff;}
+    .package-panel{display:none;} .package-panel.active{display:block;}
+    .compare-table{width:100%;border-collapse:collapse;margin-top:var(--space-m);display:none;} .compare-table th,.compare-table td{border:1px solid var(--border);padding:0.5rem;text-align:center;} .compare-table.show{display:table;}
+    .quiz{margin-top:var(--space-l);} .quiz form{display:grid;gap:var(--space-s);} .quiz label{display:grid;gap:0.25rem;}
+    .case-grid{margin-top:var(--space-m);} .case-grid .card{padding:0;overflow:hidden;} .case-grid .card img{width:100%;aspect-ratio:16/9;object-fit:cover;} .case-grid .card p{margin:0;padding:var(--space-s);}
+    .logos{display:flex;gap:var(--space-l);flex-wrap:wrap;justify-content:center;margin:var(--space-l)0;} .logos img{height:40px;filter:grayscale(100%);}
+    .testimonials{margin-top:var(--space-l);} .testimonial{display:flex;gap:var(--space-m);align-items:center;} .testimonial img{width:48px;height:48px;border-radius:50%;object-fit:cover;}
+    .kpi-strip{display:grid;gap:var(--space-m);grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-top:var(--space-l);} .kpi{text-align:center;padding:var(--space-m);border:1px solid var(--border);border-radius:var(--radius);} .kpi .value{font-size:var(--step-2);color:var(--primary);display:block;}
+    .timeline{list-style:none;padding:0;margin:0;display:grid;gap:var(--space-m);} .timeline li{display:flex;gap:var(--space-m);align-items:flex-start;} .timeline .icon{font-size:1.5rem;}
+    .pricing-cards{display:grid;gap:var(--space-m);grid-template-columns:repeat(auto-fit,minmax(200px,1fr));}
+    .guarantee{margin-top:var(--space-l);padding:var(--space-m);border:1px solid var(--accent);border-radius:var(--radius);}
+    .maintenance{display:grid;gap:var(--space-m);grid-template-columns:1fr 1fr;margin-top:var(--space-m);}
+    .faq details{margin-top:var(--space-s);}
+    .quote-form{display:grid;gap:var(--space-s);} .quote-form label{display:grid;gap:0.25rem;} .quote-form select[multiple]{height:6rem;}
+    .sticky-cta{position:fixed;bottom:0;left:0;right:0;display:none;gap:var(--space-s);padding:var(--space-s);background:var(--surface);border-top:1px solid var(--border);} .sticky-cta a{flex:1;text-align:center;} @media(max-width:768px){.sticky-cta{display:flex;}}
+  </style>
+</head>
+<body>
+
+  <!-- Header / Nav -->
+  <div data-include="../../../partials/nav.html"></div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container--wide hero__grid">
+      <div class="hero__text">
+        <p class="eyebrow">Websites & Digital Presence</p>
+        <h1>Launch a site that wins clients—fast.</h1>
+        <p>We build clean, fast sites that convert more visitors into paying customers—without agency pricing.</p>
+        <div class="stack stack--s">
+          <a class="btn" href="#quote">Start your quote</a>
+          <a class="btn btn--ghost" href="#examples">See live examples</a>
+        </div>
+        <ul class="micro-trust">
+          <li>Avg. LCP ~1.6s</li>
+          <li>Mobile-first build</li>
+          <li>30-day launch support</li>
+        </ul>
+      </div>
+      <div class="hero__proof">
+        <div class="carousel">
+          <div class="carousel__item active">
+            <img src="../../../images/github.jpg" alt="Case study 1" />
+            <p>+38% time-on-page</p>
+          </div>
+          <div class="carousel__item">
+            <img src="../../../images/alteryx.jpg" alt="Case study 2" />
+            <p>-42% bounce</p>
+          </div>
+          <div class="carousel__item">
+            <img src="../../../images/pycharm.jpg" alt="Case study 3" />
+            <p>Fewer support emails after “How it works” revamp</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mini nav -->
+  <nav class="mini-nav">
+    <div class="container">
+      <a href="#features">Features</a>
+      <a href="#examples">Examples</a>
+      <a href="#packages">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="#quote">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Problem / Solution / Outcome -->
+  <section id="features" class="section persuasion-strip">
+    <div class="container grid">
+      <div class="card">
+        <h3>The Problem</h3>
+        <p>Template bloat, slow loads, unclear navigation.</p>
+      </div>
+      <div class="card">
+        <h3>Our Solution</h3>
+        <p>Lean architecture, focused copy, performance budgets.</p>
+      </div>
+      <div class="card">
+        <h3>Your Outcome</h3>
+        <p>Clear journeys, faster pages, more inquiries.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Offer Configurator -->
+  <section id="packages" class="section">
+    <div class="container">
+      <h2>Choose your plan</h2>
+      <div class="package-tabs">
+        <button class="tab active" data-target="starter">Starter</button>
+        <button class="tab" data-target="standard">Standard</button>
+        <button class="tab" data-target="pro">Pro</button>
+      </div>
+      <div id="starter" class="package-panel active">
+        <ul>
+          <li>1 page site</li>
+          <li>Responsive layout</li>
+          <li>Contact link</li>
+          <li>Basic SEO</li>
+          <li>Analytics hookup</li>
+        </ul>
+        <p><strong>From $700</strong> · 1 week</p>
+        <p>Best for simple presence / link-in-bio style.</p>
+      </div>
+      <div id="standard" class="package-panel">
+        <ul>
+          <li>2–3 pages (Home, About, Contact)</li>
+          <li>Form integrations</li>
+          <li>SEO foundations</li>
+          <li>Analytics + basics</li>
+          <li>Launch checklist</li>
+        </ul>
+        <p><strong>From $1,200</strong> · 1–2 weeks</p>
+        <p>Best for Home, About, Contact with forms.</p>
+      </div>
+      <div id="pro" class="package-panel">
+        <ul>
+          <li>Custom sections & forms</li>
+          <li>Integrations & collections</li>
+          <li>CMS options</li>
+          <li>Performance budgets</li>
+          <li>30-day support</li>
+          <li>SEO setup</li>
+        </ul>
+        <p><strong>From $1,800</strong> · 2–3 weeks</p>
+        <p>Best for integrations, collections, CMS.</p>
+      </div>
+      <p><a href="#" class="compare-toggle">Compare all</a></p>
+      <table class="compare-table">
+        <thead>
+          <tr><th></th><th>Starter</th><th>Standard</th><th>Pro</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Pages</th><td>1</td><td>2–3</td><td>4+</td></tr>
+          <tr><th>Performance</th><td>✔️</td><td>✔️</td><td>✔️+</td></tr>
+          <tr><th>Forms</th><td>Link</td><td>Simple</td><td>Advanced</td></tr>
+          <tr><th>CMS</th><td>—</td><td>—</td><td>✔️</td></tr>
+          <tr><th>Revisions</th><td>1</td><td>2</td><td>3</td></tr>
+          <tr><th>Support</th><td>30 days</td><td>30 days</td><td>60 days</td></tr>
+        </tbody>
+      </table>
+      <div class="quiz">
+        <h3>Recommend for me</h3>
+        <form id="plan-quiz">
+          <label>Number of pages
+            <select name="pages">
+              <option value="1">1</option>
+              <option value="2-3">2-3</option>
+              <option value="4+">4+</option>
+            </select>
+          </label>
+          <label>Need forms?
+            <select name="forms">
+              <option value="no">No</option>
+              <option value="yes">Yes</option>
+            </select>
+          </label>
+          <label>Content readiness
+            <select name="content">
+              <option value="ready">Ready to go</option>
+              <option value="need">Need help</option>
+            </select>
+          </label>
+          <button type="submit" class="btn">Show my plan</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proof Section -->
+  <section id="examples" class="section">
+    <div class="container">
+      <h2>Proof</h2>
+      <div class="case-grid grid">
+        <div class="card">
+          <img src="../../../images/github.jpg" alt="Project screenshot" />
+          <p>+38% time-on-page after redesign</p>
+        </div>
+        <div class="card">
+          <img src="../../../images/alteryx.jpg" alt="Project screenshot" />
+          <p>-42% bounce rate on launch</p>
+        </div>
+        <div class="card">
+          <img src="../../../images/pycharm.jpg" alt="Project screenshot" />
+          <p>Fewer support emails after FAQ revamp</p>
+        </div>
+      </div>
+      <div class="logos">
+        <img src="../../../images/github.jpg" alt="GitHub logo" />
+        <img src="../../../images/alteryx.jpg" alt="Alteryx logo" />
+        <img src="../../../images/pycharm.jpg" alt="PyCharm logo" />
+      </div>
+      <div class="testimonials grid">
+        <div class="testimonial card">
+          <img src="../../../images/github.jpg" alt="Client photo" />
+          <p>"Our new site feels so much faster. Leads doubled in a month." – Alex, Founder</p>
+        </div>
+        <div class="testimonial card">
+          <img src="../../../images/alteryx.jpg" alt="Client photo" />
+          <p>"The process was clear and painless. We launched in two weeks." – Jamie, Director</p>
+        </div>
+      </div>
+      <div class="kpi-strip">
+        <div class="kpi"><span class="value">1.6s</span><span class="label">Median LCP</span></div>
+        <div class="kpi"><span class="value">+23%</span><span class="label">Form completions</span></div>
+        <div class="kpi"><span class="value">↓</span><span class="label">Mobile bounce</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="section" id="process">
+    <div class="container">
+      <h2>How it works</h2>
+      <ol class="timeline">
+        <li class="card"><span class="icon">📞</span><div><h3>15‑min fit call</h3><p><a href="https://calendly.com" target="_blank" rel="noopener">Book a call</a></p></div></li>
+        <li class="card"><span class="icon">📝</span><div><h3>Scope & fixed quote</h3><p>24h summary</p></div></li>
+        <li class="card"><span class="icon">💻</span><div><h3>Build & weekly check-ins</h3><p>Progress in your inbox</p></div></li>
+        <li class="card"><span class="icon">🚀</span><div><h3>Launch & 30-day support</h3><p>We're with you post-launch</p></div></li>
+      </ol>
+      <p style="margin-top:var(--space-m);">What we need from you: content, brand assets.</p>
+    </div>
+  </section>
+
+  <!-- Pricing & Guarantees -->
+  <section id="pricing" class="section">
+    <div class="container">
+      <h2>Pricing & Guarantees</h2>
+      <div class="pricing-cards">
+        <div class="card"><h3>Starter</h3><p>From $700</p></div>
+        <div class="card"><h3>Standard</h3><p>From $1,200</p></div>
+        <div class="card"><h3>Pro</h3><p>From $1,800</p></div>
+      </div>
+      <p>What influences price: pages, forms, integrations.</p>
+      <div class="guarantee card">Go-live Promise: We don’t mark as finished until Core Pages pass our checklist.</div>
+      <div class="maintenance">
+        <div class="card"><strong>On-demand updates</strong><p>Pay-as-you-go tweaks.</p></div>
+        <div class="card"><strong>Monthly Care</strong><p>Regular updates & monitoring.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section id="faq" class="section faq">
+    <div class="container">
+      <h2>FAQs</h2>
+      <details class="card"><summary>What’s the typical timeline?</summary><p>Most sites launch within 1–2 weeks once content is ready.</p></details>
+      <details class="card"><summary>How many edits do I get?</summary><p>Each package includes revision rounds noted above.</p></details>
+      <details class="card"><summary>Can you help with content writing?</summary><p>Yes, we can assist or connect you with writers.</p></details>
+      <details class="card"><summary>Who handles hosting & domain?</summary><p>You retain full ownership of hosting and domains.</p></details>
+      <details class="card"><summary>CMS or static?</summary><p>We build static sites or light CMS depending on your needs.</p></details>
+      <details class="card"><summary>Do I own the final site?</summary><p>Absolutely. You get full code and assets at hand-off.</p></details>
+    </div>
+  </section>
+
+  <!-- Conversion Block -->
+  <section id="quote" class="section">
+    <div class="container">
+      <h2>Start your quote</h2>
+      <form class="quote-form" id="quote-form">
+        <label>Name<input type="text" name="name" required></label>
+        <label>Email<input type="email" name="email" required></label>
+        <label>Business/Project<input type="text" name="project" required></label>
+        <label>Pages<select name="pages" id="pagesSelect"><option value="1">1</option><option value="2-3">2-3</option><option value="4+">4+</option></select></label>
+        <label>Must-have features<select name="features" multiple><option value="forms">Forms</option><option value="cms">CMS</option><option value="blog">Blog</option></select></label>
+        <label>Message (optional)<textarea name="message"></textarea></label>
+        <input type="hidden" name="package" id="packageField">
+        <p>No spam. We reply within 1 business day.</p>
+        <button type="submit" class="btn">Send my quote</button>
+      </form>
+      <a class="btn btn--ghost" href="https://calendly.com" target="_blank" rel="noopener">Skip the form—book 15 min</a>
+      <p class="microcopy">We’ll send a 1-page quote with timeline and price.</p>
+    </div>
+  </section>
+
+  <!-- Sticky CTA -->
+  <div class="sticky-cta">
+    <a href="#quote" class="btn">Start Quote</a>
+    <a href="https://calendly.com" class="btn btn--ghost" target="_blank" rel="noopener">Book 15 min</a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap">
+      <div>© <span id="year"></span> TediousTech Solutions • by Logan Meriwether</div>
+      <div class="nav__links">
+        <a href="mailto:loganm3210@gmail.com" aria-label="Email">Email</a>
+        <a href="https://www.linkedin.com/in/logan-meriwether-679330210" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
+        <a href="https://github.com/LoganM3120/tedioustech-solutions" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../../js/nav.js" defer></script>
+  <script src="../../../js/active-nav.js" defer></script>
+  <script src="../../../js/includes.js" defer></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // Carousel
+    const items=document.querySelectorAll('.carousel__item');
+    let idx=0;function show(i){items.forEach((el,k)=>el.classList.toggle('active',k===i));}
+    let timer=setInterval(()=>{idx=(idx+1)%items.length;show(idx);},4000);
+    const carousel=document.querySelector('.carousel');
+    if(carousel){carousel.addEventListener('mouseenter',()=>clearInterval(timer));carousel.addEventListener('mouseleave',()=>{timer=setInterval(()=>{idx=(idx+1)%items.length;show(idx);},4000);});}
+    // Package tabs
+    const tabs=document.querySelectorAll('.package-tabs .tab');
+    const panels=document.querySelectorAll('.package-panel');
+    function activate(id){tabs.forEach(t=>t.classList.toggle('active',t.dataset.target===id));panels.forEach(p=>p.classList.toggle('active',p.id===id));}
+    tabs.forEach(t=>t.addEventListener('click',()=>activate(t.dataset.target)));
+    // Compare table
+    const compareToggle=document.querySelector('.compare-toggle');
+    const table=document.querySelector('.compare-table');
+    if(compareToggle)compareToggle.addEventListener('click',e=>{e.preventDefault();table.classList.toggle('show');});
+    // Quiz
+    const quiz=document.getElementById('plan-quiz');
+    if(quiz){quiz.addEventListener('submit',e=>{e.preventDefault();const pages=quiz.pages.value;const forms=quiz.forms.value;const content=quiz.content.value;let plan='pro';if(pages==='1'&&forms==='no')plan='starter';else if(pages!=='4+'&&content==='ready')plan='standard';activate(plan);document.getElementById('packageField').value=plan;document.getElementById('quote').scrollIntoView({behavior:'smooth'});});}
+    // Mini nav collapse
+    const miniNav=document.querySelector('.mini-nav');
+    window.addEventListener('scroll',()=>{if(window.scrollY>400)miniNav.classList.add('collapsed');else miniNav.classList.remove('collapsed');});
+  </script>
+</body>
+</html>
