@@ -331,6 +331,12 @@ a:focus-visible {
     linear-gradient(180deg, rgba(11, 29, 54, 0.72), rgba(11, 29, 54, 0.58));
   pointer-events: none;
 }
+
+/* Fallback solid background when no media is provided */
+.hero:not(.hero--video):not(.hero--image) {
+  background: var(--primary);
+}
+
 /* Respect reduced motion: hide video (poster remains) */
 @media (prefers-reduced-motion: reduce) { .hero__video { display: none; } }
 

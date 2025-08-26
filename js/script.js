@@ -11,8 +11,8 @@
     if (mql.matches) {
      const cardCount = grid.querySelectorAll('.project-card').length;
     const cols = cardCount === 1 ? 3 :
-Math.min(cardCount, 4);
-grid.setAttribute( 'data-cols', String(cols));
+    Math.min(cardCount, 4);
+    grid.setAttribute( 'data-cols', String(cols));
     } else {
       grid.removeAttribute('data-cols');
     }
