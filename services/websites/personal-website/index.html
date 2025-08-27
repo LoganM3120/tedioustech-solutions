@@ -24,11 +24,6 @@
           <a class="btn" href="#quote">Start your quote</a>
           <a class="btn btn--ghost" href="#examples">See live examples</a>
         </div>
-        <ul class="micro-trust" aria-pressed="true">
-          <li>Avg. LCP ~1.6s</li>
-          <li>Mobile-first build</li>
-          <li>30-day launch support</li>
-        </ul>
       </div>
       <div class="hero__proof">
         <div class="carousel">
@@ -50,13 +45,17 @@
   </section>
 
   <!-- Mini nav -->
-  <nav class="mini-nav">
-    <div class="container">
+  <nav class="mini-nav" aria-label="Page">
+    <button class="mini-nav__toggle" aria-label="Hide page navigation" aria-expanded="true">
+      <span aria-hidden="true">&#9650;</span>
+    </button>
+    <div class="mini-nav__links container">
       <a href="#features">Features</a>
       <a href="#examples">Examples</a>
       <a href="#packages">Pricing</a>
       <a href="#faq">FAQ</a>
       <a href="#quote">Contact</a>
+      <button class="mini-nav__toggle" aria-label="Hide page navigation"><span aria-hidden="true">&#9650;</span></button>
     </div>
   </nav>
 

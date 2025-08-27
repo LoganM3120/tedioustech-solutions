@@ -755,23 +755,52 @@ body.menu-open .hamburger::after  { transform: rotate(-45deg); }
 
 .mini-nav {
   position: sticky;
-  top: 0;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
+  top: 3.5rem;
   z-index: 40;
 }
-.mini-nav.collapsed {
-  display: none;
-}
-.mini-nav .container {
+.mini-nav__links {
   display: flex;
   gap: var(--space-s);
   padding: var(--space-s) 0;
   justify-content: center;
+  align-items: center;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
 }
 .mini-nav a {
   color: var(--primary);
   font-weight: 500;
+}
+
+.mini-nav__toggle {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 0;
+  border-radius: 0 0 var(--radius) var(--radius);
+  box-shadow: var(--shadow-1);
+  font: inherit;
+  line-height: 1;
+  color: var(--primary);
+  cursor: pointer;
+}
+.mini-nav__toggle span {
+  display: block;
+  transition: transform 0.3s;
+}
+.mini-nav.collapsed .mini-nav__links {
+  display: none;
+}
+.mini-nav.collapsed .mini-nav__toggle span {
+  transform: rotate(180deg);
 }
 
 .persuasion-strip .grid {

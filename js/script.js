@@ -182,13 +182,23 @@
   }
 })();
 
-// 7) Mini nav collapse
+// 7) Mini nav controls
 (function () {
-  const miniNav = document.querySelector('.mini-nav');
-  if (!miniNav) return;
+    const header = document.querySelector('.site-header');
+    const miniNav = document.querySelector('.mini-nav');
+    const toggle = document.querySelector('.mini-nav__toggle');
+    if (!header || !miniNav || !toggle) return;
 
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 400) miniNav.classList.add('collapsed');
-    else miniNav.classList.remove('collapsed');
+    const setOffset = () => {
+        const offset = header.offsetHeight;
+        miniNav.style.top = `${offset}px`;
+    };
+  setOffset();
+  window.addEventListener('resize', setOffset);
+
+  toggle.addEventListener('click', () => {
+    const collapsed = miniNav.classList.toggle('collapsed');
+    toggle.setAttribute('aria-expanded', String(!collapsed));
+    toggle.setAttribute('aria-label', collapsed ? 'Show page navigation' : 'Hide page navigation');
   });
 })();
