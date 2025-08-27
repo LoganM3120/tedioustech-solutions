@@ -106,3 +106,89 @@
   setInterval(goNext, 4000);
   update();
 })();
+
+// 4) Footer year
+(function () {
+  const el = document.getElementById('year');
+  if (el) el.textContent = new Date().getFullYear();
+})();
+
+// 5) Carousel
+(function () {
+  const items = document.querySelectorAll('.carousel__item');
+  if (!items.length) return;
+
+  let idx = 0;
+  const show = (i) => {
+    items.forEach((el, k) => el.classList.toggle('active', k === i));
+  };
+
+  let timer = setInterval(() => {
+    idx = (idx + 1) % items.length;
+    show(idx);
+  }, 4000);
+
+  const carousel = document.querySelector('.carousel');
+  if (carousel) {
+    carousel.addEventListener('mouseenter', () => clearInterval(timer));
+    carousel.addEventListener('mouseleave', () => {
+      timer = setInterval(() => {
+        idx = (idx + 1) % items.length;
+        show(idx);
+      }, 4000);
+    });
+  }
+})();
+
+// 6) Package tabs, compare table, and plan quiz
+(function () {
+  const tabs = document.querySelectorAll('.package-tabs .tab');
+  const panels = document.querySelectorAll('.package-panel');
+  const compareToggle = document.querySelector('.compare-toggle');
+  const table = document.querySelector('.compare-table');
+  const quiz = document.getElementById('plan-quiz');
+  const packageField = document.getElementById('packageField');
+
+  const activate = (id) => {
+    tabs.forEach((t) => t.classList.toggle('active', t.dataset.target === id));
+    panels.forEach((p) => p.classList.toggle('active', p.id === id));
+  };
+
+  tabs.forEach((t) =>
+    t.addEventListener('click', () => activate(t.dataset.target))
+  );
+
+  if (compareToggle && table) {
+    compareToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      table.classList.toggle('show');
+    });
+  }
+
+  if (quiz) {
+    quiz.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const pages = quiz.pages.value;
+      const forms = quiz.forms.value;
+      const content = quiz.content.value;
+      let plan = 'pro';
+      if (pages === '1' && forms === 'no') plan = 'starter';
+      else if (pages !== '4+' && content === 'ready') plan = 'standard';
+
+      activate(plan);
+      if (packageField) packageField.value = plan;
+      document.getElementById('quote')?.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+})();
+
+// 7) Mini nav collapse
+(function () {
+  const miniNav = document.querySelector('.mini-nav');
+  if (!miniNav) return;
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) miniNav.classList.add('collapsed');
+    else miniNav.classList.remove('collapsed');
+  });
+})();
