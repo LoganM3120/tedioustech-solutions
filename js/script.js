@@ -182,23 +182,48 @@
   }
 })();
 
-// 7) Mini nav controls
+// 7) Back to top button
 (function () {
-    const header = document.querySelector('.site-header');
-    const miniNav = document.querySelector('.mini-nav');
-    const toggle = document.querySelector('.mini-nav__toggle');
-    if (!header || !miniNav || !toggle) return;
+    const btn = document.getElementById('backToTop');
+    if (!btn) return;
 
-    const setOffset = () => {
-        const offset = header.offsetHeight;
-        miniNav.style.top = `${offset}px`;
+    const mq = window.matchMedia('(min-width: 769px)');
+
+    const onScroll = () => {
+        btn.classList.toggle('show', window.scrollY > 400);
     };
-  setOffset();
-  window.addEventListener('resize', setOffset);
 
-  toggle.addEventListener('click', () => {
-    const collapsed = miniNav.classList.toggle('collapsed');
-    toggle.setAttribute('aria-expanded', String(!collapsed));
-    toggle.setAttribute('aria-label', collapsed ? 'Show page navigation' : 'Hide page navigation');
+    const setup = () => {
+        if (mq.matches) {
+          window.addEventListener('scroll', onScroll);
+          onScroll();
+        } else {
+          window.removeEventListener('scroll', onScroll);
+          btn.classList.remove('show');
+        }
+    };
+
+    mq.addEventListener ? mq.addEventListener('change', setup) : mq.addListener(setup);
+    setup();
+
+    btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
   });
+})();
+
+// 8) Hide sticky CTA when quote section is reached
+(function () {
+  const cta = document.querySelector('.sticky-cta');
+  const hero = document.querySelector('.hero');
+  const quote = document.getElementById('quote');
+  if (!cta || !hero || !quote) return;
+
+  const toggleCta = () => {
+    const afterHero = window.scrollY >= hero.offsetHeight;
+    const beforeQuote = window.scrollY + window.innerHeight < quote.offsetTop;
+    cta.classList.toggle('hidden', !(afterHero && beforeQuote));
+  };
+
+  window.addEventListener('scroll', toggleCta);
+  toggleCta();
 })();

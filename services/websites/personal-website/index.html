@@ -14,10 +14,10 @@
   <div data-include="../../../partials/nav.html"></div>
 
   <!-- Hero -->
-  <section class="hero">
+  <section id="hero" class="hero">
     <div class="container--wide hero__grid">
       <div class="hero__text">
-        <p class="eyebrow">Websites & Digital Presence | Personal Website</p>
+        <p class="eyebrow">Websites & Digital Presence <strong>&vert; Personal Website</strong></p>
         <h1>Launch a site that wins clients—fast.</h1>
         <p>We build clean, fast sites that convert more visitors into paying customers—without agency pricing.</p>
         <div class="stack stack--s">
@@ -43,21 +43,6 @@
       </div>
     </div>
   </section>
-
-  <!-- Mini nav -->
-  <nav class="mini-nav" aria-label="Page">
-    <button class="mini-nav__toggle" aria-label="Hide page navigation" aria-expanded="true">
-      <span aria-hidden="true">&#9650;</span>
-    </button>
-    <div class="mini-nav__links container">
-      <a href="#features">Features</a>
-      <a href="#examples">Examples</a>
-      <a href="#packages">Pricing</a>
-      <a href="#faq">FAQ</a>
-      <a href="#quote">Contact</a>
-      <button class="mini-nav__toggle" aria-label="Hide page navigation"><span aria-hidden="true">&#9650;</span></button>
-    </div>
-  </nav>
 
   <!-- Problem / Solution / Outcome -->
   <section id="features" class="section persuasion-strip">
@@ -269,10 +254,13 @@
   </section>
 
   <!-- Sticky CTA -->
-  <div class="sticky-cta">
+  <div class="sticky-cta hidden">
     <a href="#quote" class="btn">Start Quote</a>
     <a href="https://calendly.com" class="btn btn--ghost" target="_blank" rel="noopener">Book 15 min</a>
   </div>
+
+  <!-- Back to Top -->
+  <button type="button" id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
 
   <!-- Footer -->
   <footer class="footer">
