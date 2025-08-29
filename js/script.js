@@ -226,6 +226,20 @@
   btn.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
+  
+  const footer = document.querySelector(".footer");
+    if (footer) {
+      const rootStyles = getComputedStyle(document.documentElement);
+      const gap = parseFloat(rootStyles.getPropertyValue("--space-m")) || 0;
+  
+      const observer = new IntersectionObserver(([entry]) => {
+        btn.style.bottom = entry.isIntersecting
+          ? `${footer.offsetHeight + gap}px`
+          : "";
+      });
+  
+      observer.observe(footer);
+    }
 })();
 
 // 8) Hide sticky CTA when quote section is reached
