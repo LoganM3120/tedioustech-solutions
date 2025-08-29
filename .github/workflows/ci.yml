@@ -1,3 +1,133 @@
+Blaze O’Saben
+blazeosaben
+Streaming MLB® The Show™ 25
+
+
+
+A wild 
+Blaze O’Saben
+ appeared. — 11:28 AM
+
+Wave to say hi!
+LoganMeriwether — 11:28 AM
+LoganMeriwether — 12:31 PM
+Yerd
+Ill brb, neet to meet with Anthony now to go over everything
+Blaze O’Saben — 12:32 PM
+you good homie
+LoganMeriwether — 12:37 PM
+Will you be home when I get back?
+Blaze O’Saben — 12:37 PM
+yes
+emerson has work all day, so I am pretty free
+LoganMeriwether — 2:34 PM
+Please read the files and folders in the repository, ignoring the images and video files. Then list them in a flow map.
+LoganMeriwether — 4:28 PM
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  prettier:
+    name: Prettier
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: Install tooling
+        run: |
+          npm init -y >/dev/null 2>&1 || true
+          npm i -D --no-audit --no-fund prettier
+      - name: Prettier check
+        run: npx prettier --check "**/*.{html,css,js,json,md}"
+
+  eslint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: Install tooling (if configured)
+        run: |
+          npm init -y >/dev/null 2>&1 || true
+          # Only install if config exists (keeps this job green if you don't use ESLint yet)
+          if [ -f ".eslintrc" ] || [ -f ".eslintrc.json" ] || [ -f ".eslintrc.js" ] || [ -f ".eslintrc.cjs" ]; then
+            npm i -D --no-audit --no-fund eslint
+          else
+            echo "No ESLint config found; skipping install."
+          fi
+      - name: Run ESLint (if configured)
+        run: |
+          if [ -f ".eslintrc" ] || [ -f ".eslintrc.json" ] || [ -f ".eslintrc.js" ] || [ -f ".eslintrc.cjs" ]; then
+            npx eslint . --max-warnings=0
+          else
+            echo "No ESLint config found; skipping."
+          fi
+
+  stylelint:
+    name: Stylelint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: Install tooling (if configured)
+        run: |
+          npm init -y >/dev/null 2>&1 || true
+          if [ -f ".stylelintrc" ] || [ -f ".stylelintrc.json" ] || [ -f ".stylelintrc.cjs" ] || [ -f ".stylelintrc.js" ]; then
+            npm i -D --no-audit --no-fund stylelint stylelint-config-standard
+          else
+            echo "No Stylelint config found; skipping install."
+          fi
+      - name: Run Stylelint (if configured)
+        run: |
+          if [ -f ".stylelintrc" ] || [ -f ".stylelintrc.json" ] || [ -f ".stylelintrc.cjs" ] || [ -f ".stylelintrc.js" ]; then
+            npx stylelint "**/*.css"
+          else
+            echo "No Stylelint config found; skipping."
+          fi
+
+  # Aggregate job that depends on all checks; useful to require a single "CI / all-checks" if you prefer
+  all-checks:
+    name: All checks
+    runs-on: ubuntu-latest
+    needs: [prettier, eslint, stylelint]
+    steps:
+      - run: echo "All checks completed."
+
+  # Discord notifications (runs once, based on overall status)
+  notify:
+    name: Discord notify
+    runs-on: ubuntu-latest
+    needs: [all-checks]
+    if: always()
+    steps:
+... (16 lines left)
+Collapse
+message.txt
+5 KB
+﻿
 name: CI
 
 on:
