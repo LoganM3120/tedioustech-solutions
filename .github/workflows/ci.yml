@@ -9,10 +9,25 @@ on:
 permissions:
   contents: read
 
+# --- Notify when the workflow actually starts (not when queued) ---
 jobs:
+  notify-start:
+    name: Discord notify (start)
+    runs-on: ubuntu-latest
+    env:
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+    steps:
+      - name: Post "in progress" to Discord (if secret present and not from fork)
+        if: ${{ env.DISCORD_WEBHOOK != '' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) }}
+        run: |
+          msg="🚧 CI started for **${{ github.repository }}** on \`${{ github.ref_name }}\` by **${{ github.actor }}** · ${{ github.workflow }}"
+          payload=$(jq -n --arg content "$msg" '{username:"Build Bot",content:$content}')
+          curl -sS -H "Content-Type: application/json" -d "$payload" "$DISCORD_WEBHOOK"
+
   prettier:
     name: Prettier
     runs-on: ubuntu-latest
+    needs: [notify-start]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -31,6 +46,7 @@ jobs:
   eslint:
     name: ESLint
     runs-on: ubuntu-latest
+    needs: [notify-start]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -59,6 +75,7 @@ jobs:
   stylelint:
     name: Stylelint
     runs-on: ubuntu-latest
+    needs: [notify-start]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -83,7 +100,7 @@ jobs:
             echo "No Stylelint config found; skipping."
           fi
 
-  # Aggregate job that depends on all checks; useful to require a single "CI / all-checks" if you prefer
+  # Aggregate job that depends on all checks
   all-checks:
     name: All checks
     runs-on: ubuntu-latest
@@ -91,12 +108,14 @@ jobs:
     steps:
       - run: echo "All checks completed."
 
-  # Discord notifications (runs once, based on overall status)
+  # Final Discord notification (success/failure)
   notify:
-    name: Discord notify
+    name: Discord notify (result)
     runs-on: ubuntu-latest
     needs: [all-checks]
     if: always()
+    env:
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
     steps:
       - name: Prepare message
         id: prep
@@ -108,8 +127,7 @@ jobs:
             echo "msg=❌ CI failed in **${{ github.repository }}** on \`${{ github.ref_name }}\` by **${{ github.actor }}** · ${{ github.workflow }}%0A${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
           fi
       - name: Post to Discord (if secret present and not from fork)
-        if: ${{ secrets.DISCORD_WEBHOOK != '' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) }}
+        if: ${{ env.DISCORD_WEBHOOK != '' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) }}
         run: |
-          curl -sS -H "Content-Type: application/json" \
-            -d "{\"username\":\"Build Bot\",\"content\":\"${{ steps.prep.outputs.msg }}\"}" \
-            "${{ secrets.DISCORD_WEBHOOK }}"
+          payload=$(jq -n --arg content "${{ steps.prep.outputs.msg }}" '{username:"Build Bot",content:$content}')
+          curl -sS -H "Content-Type: application/json" -d "$payload" "$DISCORD_WEBHOOK"

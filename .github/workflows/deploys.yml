@@ -8,6 +8,12 @@ jobs:
   notify:
     name: Post selective deploy updates
     runs-on: ubuntu-latest
+
+    # Map secrets → env once; use env.* in if: and scripts
+    env:
+      DISCORD_DEPLOY: ${{ secrets.DISCORD_DEPLOY }}
+      DISCORD_DEPLOY_ALT: ${{ secrets.Discord_Deploy }}
+
     # Only run for these states
     if: contains(fromJson('["in_progress","success","failure"]'), github.event.deployment_status.state)
 
@@ -17,7 +23,7 @@ jobs:
         shell: bash
         run: |
           repo="${{ github.repository }}"
-          env="${{ github.event.deployment.environment }}"
+          env_name="${{ github.event.deployment.environment }}"
           state="${{ github.event.deployment_status.state }}"
           url="${{ github.event.deployment_status.environment_url }}"
           sha="${{ github.event.deployment.sha }}"
@@ -25,25 +31,36 @@ jobs:
 
           case "$state" in
             in_progress)
-              content="🚀 Deployment **started** for **$repo** → **$env** (\`$short_sha\`)"
+              content="🚀 Deployment **started** for **$repo** → **$env_name** (\`$short_sha\`)"
               ;;
             success)
-              content="✅ Deployment **succeeded** for **$repo** → **$env** (\`$short_sha\`)";;
+              content="✅ Deployment **succeeded** for **$repo** → **$env_name** (\`$short_sha\`)"
+              ;;
             failure|error)
-              content="❌ Deployment **failed** for **$repo** → **$env** (\`$short_sha\`)";;
+              content="❌ Deployment **failed** for **$repo** → **$env_name** (\`$short_sha\`)"
+              ;;
           esac
 
           if [ -n "$url" ] && [ "$state" = "success" ]; then
             content="$content\n$url"
           fi
 
-          echo "content<<EOF" >> $GITHUB_OUTPUT
-          echo "$content" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          {
+            echo "content<<EOF"
+            echo "$content"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Post to Discord (if secret present and not from fork)
-        if: ${{ secrets.DISCORD_DEPLOY != '' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) }}
+        if: ${{ (env.DISCORD_DEPLOY != '' || env.DISCORD_DEPLOY_ALT != '') && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) }}
+        shell: bash
         run: |
+          # Choose whichever secret is set
+          WEBHOOK="${DISCORD_DEPLOY:-}"
+          if [ -z "$WEBHOOK" ] && [ -n "${DISCORD_DEPLOY_ALT:-}" ]; then
+            WEBHOOK="$DISCORD_DEPLOY_ALT"
+          fi
+
           jq -n --arg content "${{ steps.msg.outputs.content }}" --arg username "Deploy Bot" \
             '{username:$username, content:$content}' \
-          | curl -sS -H "Content-Type: application/json" -d @- "${{ secrets.Discord_Deploy || secrets.DISCORD_DEPLOY }}"
+          | curl -sS -H "Content-Type: application/json" -d @- "$WEBHOOK"
