@@ -10,29 +10,45 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  prettier:
+    name: Prettier
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Set up Node
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-
-      # Lightweight tooling install (no lockfile, no commit)
+          cache: "npm"
       - name: Install tooling
         run: |
           npm init -y >/dev/null 2>&1 || true
-          npm i -D --no-audit --no-fund prettier eslint stylelint stylelint-config-standard || true
-
-      # ---- Checks ----
+          npm i -D --no-audit --no-fund prettier
       - name: Prettier check
         run: npx prettier --check "**/*.{html,css,js,json,md}"
 
-      - name: ESLint (if configured)
+  eslint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: Install tooling (if configured)
+        run: |
+          npm init -y >/dev/null 2>&1 || true
+          # Only install if config exists (keeps this job green if you don't use ESLint yet)
+          if [ -f ".eslintrc" ] || [ -f ".eslintrc.json" ] || [ -f ".eslintrc.js" ] || [ -f ".eslintrc.cjs" ]; then
+            npm i -D --no-audit --no-fund eslint
+          else
+            echo "No ESLint config found; skipping install."
+          fi
+      - name: Run ESLint (if configured)
         run: |
           if [ -f ".eslintrc" ] || [ -f ".eslintrc.json" ] || [ -f ".eslintrc.js" ] || [ -f ".eslintrc.cjs" ]; then
             npx eslint . --max-warnings=0
@@ -40,7 +56,26 @@ jobs:
             echo "No ESLint config found; skipping."
           fi
 
-      - name: Stylelint (if configured)
+  stylelint:
+    name: Stylelint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: Install tooling (if configured)
+        run: |
+          npm init -y >/dev/null 2>&1 || true
+          if [ -f ".stylelintrc" ] || [ -f ".stylelintrc.json" ] || [ -f ".stylelintrc.cjs" ] || [ -f ".stylelintrc.js" ]; then
+            npm i -D --no-audit --no-fund stylelint stylelint-config-standard
+          else
+            echo "No Stylelint config found; skipping install."
+          fi
+      - name: Run Stylelint (if configured)
         run: |
           if [ -f ".stylelintrc" ] || [ -f ".stylelintrc.json" ] || [ -f ".stylelintrc.cjs" ] || [ -f ".stylelintrc.js" ]; then
             npx stylelint "**/*.css"
@@ -48,19 +83,33 @@ jobs:
             echo "No Stylelint config found; skipping."
           fi
 
-      # ---- Notifications ----
-      - name: Notify Discord on failure
-        if: failure()
-        run: |
-          msg="❌ CI failed in **${{ github.repository }}** on \`${{ github.ref_name }}\` by **${{ github.actor }}** · ${{ github.workflow }}\n${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          curl -sS -H "Content-Type: application/json" \
-            -d "{\"username\":\"Build Bot\",\"content\":$(printf %s "$msg" | jq -Rs .)}" \
-            "${{ secrets.DISCORD_WEBHOOK }}"
+  # Aggregate job that depends on all checks; useful to require a single "CI / all-checks" if you prefer
+  all-checks:
+    name: All checks
+    runs-on: ubuntu-latest
+    needs: [prettier, eslint, stylelint]
+    steps:
+      - run: echo "All checks completed."
 
-      - name: Notify Discord on success
-        if: success() && (github.ref == 'refs/heads/main' || github.event_name == 'pull_request')
+  # Discord notifications (runs once, based on overall status)
+  notify:
+    name: Discord notify
+    runs-on: ubuntu-latest
+    needs: [all-checks]
+    if: always()
+    steps:
+      - name: Prepare message
+        id: prep
+        shell: bash
         run: |
-          msg="✅ CI passed in **${{ github.repository }}** on \`${{ github.ref_name }}\` by **${{ github.actor }}** · ${{ github.workflow }}\n${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          if [[ "${{ needs.all-checks.result }}" == "success" ]]; then
+            echo "msg=✅ CI passed in **${{ github.repository }}** on \`${{ github.ref_name }}\` by **${{ github.actor }}** · ${{ github.workflow }}%0A${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
+          else
+            echo "msg=❌ CI failed in **${{ github.repository }}** on \`${{ github.ref_name }}\` by **${{ github.actor }}** · ${{ github.workflow }}%0A${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
+          fi
+      - name: Post to Discord (if secret present and not from fork)
+        if: ${{ secrets.DISCORD_WEBHOOK != '' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) }}
+        run: |
           curl -sS -H "Content-Type: application/json" \
-            -d "{\"username\":\"Build Bot\",\"content\":$(printf %s "$msg" | jq -Rs .)}" \
+            -d "{\"username\":\"Build Bot\",\"content\":\"${{ steps.prep.outputs.msg }}\"}" \
             "${{ secrets.DISCORD_WEBHOOK }}"
