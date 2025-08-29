@@ -1,92 +1,149 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Alteryx | Software</title>
-  <meta name="description" content="Learn about Alteryx, a drag-and-drop platform for data workflows." />
-  <link rel="stylesheet" href="../../css/style.css" />
-  <link rel="icon" href="../../images/favicon.png" />
-</head>
-<body>
-  <div data-include="../../partials/nav.html"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Alteryx | Software</title>
+    <meta
+      name="description"
+      content="Learn about Alteryx, a drag-and-drop platform for data workflows."
+    />
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="icon" href="../../images/favicon.png" />
+  </head>
+  <body>
+    <div data-include="../../partials/nav.html"></div>
 
-  <section class="hero hero--image" style="--hero-image: url('../../images/alteryx.jpg');">
-    <div class="container--wide">
-      <h1>Alteryx</h1>
-      <p>Alteryx is my go-to platform for building repeatable data workflows and automating processes that would normally
-          take hours of manual effort. While it’s known for its drag-and-drop interface (no coding required), it’s much
-          more than a visual tool — Alteryx can connect to nearly any data source, transform it, and output it in whatever
-          format the project requires.
-      </p>
-    </div>
-  </section>
+    <section
+      class="hero hero--image"
+      style="--hero-image: url(&quot;../../images/alteryx.jpg&quot;)"
+    >
+      <div class="container--wide">
+        <h1>Alteryx</h1>
+        <p>
+          Alteryx is my go-to platform for building repeatable data workflows
+          and automating processes that would normally take hours of manual
+          effort. While it’s known for its drag-and-drop interface (no coding
+          required), it’s much more than a visual tool — Alteryx can connect to
+          nearly any data source, transform it, and output it in whatever format
+          the project requires.
+        </p>
+      </div>
+    </section>
 
-  <section class="section">
-    <div class="container">
-      <a href="/software/" style="display:inline-block;margin-bottom:0.5rem;color:var(--link);text-decoration:none;">← Back to Software</a>
-      <p>It lets non‑coders blend, clean, and output data quickly.</p>
+    <section class="section">
+      <div class="container">
+        <a
+          href="/software/"
+          style="
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            color: var(--link);
+            text-decoration: none;
+          "
+          >← Back to Software</a
+        >
+        <p>It lets non‑coders blend, clean, and output data quickly.</p>
 
-      <h2>How I use Alteryx in practice</h2>
-      <div class="grid">
-        <div class="card stack">
-          <h3>Data Blending &amp; Cleansing</h3>
-          <p>Alteryx makes it easy to combine data from multiple places — Excel, SQL databases, cloud apps, and even flat
-              files — and then clean it up with tools for filtering, joining, parsing, and standardizing.
-          </p>
+        <h2>How I use Alteryx in practice</h2>
+        <div class="grid">
+          <div class="card stack">
+            <h3>Data Blending &amp; Cleansing</h3>
+            <p>
+              Alteryx makes it easy to combine data from multiple places —
+              Excel, SQL databases, cloud apps, and even flat files — and then
+              clean it up with tools for filtering, joining, parsing, and
+              standardizing.
+            </p>
+          </div>
+
+          <div class="card stack">
+            <h3>Automation &amp; Repeatability</h3>
+            <p>
+              Once a workflow is built, it can be run on-demand or scheduled,
+              ensuring that the same process is followed every time. This
+              removes human error and saves hours on recurring tasks.
+            </p>
+          </div>
+
+          <div class="card stack">
+            <h3>Advanced Analytics</h3>
+            <p>
+              Beyond simple cleaning, Alteryx has built-in tools for statistical
+              analysis, predictive modeling, and geospatial mapping. These
+              capabilities allow me to run deeper insights without switching
+              tools.
+            </p>
+          </div>
+
+          <div class="card stack">
+            <h3>Extensibility with Python &amp; R</h3>
+            <p>
+              For cases where drag-and-drop isn’t enough, Alteryx allows Python
+              and R scripts to be embedded directly inside workflows. This means
+              I can bring in powerful custom logic or machine learning models
+              without breaking the workflow.
+            </p>
+          </div>
+
+          <div class="card stack">
+            <h3>Seamless Outputs</h3>
+            <p>
+              Finished workflows can deliver results straight into Tableau
+              dashboards, Excel files, or databases, ready for analysis or
+              reporting.
+            </p>
+          </div>
         </div>
 
-        <div class="card stack">
-          <h3>Automation &amp; Repeatability</h3>
-          <p>Once a workflow is built, it can be run on-demand or scheduled, ensuring that the same process is followed
-              every time. This removes human error and saves hours on recurring tasks.
-          </p>
-        </div>
+        <p>
+          Alteryx acts as the central hub of my data projects — pulling raw
+          inputs from different systems, preparing and enriching them, and
+          passing clean, consistent data downstream to dashboards, reports, or
+          automated pipelines.
+        </p>
+      </div>
+    </section>
 
-        <div class="card stack">
-          <h3>Advanced Analytics</h3>
-          <p>Beyond simple cleaning, Alteryx has built-in tools for statistical analysis, predictive modeling, and
-              geospatial mapping. These capabilities allow me to run deeper insights without switching tools.
-          </p>
+    <footer class="footer">
+      <div
+        class="container"
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 1rem;
+          flex-wrap: wrap;
+        "
+      >
+        <div>
+          © <span id="year"></span> TediousTech Solutions • by Logan Meriwether
         </div>
-
-        <div class="card stack">
-          <h3>Extensibility with Python &amp; R</h3>
-          <p>For cases where drag-and-drop isn’t enough, Alteryx allows Python and R scripts to be embedded directly inside
-              workflows. This means I can bring in powerful custom logic or machine learning models without breaking the workflow.
-          </p>
-        </div>
-
-        <div class="card stack">
-          <h3>Seamless Outputs</h3>
-          <p>Finished workflows can deliver results straight into Tableau dashboards, Excel files, or databases, ready
-              for analysis or reporting.
-          </p>
+        <div class="nav__links">
+          <a href="mailto:loganm3210@gmail.com" aria-label="Email">Email</a>
+          <a
+            href="https://www.linkedin.com/in/logan-meriwether-679330210"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            >LinkedIn</a
+          >
+          <a
+            href="https://github.com/LoganM3120/tedioustech-solutions"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            >GitHub</a
+          >
         </div>
       </div>
+    </footer>
 
-      <p>Alteryx acts as the central hub of my data projects — pulling raw inputs from different systems, preparing and
-          enriching them, and passing clean, consistent data downstream to dashboards, reports, or automated pipelines.
-      </p>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap">
-      <div>© <span id="year"></span> TediousTech Solutions • by Logan Meriwether</div>
-      <div class="nav__links">
-        <a href="mailto:loganm3210@gmail.com" aria-label="Email">Email</a>
-        <a href="https://www.linkedin.com/in/logan-meriwether-679330210" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
-        <a href="https://github.com/LoganM3120/tedioustech-solutions" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
-      </div>
-    </div>
-  </footer>
-
-  <script src="../../js/nav.js" defer></script>
-  <script src="../../js/active-nav.js" defer></script>
-  <script src="../../js/includes.js" defer></script>
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
-</body>
+    <script src="../../js/nav.js" defer></script>
+    <script src="../../js/active-nav.js" defer></script>
+    <script src="../../js/includes.js" defer></script>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
 </html>

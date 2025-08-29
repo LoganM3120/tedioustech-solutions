@@ -34,12 +34,12 @@ window.initActiveNav = function () {
     if ($desktopNav)
       applyActiveToList(
         $desktopNav.querySelectorAll("a, summary[data-href]"),
-        targetHref
+        targetHref,
       );
     if ($mobileNav)
       applyActiveToList(
         $mobileNav.querySelectorAll("a, summary[data-href]"),
-        targetHref
+        targetHref,
       );
   };
 
@@ -94,7 +94,8 @@ window.initActiveNav = function () {
 
     if ("IntersectionObserver" in window) {
       const sections = [];
-      if ($services) sections.push({ el: $services, href: "index.html#services" });
+      if ($services)
+        sections.push({ el: $services, href: "index.html#services" });
       if ($about) sections.push({ el: $about, href: "index.html#about" });
       if ($contact) sections.push({ el: $contact, href: "index.html#contact" });
 
@@ -109,11 +110,11 @@ window.initActiveNav = function () {
               updateIfChanged(rec.href);
             } else {
               // If above first section, revert to Home
-              const firstTop =
-                sections[0]?.el?.getBoundingClientRect
-                  ? sections[0].el.getBoundingClientRect().top + window.scrollY
-                  : 0;
-              const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+              const firstTop = sections[0]?.el?.getBoundingClientRect
+                ? sections[0].el.getBoundingClientRect().top + window.scrollY
+                : 0;
+              const scrollY =
+                window.scrollY || document.documentElement.scrollTop || 0;
               if (scrollY + 120 < firstTop) updateIfChanged("index.html");
             }
           });
@@ -121,7 +122,7 @@ window.initActiveNav = function () {
         {
           rootMargin: "-35% 0px -55% 0px",
           threshold: 0.01,
-        }
+        },
       );
       sections.forEach((s) => sectionIO.observe(s.el));
 
@@ -133,13 +134,14 @@ window.initActiveNav = function () {
               if (entry.isIntersecting) updateIfChanged("index.html");
             });
           },
-          { rootMargin: "-90% 0px -10% 0px", threshold: 0.01 }
+          { rootMargin: "-90% 0px -10% 0px", threshold: 0.01 },
         );
         heroIO.observe($hero);
       }
     } else {
       // Fallback: position checks on scroll
-      const headerH = document.querySelector("header.site-header")?.offsetHeight || 64;
+      const headerH =
+        document.querySelector("header.site-header")?.offsetHeight || 64;
       const onScroll = () => {
         const y = (window.scrollY || 0) + headerH + 10;
         if ($contact && y >= $contact.offsetTop) {
@@ -186,7 +188,6 @@ window.initActiveNav = function () {
    * Portfolio filters
    * -------------------------- */
   (function filters() {
-
     const filterBtns = Array.from(document.querySelectorAll("[data-filter]"));
     const cards = Array.from(document.querySelectorAll("[data-tags]"));
     if (!filterBtns.length || !cards.length) return;
@@ -219,9 +220,9 @@ window.initActiveNav = function () {
 
     filterBtns.forEach((btn) =>
       btn.addEventListener("click", () => {
-          setActive(btn);
-          applyFilter(btn.dataset.filter);
-      })
+        setActive(btn);
+        applyFilter(btn.dataset.filter);
+      }),
     );
     // Initialize with the first button (typically "All")
     setActive(filterBtns[0]);

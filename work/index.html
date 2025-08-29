@@ -1,154 +1,256 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Portfolio | TediousTech Solutions</title>
-  <meta name="description" content="TediousTech Solutions by Logan Meriwether — selected automation, dashboard, and controls projects built with Alteryx, Tableau, and Python." />
-  <link rel="stylesheet" href="../css/style.css" />
-  <link rel="icon" href="../images/favicon.png" />
-  <!-- Preload hero poster for faster first paint -->
-  <link rel="preload" as="image" href="../images/universal_network%20-%20frame%20at%200m2s.jpg" />
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Portfolio | TediousTech Solutions</title>
+    <meta
+      name="description"
+      content="TediousTech Solutions by Logan Meriwether — selected automation, dashboard, and controls projects built with Alteryx, Tableau, and Python."
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="icon" href="../images/favicon.png" />
+    <!-- Preload hero poster for faster first paint -->
+    <link
+      rel="preload"
+      as="image"
+      href="../images/universal_network%20-%20frame%20at%200m2s.jpg"
+    />
+  </head>
+  <body>
+    <!-- Header / Nav -->
+    <div data-include="../partials/nav.html"></div>
 
-  <!-- Header / Nav -->
-  <div data-include="../partials/nav.html"></div>
-
-  <!-- Intro / Hero with background video -->
-  <section class="hero hero--video">
-    <video class="hero__video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1" poster="../images/universal_network%20-%20frame%20at%200m2s.jpg">
-      <source src="../videos/my_dna.mp4" type="video/mp4" />
-    </video>
-        <div class="container--wide">
-          <h1>My Work</h1>
-          <p>
-            Real-world automations, dashboards, and controls that reduce manual effort and make reporting reliable.
-            Redacted or sample data shown where needed. Ask for a quick walkthrough.
-          </p>
-          <div class="stack">
-            <div class="stack--s" role="group" aria-label="Filter projects">
-                <button class="btn btn--ghost" data-filter="all" aria-pressed="true">All</button>
-                <button class="btn btn--ghost" data-filter ="websites">Websites</button>
-                <button class="btn btn--ghost" data-filter="automation">Automation</button>
-                <button class="btn btn--ghost" data-filter="dashboards">Dashboards</button>
-            </div>
-            <a class="btn" href="mailto:loganm3210@gmail.com">Email Me</a>
+    <!-- Intro / Hero with background video -->
+    <section class="hero hero--video">
+      <video
+        class="hero__video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        aria-hidden="true"
+        tabindex="-1"
+        poster="../images/universal_network%20-%20frame%20at%200m2s.jpg"
+      >
+        <source src="../videos/my_dna.mp4" type="video/mp4" />
+      </video>
+      <div class="container--wide">
+        <h1>My Work</h1>
+        <p>
+          Real-world automations, dashboards, and controls that reduce manual
+          effort and make reporting reliable. Redacted or sample data shown
+          where needed. Ask for a quick walkthrough.
+        </p>
+        <div class="stack">
+          <div class="stack--s" role="group" aria-label="Filter projects">
+            <button
+              class="btn btn--ghost"
+              data-filter="all"
+              aria-pressed="true"
+            >
+              All
+            </button>
+            <button class="btn btn--ghost" data-filter="websites">
+              Websites
+            </button>
+            <button class="btn btn--ghost" data-filter="automation">
+              Automation
+            </button>
+            <button class="btn btn--ghost" data-filter="dashboards">
+              Dashboards
+            </button>
           </div>
+          <a class="btn" href="mailto:loganm3210@gmail.com">Email Me</a>
         </div>
-  </section>
-
-  <!-- Projects Grid -->
-  <section class="section">
-    <div class="container grid" id="projects">
-
-      <!-- Project Card 1 -->
-      <article class="card project-card" data-tags="automation websites">
-        <div class="thumb">
-          <img src="../images/Python-Openpyxl.jpg" alt="Alteryx/Python month-end automation" loading="lazy" decoding="async" />
-        </div>
-        <h3>Month-End Close: Excel → Python/Alteryx</h3>
-        <p>
-          Automated multi-file ingest, joins, and formatting; scheduled export to SharePoint with email summary.
-          <br><strong>Impact:</strong> 4h → 7m per cycle • On-time rate 99%.
-        </p>
-      </article>
-
-      <!-- Project Card 2 -->
-      <article class="card project-card" data-tags="dashboards">
-        <div class="thumb">
-          <img src="../images/tableau-kpi.jpg" alt="Tableau executive KPI dashboard" loading="lazy" decoding="async" />
-        </div>
-        <h3>Executive KPI Dashboard (Tableau)</h3>
-        <p>
-          Modeled finance KPIs with drill-downs and trends; added refresh pipeline and data quality checks.
-          <br><strong>Impact:</strong> 10× faster ad-hoc analysis • Adoption by leadership.
-        </p>
-      </article>
-
-      <!-- Project Card 3 -->
-      <article class="card project-card" data-tags="websites automation">
-        <div class="thumb">
-          <img src="../images/controls.jpg" alt="Data controls and exception checks" loading="lazy" decoding="async" />
-        </div>
-        <h3>Controls & Exception Checks</h3>
-        <p>
-          File presence & schema validation, threshold alerts, and exception flags with daily summaries.
-          <br><strong>Impact:</strong> −80% prep errors • Easier audit trails.
-        </p>
-      </article>
-
-      <!-- Project Card 4 -->
-      <article class="card project-card" data-tags="automation dashboards">
-        <div class="thumb">
-          <img src="../images/sales-ops.jpg" alt="Sales ops pipeline automation with dashboard" loading="lazy" decoding="async" />
-        </div>
-        <h3>Sales Ops Pipeline + Dashboard</h3>
-        <p>
-          CSV → clean → enrich → publish workflow with weekly metrics dashboard and email digests.
-          <br><strong>Impact:</strong> Hours saved weekly • Stakeholder self-serve insights.
-        </p>
-      </article>
-
-      <!-- Project Card 5 -->
-      <article class="card project-card" data-tags="dashboards">
-        <div class="thumb">
-          <img src="../images/forecasting.jpg" alt="Financial forecasting dashboard sample" loading="lazy" decoding="async" />
-        </div>
-        <h3>Financial Forecasting Snapshot</h3>
-        <p>
-          Modeled input drivers and scenario toggles; surfaced key deltas with clear visuals for decisions.
-          <br><strong>Impact:</strong> Faster reviews • Clearer “what-ifs.”
-        </p>
-      </article>
-
-      <!-- Project Card 6 -->
-      <article class="card project-card" data-tags="automation websites">
-        <div class="thumb">
-          <img src="../images/sharepoint-automation.jpg" alt="SharePoint automation and file routing" loading="lazy" decoding="async" />
-        </div>
-        <h3>SharePoint File Orchestration</h3>
-        <p>
-          Automated file routing, renaming, and archiving with integrity checks and failure alerts.
-          <br><strong>Impact:</strong> −90% manual handling • Traceable runs.
-        </p>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="section">
-    <div class="container center stack">
-      <h2>Want a quick walkthrough?</h2>
-      <p style="max-width:65ch">
-        I’m happy to show how these were built (with redacted or sample data) and outline a fast win for your team.
-      </p>
-      <div class="stack">
-        <a class="btn" href="https://calendly.com/YOUR-CALENDLY" target="_blank" rel="noopener noreferrer">Book a 15-min intro</a>
-        <a class="btn btn--ghost" href="/services/?open=all" target="_blank" rel="noopener noreferrer">View Services</a>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap">
-      <div>© <span id="year"></span> TediousTech Solutions • by Logan Meriwether</div>
-      <div class="nav__links">
-        <a href="mailto:loganm3210@gmail.com" aria-label="Email">Email</a>
-        <a href="https://www.linkedin.com/in/logan-meriwether-679330210" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
-        <a href="https://github.com/LoganM3120/tedioustech-solutions" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
+    <!-- Projects Grid -->
+    <section class="section">
+      <div class="container grid" id="projects">
+        <!-- Project Card 1 -->
+        <article class="card project-card" data-tags="automation websites">
+          <div class="thumb">
+            <img
+              src="../images/Python-Openpyxl.jpg"
+              alt="Alteryx/Python month-end automation"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <h3>Month-End Close: Excel → Python/Alteryx</h3>
+          <p>
+            Automated multi-file ingest, joins, and formatting; scheduled export
+            to SharePoint with email summary.
+            <br /><strong>Impact:</strong> 4h → 7m per cycle • On-time rate 99%.
+          </p>
+        </article>
+
+        <!-- Project Card 2 -->
+        <article class="card project-card" data-tags="dashboards">
+          <div class="thumb">
+            <img
+              src="../images/tableau-kpi.jpg"
+              alt="Tableau executive KPI dashboard"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <h3>Executive KPI Dashboard (Tableau)</h3>
+          <p>
+            Modeled finance KPIs with drill-downs and trends; added refresh
+            pipeline and data quality checks.
+            <br /><strong>Impact:</strong> 10× faster ad-hoc analysis • Adoption
+            by leadership.
+          </p>
+        </article>
+
+        <!-- Project Card 3 -->
+        <article class="card project-card" data-tags="websites automation">
+          <div class="thumb">
+            <img
+              src="../images/controls.jpg"
+              alt="Data controls and exception checks"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <h3>Controls & Exception Checks</h3>
+          <p>
+            File presence & schema validation, threshold alerts, and exception
+            flags with daily summaries.
+            <br /><strong>Impact:</strong> −80% prep errors • Easier audit
+            trails.
+          </p>
+        </article>
+
+        <!-- Project Card 4 -->
+        <article class="card project-card" data-tags="automation dashboards">
+          <div class="thumb">
+            <img
+              src="../images/sales-ops.jpg"
+              alt="Sales ops pipeline automation with dashboard"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <h3>Sales Ops Pipeline + Dashboard</h3>
+          <p>
+            CSV → clean → enrich → publish workflow with weekly metrics
+            dashboard and email digests.
+            <br /><strong>Impact:</strong> Hours saved weekly • Stakeholder
+            self-serve insights.
+          </p>
+        </article>
+
+        <!-- Project Card 5 -->
+        <article class="card project-card" data-tags="dashboards">
+          <div class="thumb">
+            <img
+              src="../images/forecasting.jpg"
+              alt="Financial forecasting dashboard sample"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <h3>Financial Forecasting Snapshot</h3>
+          <p>
+            Modeled input drivers and scenario toggles; surfaced key deltas with
+            clear visuals for decisions.
+            <br /><strong>Impact:</strong> Faster reviews • Clearer “what-ifs.”
+          </p>
+        </article>
+
+        <!-- Project Card 6 -->
+        <article class="card project-card" data-tags="automation websites">
+          <div class="thumb">
+            <img
+              src="../images/sharepoint-automation.jpg"
+              alt="SharePoint automation and file routing"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <h3>SharePoint File Orchestration</h3>
+          <p>
+            Automated file routing, renaming, and archiving with integrity
+            checks and failure alerts.
+            <br /><strong>Impact:</strong> −90% manual handling • Traceable
+            runs.
+          </p>
+        </article>
       </div>
-    </div>
-  </footer>
+    </section>
 
-  <script src="../js/nav.js" defer></script>
-  <script src="../js/active-nav.js" defer></script>
-  <script src="../js/includes.js" defer></script>
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
-</body>
+    <!-- CTA -->
+    <section class="section">
+      <div class="container center stack">
+        <h2>Want a quick walkthrough?</h2>
+        <p style="max-width: 65ch">
+          I’m happy to show how these were built (with redacted or sample data)
+          and outline a fast win for your team.
+        </p>
+        <div class="stack">
+          <a
+            class="btn"
+            href="https://calendly.com/YOUR-CALENDLY"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Book a 15-min intro</a
+          >
+          <a
+            class="btn btn--ghost"
+            href="/services/?open=all"
+            target="_blank"
+            rel="noopener noreferrer"
+            >View Services</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div
+        class="container"
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 1rem;
+          flex-wrap: wrap;
+        "
+      >
+        <div>
+          © <span id="year"></span> TediousTech Solutions • by Logan Meriwether
+        </div>
+        <div class="nav__links">
+          <a href="mailto:loganm3210@gmail.com" aria-label="Email">Email</a>
+          <a
+            href="https://www.linkedin.com/in/logan-meriwether-679330210"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            >LinkedIn</a
+          >
+          <a
+            href="https://github.com/LoganM3120/tedioustech-solutions"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            >GitHub</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <script src="../js/nav.js" defer></script>
+    <script src="../js/active-nav.js" defer></script>
+    <script src="../js/includes.js" defer></script>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
 </html>
-

@@ -1,188 +1,346 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>TediousTech Solutions | Automation & Analytics</title>
-  <meta name="description" content="TediousTech Solutions by Logan Meriwether — automation, dashboards, and controls for finance & operations teams using Alteryx, Tableau, and Python." />
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="icon" href="images/favicon.png" />
-  <!-- Preload hero poster for faster first paint -->
-  <link rel="preload" as="image" href="images/neural_network%20-%20frame%20at%200m19s.jpg" />
-</head>
-<body>
-  <!-- Header / Nav -->
-  <div data-include="partials/nav.html"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>TediousTech Solutions | Automation & Analytics</title>
+    <meta
+      name="description"
+      content="TediousTech Solutions by Logan Meriwether — automation, dashboards, and controls for finance & operations teams using Alteryx, Tableau, and Python."
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" href="images/favicon.png" />
+    <!-- Preload hero poster for faster first paint -->
+    <link
+      rel="preload"
+      as="image"
+      href="images/neural_network%20-%20frame%20at%200m19s.jpg"
+    />
+  </head>
+  <body>
+    <!-- Header / Nav -->
+    <div data-include="partials/nav.html"></div>
 
-  <!-- Hero (with background video) -->
-  <section class="hero hero--video">
-      <video class="hero__video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1" poster="images/neural_network%20-%20frame%20at%200m19s.jpg">
-          <source src="videos/neural_network.mp4" type="video/mp4" />
+    <!-- Hero (with background video) -->
+    <section class="hero hero--video">
+      <video
+        class="hero__video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        aria-hidden="true"
+        tabindex="-1"
+        poster="images/neural_network%20-%20frame%20at%200m19s.jpg"
+      >
+        <source src="videos/neural_network.mp4" type="video/mp4" />
       </video>
-  <div class="container--wide">
-      <h1>
+      <div class="container--wide">
+        <h1>
           Technical solutions that save
-        <span class="word-rotator" data-words="time.,money.,stress." aria-hidden="true">hours</span>
-        <span class="visually-hidden">Less tedious work. More time back.</span>
-      </h1>
-      <p>
-      Eliminate tedious work with smart automation, clear reporting, and clean websites — so you can move faster with
-          fewer errors at a cost that fits small teams and solo operators.
-      </p>
-      <div class="stack">
-          <a class="btn" href="https://calendly.com/YOUR-CALENDLY" target="_blank" rel="noopener noreferrer">Book a 15-min intro</a>
+          <span
+            class="word-rotator"
+            data-words="time.,money.,stress."
+            aria-hidden="true"
+            >hours</span
+          >
+          <span class="visually-hidden"
+            >Less tedious work. More time back.</span
+          >
+        </h1>
+        <p>
+          Eliminate tedious work with smart automation, clear reporting, and
+          clean websites — so you can move faster with fewer errors at a cost
+          that fits small teams and solo operators.
+        </p>
+        <div class="stack">
+          <a
+            class="btn"
+            href="https://calendly.com/YOUR-CALENDLY"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Book a 15-min intro</a
+          >
           <a class="btn btn--ghost" href="/services/?open=all">View Services</a>
-      </div>
-  </div>
-  </section>
-
-  <!-- Services -->
-  <section id="services" class="section">
-  <div class="container">
-    <h2>Services</h2>
-    <div class="grid services-grid">
-      <a href="/services/?open=automation#automation" class="card project-card" id="automation" style="text-decoration:none">
-        <div class="thumb"><img src="images/service-automation.jpg" alt="Automated Excel/SharePoint workflow" loading="lazy" decoding="async" /></div>
-        <h3>Automation & Workflows</h3>
-        <p>Cut clicks, cut errors. From Excel cleanups to Python/Alteryx/SQL pipelines.
-        <br><span style="color: var(--link); font-weight:600;">Learn more →</span>
-        </p>
-      </a>
-
-      <a href="/services/?open=dashboards#dashboards" class="card project-card" id="dashboards" style="text-decoration:none;">
-        <div class="thumb">
-          <img src="images/service-dashboard.jpg" alt="Simple marketing websites" loading="lazy" decoding="async" />
-        </div>
-        <h3>Dashboards & Reporting</h3>
-        <p>
-            See the signal, not the spreadsheet. Tableau and Excel dashboards that refresh on schedule.
-          <br><span style="color: var(--link); font-weight:600;">Learn more →</span>
-        </p>
-      </a>
-
-      <!-- Create Simple Websites card now links to dedicated service page -->
-      <a href="/services/?open=websites#websites" class="card project-card" id="websites" style="text-decoration:none;">
-        <div class="thumb">
-          <img src="images/websites-scratch.jpg" alt="Simple marketing websites" loading="lazy" decoding="async" />
-        </div>
-        <h3>Websites & Digital Presence</h3>
-        <p>
-            Clean, fast sites for people and small businesses — plus a resume→website generator.
-          <br><span style="color: var(--link); font-weight:600;">Learn more →</span>
-        </p>
-      </a>
-    </div>
-      <div style="margin-top: var(--space-m); text-align: center;">
-      <a class="btn btn--ghost" href="/services/?open=all">See all services</a>
-      </div>
-  </div>
-  </section>
-
-  <!-- Proof / KPIs -->
-  <section id="proof" class="section">
-    <div class="container">
-      <h2>Results</h2>
-      <div class="kpis">
-        <div class="kpi">
-          <div class="value">4h → 7m</div>
-          <div class="label">Month-end report time</div>
-        </div>
-        <div class="kpi">
-          <div class="value">–80%</div>
-          <div class="label">Prep errors before audit</div>
-        </div>
-        <div class="kpi">
-          <div class="value">+99%</div>
-          <div class="label">On-time refresh rate</div>
-        </div>
-        <div class="kpi">
-          <div class="value">10×</div>
-          <div class="label">Faster ad-hoc analysis</div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- About -->
-  <section id="about" class="section">
-    <div class="container">
-      <h2>About</h2>
-      <div class="stack">
-          <p>
-              Hi, I’m Logan. Before I even graduated with my Finance B.S., I was hired by <strong>JPMorgan Chase</strong>
-              -- they recognized the technical skills I was already building and gave me the opportunity to enhance them
-              at the largest bank in the U.S.
-          </p>
-          <p>
-              For the past <strong>3+ years</strong>, I’ve focused on <strong>strategic testing and automation</strong>,
-              building solutions that strengthen controls and simplify complex processes—most recently across international
-              regulatory reporting.
-          </p>
-          <p>
-              I blend business context with engineering discipline to deliver solutions that last: clear logic,
-              well-documented steps, and simple handoffs. My work helps teams move faster, reduce risk, and focus on what actually matters.
-          </p>
-          <a class="btn btn--ghost" href="/work/">View My Work</a>
-    </div>
-  </div>
-  </section>
+    <!-- Services -->
+    <section id="services" class="section">
+      <div class="container">
+        <h2>Services</h2>
+        <div class="grid services-grid">
+          <a
+            href="/services/?open=automation#automation"
+            class="card project-card"
+            id="automation"
+            style="text-decoration: none"
+          >
+            <div class="thumb">
+              <img
+                src="images/service-automation.jpg"
+                alt="Automated Excel/SharePoint workflow"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <h3>Automation & Workflows</h3>
+            <p>
+              Cut clicks, cut errors. From Excel cleanups to Python/Alteryx/SQL
+              pipelines. <br /><span
+                style="color: var(--link); font-weight: 600"
+                >Learn more →</span
+              >
+            </p>
+          </a>
 
-  <!-- Software I Use -->
-  <section id="software" class="section section--tight">
-    <div class="container">
-      <h2>Software I Use</h2>
-      <div class="tech-slider">
-        <button class="tech-slider__btn tech-slider__btn--prev" aria-label="Previous">&#10094;</button>
-        <div class="tech-slider__viewport">
-          <div class="tech-slider__track">
-            <a href="/software/python/" class="tech-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" /></a>
-            <a href="/software/alteryx/" class="tech-slide"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/alteryx.svg" alt="Alteryx" /></a>
-            <a href="/software/tableau/" class="tech-slide"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tableau.svg" alt="Tableau" /></a>
-            <a href="/software/web-development/" class="tech-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" /></a>
-            <a href="/software/web-development/" class="tech-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" /></a>
-            <a href="/software/web-development/" class="tech-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" /></a>
-            <a href="/software/github/" class="tech-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" /></a>
-            <a href="/software/oracle/" class="tech-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg" alt="Oracle" /></a>
-            <a href="/software/pycharm/" class="tech-slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pycharm/pycharm-original.svg" alt="PyCharm" /></a>
+          <a
+            href="/services/?open=dashboards#dashboards"
+            class="card project-card"
+            id="dashboards"
+            style="text-decoration: none"
+          >
+            <div class="thumb">
+              <img
+                src="images/service-dashboard.jpg"
+                alt="Simple marketing websites"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <h3>Dashboards & Reporting</h3>
+            <p>
+              See the signal, not the spreadsheet. Tableau and Excel dashboards
+              that refresh on schedule.
+              <br /><span style="color: var(--link); font-weight: 600"
+                >Learn more →</span
+              >
+            </p>
+          </a>
+
+          <!-- Create Simple Websites card now links to dedicated service page -->
+          <a
+            href="/services/?open=websites#websites"
+            class="card project-card"
+            id="websites"
+            style="text-decoration: none"
+          >
+            <div class="thumb">
+              <img
+                src="images/websites-scratch.jpg"
+                alt="Simple marketing websites"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <h3>Websites & Digital Presence</h3>
+            <p>
+              Clean, fast sites for people and small businesses — plus a
+              resume→website generator.
+              <br /><span style="color: var(--link); font-weight: 600"
+                >Learn more →</span
+              >
+            </p>
+          </a>
+        </div>
+        <div style="margin-top: var(--space-m); text-align: center">
+          <a class="btn btn--ghost" href="/services/?open=all"
+            >See all services</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- Proof / KPIs -->
+    <section id="proof" class="section">
+      <div class="container">
+        <h2>Results</h2>
+        <div class="kpis">
+          <div class="kpi">
+            <div class="value">4h → 7m</div>
+            <div class="label">Month-end report time</div>
+          </div>
+          <div class="kpi">
+            <div class="value">–80%</div>
+            <div class="label">Prep errors before audit</div>
+          </div>
+          <div class="kpi">
+            <div class="value">+99%</div>
+            <div class="label">On-time refresh rate</div>
+          </div>
+          <div class="kpi">
+            <div class="value">10×</div>
+            <div class="label">Faster ad-hoc analysis</div>
           </div>
         </div>
-        <button class="tech-slider__btn tech-slider__btn--next" aria-label="Next">&#10095;</button>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Contact / CTA -->
-  <section id="contact" class="section">
-    <div class="container center stack">
-      <h2>Ready to cut the tedious work?</h2>
-      <p class="stack--s" style="max-width:65ch">
-        Start with a quick conversation — see what we can automate or simplify for you.
-      </p>
-      <div class="stack">
-        <a class="btn" href="https://calendly.com/YOUR-CALENDLY" target="_blank" rel="noopener noreferrer">Book a 15-min intro</a>
-        <a class="btn btn--ghost" href="mailto:loganm3210@gmail.com">Email Me</a>
+    <!-- About -->
+    <section id="about" class="section">
+      <div class="container">
+        <h2>About</h2>
+        <div class="stack">
+          <p>
+            Hi, I’m Logan. Before I even graduated with my Finance B.S., I was
+            hired by <strong>JPMorgan Chase</strong>
+            -- they recognized the technical skills I was already building and
+            gave me the opportunity to enhance them at the largest bank in the
+            U.S.
+          </p>
+          <p>
+            For the past <strong>3+ years</strong>, I’ve focused on
+            <strong>strategic testing and automation</strong>, building
+            solutions that strengthen controls and simplify complex
+            processes—most recently across international regulatory reporting.
+          </p>
+          <p>
+            I blend business context with engineering discipline to deliver
+            solutions that last: clear logic, well-documented steps, and simple
+            handoffs. My work helps teams move faster, reduce risk, and focus on
+            what actually matters.
+          </p>
+          <a class="btn btn--ghost" href="/work/">View My Work</a>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap">
-      <div>© <span id="year"></span> TediousTech Solutions • by Logan Meriwether</div>
-      <div class="nav__links">
-        <a href="mailto:loganm3210@gmail.com" aria-label="Email">Email</a>
-        <a href="https://www.linkedin.com/in/logan-meriwether-679330210" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
-        <a href="https://github.com/LoganM3120/tedioustech-solutions" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
+    <!-- Software I Use -->
+    <section id="software" class="section section--tight">
+      <div class="container">
+        <h2>Software I Use</h2>
+        <div class="tech-slider">
+          <button
+            class="tech-slider__btn tech-slider__btn--prev"
+            aria-label="Previous"
+          >
+            &#10094;
+          </button>
+          <div class="tech-slider__viewport">
+            <div class="tech-slider__track">
+              <a href="/software/python/" class="tech-slide"
+                ><img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+                  alt="Python"
+              /></a>
+              <a href="/software/alteryx/" class="tech-slide"
+                ><img
+                  src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/alteryx.svg"
+                  alt="Alteryx"
+              /></a>
+              <a href="/software/tableau/" class="tech-slide"
+                ><img
+                  src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tableau.svg"
+                  alt="Tableau"
+              /></a>
+              <a href="/software/web-development/" class="tech-slide"
+                ><img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
+                  alt="HTML5"
+              /></a>
+              <a href="/software/web-development/" class="tech-slide"
+                ><img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"
+                  alt="CSS3"
+              /></a>
+              <a href="/software/web-development/" class="tech-slide"
+                ><img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+                  alt="JavaScript"
+              /></a>
+              <a href="/software/github/" class="tech-slide"
+                ><img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"
+                  alt="GitHub"
+              /></a>
+              <a href="/software/oracle/" class="tech-slide"
+                ><img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg"
+                  alt="Oracle"
+              /></a>
+              <a href="/software/pycharm/" class="tech-slide"
+                ><img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pycharm/pycharm-original.svg"
+                  alt="PyCharm"
+              /></a>
+            </div>
+          </div>
+          <button
+            class="tech-slider__btn tech-slider__btn--next"
+            aria-label="Next"
+          >
+            &#10095;
+          </button>
+        </div>
       </div>
-    </div>
-  </footer>
+    </section>
 
-  <script src="js/nav.js" defer></script>
-  <script src="js/active-nav.js" defer></script>
-  <script src="js/includes.js" defer></script>
-  <script src="js/script.js" defer></script>
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
-</body>
+    <!-- Contact / CTA -->
+    <section id="contact" class="section">
+      <div class="container center stack">
+        <h2>Ready to cut the tedious work?</h2>
+        <p class="stack--s" style="max-width: 65ch">
+          Start with a quick conversation — see what we can automate or simplify
+          for you.
+        </p>
+        <div class="stack">
+          <a
+            class="btn"
+            href="https://calendly.com/YOUR-CALENDLY"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Book a 15-min intro</a
+          >
+          <a class="btn btn--ghost" href="mailto:loganm3210@gmail.com"
+            >Email Me</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div
+        class="container"
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 1rem;
+          flex-wrap: wrap;
+        "
+      >
+        <div>
+          © <span id="year"></span> TediousTech Solutions • by Logan Meriwether
+        </div>
+        <div class="nav__links">
+          <a href="mailto:loganm3210@gmail.com" aria-label="Email">Email</a>
+          <a
+            href="https://www.linkedin.com/in/logan-meriwether-679330210"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            >LinkedIn</a
+          >
+          <a
+            href="https://github.com/LoganM3120/tedioustech-solutions"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            >GitHub</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/nav.js" defer></script>
+    <script src="js/active-nav.js" defer></script>
+    <script src="js/includes.js" defer></script>
+    <script src="js/script.js" defer></script>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
 </html>

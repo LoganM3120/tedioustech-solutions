@@ -1,101 +1,257 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Software | TediousTech Solutions</title>
-  <meta name="description" content="Learn about the tools I use, from Python to Alteryx." />
-  <link rel="stylesheet" href="../css/style.css" />
-  <link rel="icon" href="../images/favicon.png" />
-</head>
-<body>
-  <div data-include="../partials/nav.html"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Software | TediousTech Solutions</title>
+    <meta
+      name="description"
+      content="Learn about the tools I use, from Python to Alteryx."
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="icon" href="../images/favicon.png" />
+  </head>
+  <body>
+    <div data-include="../partials/nav.html"></div>
 
-  <section class="hero hero--video">
-    <video class="hero__video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1" poster="../images/universal_network%20-%20frame%20at%200m2s.jpg">
-      <source src="../videos/softwares.mp4" type="video/mp4" />
-    </video>
-    <div class="container--wide">
-      <h1>Software</h1>
-      <p>These are the core tools behind my projects. Click any to learn more.</p>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="grid services-grid">
-        <!-- Python card -->
-        <a id="python" href="/software/python/" class="card project-card" style="text-decoration:none;">
-          <div class="thumb"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" /></div>
-          <h3>Python</h3>
-          <p>Versatile language for automation, data analysis, and more.<br><span style="color: var(--link); font-weight:600;">Learn more →</span></p>
-        </a>
-
-        <!-- Alteryx card -->
-        <a id="alteryx" href="/software/alteryx/" class="card project-card" style="text-decoration:none;">
-          <div class="thumb"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/alteryx.svg" alt="Alteryx" /></div>
-          <h3>Alteryx</h3>
-          <p>Drag‑and‑drop workflows for data prep, blending, and automation.<br><span style="color: var(--link); font-weight:600;">Learn more →</span></p>
-        </a>
-
-        <!-- Tableau card -->
-        <a id="tableau" href="/software/tableau/" class="card project-card" style="text-decoration:none;">
-          <div class="thumb"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tableau.svg" alt="Tableau" /></div>
-          <h3>Tableau</h3>
-          <p>Interactive dashboards and visual analytics for fast insight.<br><span style="color: var(--link); font-weight:600;">Learn more →</span></p>
-        </a>
-
-        <!-- Web Development card -->
-        <a id="web-development" href="/software/web-development/" class="card project-card" style="text-decoration:none;">
-          <div class="thumb" style="display:flex;gap:0.5rem;justify-content:center;align-items:center;">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" />
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" />
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" />
-          </div>
-          <h3>HTML, CSS & JavaScript</h3>
-          <p>Foundational trio for building fast, responsive websites.<br><span style="color: var(--link); font-weight:600;">Learn more →</span></p>
-        </a>
-
-        <!-- GitHub card -->
-        <a id="github" href="/software/github/" class="card project-card" style="text-decoration:none;">
-          <div class="thumb"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" /></div>
-          <h3>GitHub</h3>
-          <p>Version control and collaboration for code and documentation.<br><span style="color: var(--link); font-weight:600;">Learn more →</span></p>
-        </a>
-
-        <!-- Oracle card -->
-        <a id="oracle" href="/software/oracle/" class="card project-card" style="text-decoration:none;">
-          <div class="thumb"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg" alt="Oracle" /></div>
-          <h3>Oracle</h3>
-          <p>Enterprise database platform for storing and querying data.<br><span style="color: var(--link); font-weight:600;">Learn more →</span></p>
-        </a>
-
-        <!-- PyCharm card -->
-        <a id="pycharm" href="/software/pycharm/" class="card project-card" style="text-decoration:none;">
-          <div class="thumb"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pycharm/pycharm-original.svg" alt="PyCharm" /></div>
-          <h3>PyCharm</h3>
-          <p>IDE that streamlines Python development and debugging.<br><span style="color: var(--link); font-weight:600;">Learn more →</span></p>
-        </a>
+    <section class="hero hero--video">
+      <video
+        class="hero__video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        aria-hidden="true"
+        tabindex="-1"
+        poster="../images/universal_network%20-%20frame%20at%200m2s.jpg"
+      >
+        <source src="../videos/softwares.mp4" type="video/mp4" />
+      </video>
+      <div class="container--wide">
+        <h1>Software</h1>
+        <p>
+          These are the core tools behind my projects. Click any to learn more.
+        </p>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <footer class="footer">
-    <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap">
-      <div>© <span id="year"></span> TediousTech Solutions • by Logan Meriwether</div>
-      <div class="nav__links">
-        <a href="mailto:loganm3210@gmail.com" aria-label="Email">Email</a>
-        <a href="https://www.linkedin.com/in/logan-meriwether-679330210" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
-        <a href="https://github.com/LoganM3120/tedioustech-solutions" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
+    <section class="section">
+      <div class="container">
+        <div class="grid services-grid">
+          <!-- Python card -->
+          <a
+            id="python"
+            href="/software/python/"
+            class="card project-card"
+            style="text-decoration: none"
+          >
+            <div class="thumb">
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+                alt="Python"
+              />
+            </div>
+            <h3>Python</h3>
+            <p>
+              Versatile language for automation, data analysis, and more.<br /><span
+                style="color: var(--link); font-weight: 600"
+                >Learn more →</span
+              >
+            </p>
+          </a>
+
+          <!-- Alteryx card -->
+          <a
+            id="alteryx"
+            href="/software/alteryx/"
+            class="card project-card"
+            style="text-decoration: none"
+          >
+            <div class="thumb">
+              <img
+                src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/alteryx.svg"
+                alt="Alteryx"
+              />
+            </div>
+            <h3>Alteryx</h3>
+            <p>
+              Drag‑and‑drop workflows for data prep, blending, and
+              automation.<br /><span
+                style="color: var(--link); font-weight: 600"
+                >Learn more →</span
+              >
+            </p>
+          </a>
+
+          <!-- Tableau card -->
+          <a
+            id="tableau"
+            href="/software/tableau/"
+            class="card project-card"
+            style="text-decoration: none"
+          >
+            <div class="thumb">
+              <img
+                src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tableau.svg"
+                alt="Tableau"
+              />
+            </div>
+            <h3>Tableau</h3>
+            <p>
+              Interactive dashboards and visual analytics for fast insight.<br /><span
+                style="color: var(--link); font-weight: 600"
+                >Learn more →</span
+              >
+            </p>
+          </a>
+
+          <!-- Web Development card -->
+          <a
+            id="web-development"
+            href="/software/web-development/"
+            class="card project-card"
+            style="text-decoration: none"
+          >
+            <div
+              class="thumb"
+              style="
+                display: flex;
+                gap: 0.5rem;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
+                alt="HTML5"
+              />
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"
+                alt="CSS3"
+              />
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+                alt="JavaScript"
+              />
+            </div>
+            <h3>HTML, CSS & JavaScript</h3>
+            <p>
+              Foundational trio for building fast, responsive websites.<br /><span
+                style="color: var(--link); font-weight: 600"
+                >Learn more →</span
+              >
+            </p>
+          </a>
+
+          <!-- GitHub card -->
+          <a
+            id="github"
+            href="/software/github/"
+            class="card project-card"
+            style="text-decoration: none"
+          >
+            <div class="thumb">
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"
+                alt="GitHub"
+              />
+            </div>
+            <h3>GitHub</h3>
+            <p>
+              Version control and collaboration for code and documentation.<br /><span
+                style="color: var(--link); font-weight: 600"
+                >Learn more →</span
+              >
+            </p>
+          </a>
+
+          <!-- Oracle card -->
+          <a
+            id="oracle"
+            href="/software/oracle/"
+            class="card project-card"
+            style="text-decoration: none"
+          >
+            <div class="thumb">
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg"
+                alt="Oracle"
+              />
+            </div>
+            <h3>Oracle</h3>
+            <p>
+              Enterprise database platform for storing and querying data.<br /><span
+                style="color: var(--link); font-weight: 600"
+                >Learn more →</span
+              >
+            </p>
+          </a>
+
+          <!-- PyCharm card -->
+          <a
+            id="pycharm"
+            href="/software/pycharm/"
+            class="card project-card"
+            style="text-decoration: none"
+          >
+            <div class="thumb">
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pycharm/pycharm-original.svg"
+                alt="PyCharm"
+              />
+            </div>
+            <h3>PyCharm</h3>
+            <p>
+              IDE that streamlines Python development and debugging.<br /><span
+                style="color: var(--link); font-weight: 600"
+                >Learn more →</span
+              >
+            </p>
+          </a>
+        </div>
       </div>
-    </div>
-  </footer>
+    </section>
 
-  <script src="../js/nav.js" defer></script>
-  <script src="../js/active-nav.js" defer></script>
-  <script src="../js/includes.js" defer></script>
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
-</body>
+    <footer class="footer">
+      <div
+        class="container"
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 1rem;
+          flex-wrap: wrap;
+        "
+      >
+        <div>
+          © <span id="year"></span> TediousTech Solutions • by Logan Meriwether
+        </div>
+        <div class="nav__links">
+          <a href="mailto:loganm3210@gmail.com" aria-label="Email">Email</a>
+          <a
+            href="https://www.linkedin.com/in/logan-meriwether-679330210"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            >LinkedIn</a
+          >
+          <a
+            href="https://github.com/LoganM3120/tedioustech-solutions"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            >GitHub</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <script src="../js/nav.js" defer></script>
+    <script src="../js/active-nav.js" defer></script>
+    <script src="../js/includes.js" defer></script>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
 </html>

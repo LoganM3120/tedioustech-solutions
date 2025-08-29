@@ -1,97 +1,161 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Oracle | Software</title>
-  <meta name="description" content="Learn about Oracle, a powerful enterprise database system." />
-  <link rel="stylesheet" href="../../css/style.css" />
-  <link rel="icon" href="../../images/favicon.png" />
-</head>
-<body>
-  <div data-include="../../partials/nav.html"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Oracle | Software</title>
+    <meta
+      name="description"
+      content="Learn about Oracle, a powerful enterprise database system."
+    />
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="icon" href="../../images/favicon.png" />
+  </head>
+  <body>
+    <div data-include="../../partials/nav.html"></div>
 
-  <section class="hero hero--video">
-    <video class="hero__video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1" poster="../../images/neural_network%20-%20frame%20at%200m19s.jpg">
-          <source src="../../videos/data_connection.mp4" type="video/mp4" />
-    </video>
-    <div class="container--wide">
-      <h1>Oracle</h1>
-      <p>Oracle is one of the most widely used relational database systems in large organizations. It’s designed for
-          handling massive amounts of data securely, reliably, and at scale. In practice, Oracle databases serve as the
-          backbone for storing, organizing, and retrieving critical business information.
-      </p>
-    </div>
-  </section>
+    <section class="hero hero--video">
+      <video
+        class="hero__video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        aria-hidden="true"
+        tabindex="-1"
+        poster="../../images/neural_network%20-%20frame%20at%200m19s.jpg"
+      >
+        <source src="../../videos/data_connection.mp4" type="video/mp4" />
+      </video>
+      <div class="container--wide">
+        <h1>Oracle</h1>
+        <p>
+          Oracle is one of the most widely used relational database systems in
+          large organizations. It’s designed for handling massive amounts of
+          data securely, reliably, and at scale. In practice, Oracle databases
+          serve as the backbone for storing, organizing, and retrieving critical
+          business information.
+        </p>
+      </div>
+    </section>
 
-  <section class="section">
-    <div class="container">
-      <a href="/software/" style="display:inline-block;margin-bottom:0.5rem;color:var(--link);text-decoration:none;">← Back to Software</a>
-      <p>It provides robust SQL, security, and tools for managing critical information.</p>
+    <section class="section">
+      <div class="container">
+        <a
+          href="/software/"
+          style="
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            color: var(--link);
+            text-decoration: none;
+          "
+          >← Back to Software</a
+        >
+        <p>
+          It provides robust SQL, security, and tools for managing critical
+          information.
+        </p>
 
-      <h2>How I use Oracle in practice</h2>
-      <div class="grid">
-        <div class="card stack">
-          <h3>SQL Querying</h3>
-          <p>Oracle supports powerful SQL (Structured Query Language), which I use to pull, filter, and transform data.
-              Whether I’m joining multiple tables, calculating metrics, or preparing datasets for analysis, SQL is the
-              primary way to interact with the database.
-          </p>
+        <h2>How I use Oracle in practice</h2>
+        <div class="grid">
+          <div class="card stack">
+            <h3>SQL Querying</h3>
+            <p>
+              Oracle supports powerful SQL (Structured Query Language), which I
+              use to pull, filter, and transform data. Whether I’m joining
+              multiple tables, calculating metrics, or preparing datasets for
+              analysis, SQL is the primary way to interact with the database.
+            </p>
+          </div>
+
+          <div class="card stack">
+            <h3>Data Warehousing</h3>
+            <p>
+              Many companies use Oracle not just for day-to-day transactions,
+              but also as a warehouse to consolidate data from different
+              systems. This creates a central source of truth for reporting and
+              analytics.
+            </p>
+          </div>
+
+          <div class="card stack">
+            <h3>Integration with Tools</h3>
+            <p>
+              Oracle data can be connected directly into workflows in Alteryx,
+              visualized in Tableau, or even queried from Python. This makes it
+              possible to build automated reporting pipelines that always pull
+              from the latest information.
+            </p>
+          </div>
+
+          <div class="card stack">
+            <h3>Performance &amp; Scale</h3>
+            <p>
+              Oracle is optimized for speed and reliability, even when dealing
+              with billions of records. Features like indexing, partitioning,
+              and query optimization ensure that results come back quickly even
+              for complex queries.
+            </p>
+          </div>
+
+          <div class="card stack">
+            <h3>Security &amp; Governance</h3>
+            <p>
+              Since Oracle is often the home for sensitive financial or customer
+              data, it includes strong access controls and auditing tools —
+              ensuring the right people see the right data at the right time.
+            </p>
+          </div>
         </div>
 
-        <div class="card stack">
-          <h3>Data Warehousing</h3>
-          <p>Many companies use Oracle not just for day-to-day transactions, but also as a warehouse to consolidate data
-              from different systems. This creates a central source of truth for reporting and analytics.
-          </p>
-        </div>
+        <p>
+          In short, Oracle acts as the engine behind enterprise data — a secure
+          and scalable system where critical information lives, ready to be
+          queried, analyzed, and turned into actionable insights.
+        </p>
+      </div>
+    </section>
 
-        <div class="card stack">
-          <h3>Integration with Tools</h3>
-          <p>Oracle data can be connected directly into workflows in Alteryx, visualized in Tableau, or even queried from
-              Python. This makes it possible to build automated reporting pipelines that always pull from the latest
-              information.
-          </p>
+    <footer class="footer">
+      <div
+        class="container"
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 1rem;
+          flex-wrap: wrap;
+        "
+      >
+        <div>
+          © <span id="year"></span> TediousTech Solutions • by Logan Meriwether
         </div>
-
-        <div class="card stack">
-          <h3>Performance &amp; Scale</h3>
-          <p>Oracle is optimized for speed and reliability, even when dealing with billions of records. Features like
-              indexing, partitioning, and query optimization ensure that results come back quickly even for complex
-              queries.
-          </p>
-        </div>
-
-        <div class="card stack">
-          <h3>Security &amp; Governance</h3>
-          <p>Since Oracle is often the home for sensitive financial or customer data, it includes strong access controls
-              and auditing tools — ensuring the right people see the right data at the right time.
-          </p>
+        <div class="nav__links">
+          <a href="mailto:loganm3210@gmail.com" aria-label="Email">Email</a>
+          <a
+            href="https://www.linkedin.com/in/logan-meriwether-679330210"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            >LinkedIn</a
+          >
+          <a
+            href="https://github.com/LoganM3120/tedioustech-solutions"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            >GitHub</a
+          >
         </div>
       </div>
+    </footer>
 
-      <p>In short, Oracle acts as the engine behind enterprise data — a secure and scalable system where critical
-          information lives, ready to be queried, analyzed, and turned into actionable insights.
-      </p>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap">
-      <div>© <span id="year"></span> TediousTech Solutions • by Logan Meriwether</div>
-      <div class="nav__links">
-        <a href="mailto:loganm3210@gmail.com" aria-label="Email">Email</a>
-        <a href="https://www.linkedin.com/in/logan-meriwether-679330210" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
-        <a href="https://github.com/LoganM3120/tedioustech-solutions" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
-      </div>
-    </div>
-  </footer>
-
-  <script src="../../js/nav.js" defer></script>
-  <script src="../../js/active-nav.js" defer></script>
-  <script src="../../js/includes.js" defer></script>
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
-</body>
+    <script src="../../js/nav.js" defer></script>
+    <script src="../../js/active-nav.js" defer></script>
+    <script src="../../js/includes.js" defer></script>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
 </html>

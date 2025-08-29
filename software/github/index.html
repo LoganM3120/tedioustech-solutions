@@ -1,91 +1,144 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>GitHub | Software</title>
-  <meta name="description" content="Learn about GitHub, a platform for hosting code and version control." />
-  <link rel="stylesheet" href="../../css/style.css" />
-  <link rel="icon" href="../../images/favicon.png" />
-</head>
-<body>
-  <div data-include="../../partials/nav.html"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>GitHub | Software</title>
+    <meta
+      name="description"
+      content="Learn about GitHub, a platform for hosting code and version control."
+    />
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="icon" href="../../images/favicon.png" />
+  </head>
+  <body>
+    <div data-include="../../partials/nav.html"></div>
 
-  <section class="hero hero--image" style="--hero-image: url('../../images/github.jpg');">
-    <div class="container--wide">
-      <h1>GitHub</h1>
-      <p>GitHub is the platform I use to store, track, and collaborate on code. At its core, it’s built on Git version
-          control, which means every change I make is tracked, reversible, and documented. But GitHub goes far beyond just
-          hosting code — it’s the backbone for collaboration and automation in modern development.
-      </p>
-    </div>
-  </section>
+    <section
+      class="hero hero--image"
+      style="--hero-image: url(&quot;../../images/github.jpg&quot;)"
+    >
+      <div class="container--wide">
+        <h1>GitHub</h1>
+        <p>
+          GitHub is the platform I use to store, track, and collaborate on code.
+          At its core, it’s built on Git version control, which means every
+          change I make is tracked, reversible, and documented. But GitHub goes
+          far beyond just hosting code — it’s the backbone for collaboration and
+          automation in modern development.
+        </p>
+      </div>
+    </section>
 
-  <section class="section">
-    <div class="container">
-      <a href="/software/" style="display:inline-block;margin-bottom:0.5rem;color:var(--link);text-decoration:none;">← Back to Software</a>
-      <p>It enables collaboration, reviews, and automated deployments.</p>
+    <section class="section">
+      <div class="container">
+        <a
+          href="/software/"
+          style="
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            color: var(--link);
+            text-decoration: none;
+          "
+          >← Back to Software</a
+        >
+        <p>It enables collaboration, reviews, and automated deployments.</p>
 
-      <h2>How I use GitHub in practice</h2>
-      <div class="grid">
-        <div class="card stack">
-          <h3>Version Control</h3>
-          <p>Every change is committed with a history log, so I can track exactly what was updated, why, and when. If
-              something breaks, I can roll back to a previous version.
-          </p>
+        <h2>How I use GitHub in practice</h2>
+        <div class="grid">
+          <div class="card stack">
+            <h3>Version Control</h3>
+            <p>
+              Every change is committed with a history log, so I can track
+              exactly what was updated, why, and when. If something breaks, I
+              can roll back to a previous version.
+            </p>
+          </div>
+
+          <div class="card stack">
+            <h3>Collaboration &amp; Reviews</h3>
+            <p>
+              GitHub makes it easy to branch off, experiment, and then merge
+              work back in through pull requests. This ensures changes are
+              reviewed and tested before going live.
+            </p>
+          </div>
+
+          <div class="card stack">
+            <h3>Project Organization</h3>
+            <p>
+              Repositories can include not only code, but also documentation,
+              issues, and task boards. This keeps projects structured and
+              transparent.
+            </p>
+          </div>
+
+          <div class="card stack">
+            <h3>Automation with GitHub Actions</h3>
+            <p>
+              Workflows like automated testing, linting, or deployments can run
+              directly from GitHub whenever code is pushed. This helps ensure
+              quality and speeds up delivery.
+            </p>
+          </div>
+
+          <div class="card stack">
+            <h3>Integration with Other Tools</h3>
+            <p>
+              GitHub connects seamlessly with IDEs like PyCharm, CI/CD
+              pipelines, and even web hosting services — allowing code updates
+              to flow smoothly from development to production.
+            </p>
+          </div>
         </div>
 
-        <div class="card stack">
-          <h3>Collaboration &amp; Reviews</h3>
-          <p>GitHub makes it easy to branch off, experiment, and then merge work back in through pull requests. This
-              ensures changes are reviewed and tested before going live.
-          </p>
-        </div>
+        <p>
+          GitHub is essentially the control center for coding projects. It
+          ensures that my work (and my clients’ projects) are consistent,
+          secure, and always ready to scale or improve over time.
+        </p>
+      </div>
+    </section>
 
-        <div class="card stack">
-          <h3>Project Organization</h3>
-          <p>Repositories can include not only code, but also documentation, issues, and task boards. This keeps
-              projects structured and transparent.
-          </p>
+    <footer class="footer">
+      <div
+        class="container"
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 1rem;
+          flex-wrap: wrap;
+        "
+      >
+        <div>
+          © <span id="year"></span> TediousTech Solutions • by Logan Meriwether
         </div>
-
-        <div class="card stack">
-          <h3>Automation with GitHub Actions</h3>
-          <p>Workflows like automated testing, linting, or deployments can run directly from GitHub whenever code is
-              pushed. This helps ensure quality and speeds up delivery.
-          </p>
-        </div>
-
-        <div class="card stack">
-          <h3>Integration with Other Tools</h3>
-          <p>GitHub connects seamlessly with IDEs like PyCharm, CI/CD pipelines, and even web hosting services — allowing
-              code updates to flow smoothly from development to production.
-          </p>
+        <div class="nav__links">
+          <a href="mailto:loganm3210@gmail.com" aria-label="Email">Email</a>
+          <a
+            href="https://www.linkedin.com/in/logan-meriwether-679330210"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            >LinkedIn</a
+          >
+          <a
+            href="https://github.com/LoganM3120/tedioustech-solutions"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            >GitHub</a
+          >
         </div>
       </div>
+    </footer>
 
-      <p>GitHub is essentially the control center for coding projects. It ensures that my work (and my clients’ projects)
-          are consistent, secure, and always ready to scale or improve over time.
-      </p>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap">
-      <div>© <span id="year"></span> TediousTech Solutions • by Logan Meriwether</div>
-      <div class="nav__links">
-        <a href="mailto:loganm3210@gmail.com" aria-label="Email">Email</a>
-        <a href="https://www.linkedin.com/in/logan-meriwether-679330210" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
-        <a href="https://github.com/LoganM3120/tedioustech-solutions" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
-      </div>
-    </div>
-  </footer>
-
-  <script src="../../js/nav.js" defer></script>
-  <script src="../../js/active-nav.js" defer></script>
-  <script src="../../js/includes.js" defer></script>
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
-</body>
+    <script src="../../js/nav.js" defer></script>
+    <script src="../../js/active-nav.js" defer></script>
+    <script src="../../js/includes.js" defer></script>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
 </html>
