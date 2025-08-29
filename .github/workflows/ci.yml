@@ -1,0 +1,69 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # Install only what's needed for lightweight checks
+      - name: Install tooling
+        run: |
+          npm init -y >/dev/null 2>&1 || true
+          npm i -D prettier eslint stylelint stylelint-config-standard || true
+
+      # Prettier: format gate (no files changed allowed)
+      - name: Prettier check
+        run: npx prettier --check "**/*.{html,css,js,json,md}"
+
+      # ESLint (runs only if config exists)
+      - name: ESLint (if configured)
+        run: |
+          if [ -f ".eslintrc" ] || [ -f ".eslintrc.json" ] || [ -f ".eslintrc.js" ]; then
+            npx eslint . --max-warnings=0
+          else
+            echo "No ESLint config found; skipping."
+          fi
+
+      # Stylelint (runs only if config exists)
+      - name: Stylelint (if configured)
+        run: |
+          if [ -f ".stylelintrc" ] || [ -f ".stylelintrc.json" ] || [ -f ".stylelintrc.cjs" ] || [ -f ".stylelintrc.js" ]; then
+            npx stylelint "**/*.css"
+          else
+            echo "No Stylelint config found; skipping."
+          fi
+
+      # (Optional) Basic HTML link check — uncomment to enable
+      # - name: Link check (lychee)
+      #   uses: lycheeverse/lychee-action@v2
+      #   with:
+      #     args: --no-progress --require-https --verbose "**/*.html"
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Notify Discord ONLY on failure
+      - name: Notify Discord on failure
+        if: failure()
+        run: |
+          payload=$(jq -n \
+            --arg repo "${{ github.repository }}" \
+            --arg wf   "${{ github.workflow }}" \
+            --arg run  "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --arg ref  "${{ github.ref_name }}" \
+            --arg actor "${{ github.actor }}" \
+            '{username:"Build Bot", content: ("❌ CI failed in **" + $repo + "** on `"+$ref+"` by **"+$actor+"** · " + $wf + "\n" + $run)}')
+          curl -sS -H "Content-Type: application/json" -d "$payload" "${{ secrets.DISCORD_WEBHOOK }}"
