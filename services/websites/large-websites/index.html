@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Personal Websites | TediousTech Solutions</title>
+    <meta
+      name="description"
+      content="Clean, fast sites that convert visitors into customers without agency pricing."
+    />
+    <link rel="stylesheet" href="../../../css/style.css" />
+    <link rel="icon" href="../../../images/favicon.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Header / Nav -->
+    <div data-include="../../../partials/nav.html"></div>
+
+    <!-- Hero -->
+    <section id="hero" class="hero">
+      <div class="container--wide hero__grid">
+        <div class="hero__text">
+          <p class="eyebrow">
+            Websites & Digital Presence <strong>&vert; Personal Website</strong>
+          </p>
+          <h1>Launch a site that wins clients—fast.</h1>
+          <p>
+            We build clean, fast sites that convert more visitors into paying
+            customers—without agency pricing.
+          </p>
+          <div class="stack stack--s">
+            <a class="btn" href="#packages">Choose your plan</a>
+            <a class="btn btn--ghost" href="#quote">Get a quote</a>
+          </div>
+        </div>
+        <div class="hero__proof">
+          <div class="carousel">
+            <div class="carousel__item active">
+              <img src="../../../images/github.jpg" alt="Case study 1" />
+              <p>+38% time-on-page</p>
+            </div>
+            <div class="carousel__item">
+              <img src="../../../images/alteryx.jpg" alt="Case study 2" />
+              <p>-42% bounce</p>
+            </div>
+            <div class="carousel__item">
+              <img src="../../../images/pycharm.jpg" alt="Case study 3" />
+              <p>Fewer support emails after “How it works” revamp</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Problem / Solution / Outcome -->
+    <section id="features" class="section persuasion-strip">
+      <div class="container grid">
+        <div class="card">
+          <h3>The Problem</h3>
+          <p>Template bloat, slow loads, unclear navigation.</p>
+        </div>
+        <div class="card">
+          <h3>Our Solution</h3>
+          <p>Lean architecture, focused copy, performance budgets.</p>
+        </div>
+        <div class="card">
+          <h3>Your Outcome</h3>
+          <p>Clear journeys, faster pages, more inquiries.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Offer Configurator -->
+    <section id="packages" class="section">
+      <div class="container">
+        <h2>Choose your plan</h2>
+        <div class="package-tabs">
+          <button class="tab active" data-target="starter">
+            Resume Upload
+          </button>
+          <button class="tab" data-target="standard">Standard</button>
+        </div>
+        <div class="package-grid">
+          <div id="starter" class="package-panel active">
+            <ul class="feature-list">
+              <li>✅ 1 page site</li>
+              <li>✅ Responsive layout</li>
+              <li>✅ Contact link</li>
+              <li>✅ Basic SEO</li>
+              <li>✅ Analytics hookup</li>
+            </ul>
+            <p><strong>From $700</strong> · 1 week</p>
+            <p>Best for simple presence / link-in-bio style.</p>
+          </div>
+          <div id="standard" class="package-panel">
+            <ul class="feature-list">
+              <li>✅ 2–3 pages (Home, About, Contact)</li>
+              <li>✅ Form integrations</li>
+              <li>✅ SEO foundations</li>
+              <li>✅ Analytics + basics</li>
+              <li>✅ Launch checklist</li>
+            </ul>
+            <p><strong>From $1,200</strong> · 1–2 weeks</p>
+            <p>Best for Home, About, Contact with forms.</p>
+          </div>
+        </div>
+        <div class="quiz">
+          <button id="recommendBtn" class="btn">Recommend for me</button>
+        </div>
+        <div id="quizModal" class="modal">
+          <div class="modal__content">
+            <button class="modal__close" aria-label="Close">&times;</button>
+            <h3>Find your plan</h3>
+            <form id="plan-quiz">
+              <label
+                >Number of pages
+                <select name="pages">
+                  <option value="1">1</option>
+                  <option value="2-3">2-3</option>
+                  <option value="4+">4+</option>
+                </select>
+              </label>
+              <label
+                >Need forms?
+                <select name="forms">
+                  <option value="no">No</option>
+                  <option value="yes">Yes</option>
+                </select>
+              </label>
+              <label
+                >Content readiness
+                <select name="content">
+                  <option value="ready">Ready to go</option>
+                  <option value="need">Need help</option>
+                </select>
+              </label>
+              <button type="submit" class="btn">Show my plan</button>
+            </form>
+          </div>
+        </div>
+        <p><a href="#" class="compare-toggle">Compare all</a></p>
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Starter</th>
+              <th>Standard</th>
+              <th>Pro</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Pages</th>
+              <td>1</td>
+              <td>2–3</td>
+              <td>4+</td>
+            </tr>
+            <tr>
+              <th>Performance</th>
+              <td>✔️</td>
+              <td>✔️</td>
+              <td>✔️+</td>
+            </tr>
+            <tr>
+              <th>Forms</th>
+              <td>Link</td>
+              <td>Simple</td>
+              <td>Advanced</td>
+            </tr>
+            <tr>
+              <th>CMS</th>
+              <td>—</td>
+              <td>—</td>
+              <td>✔️</td>
+            </tr>
+            <tr>
+              <th>Revisions</th>
+              <td>1</td>
+              <td>2</td>
+              <td>3</td>
+            </tr>
+            <tr>
+              <th>Support</th>
+              <td>30 days</td>
+              <td>30 days</td>
+              <td>60 days</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section" id="process">
+      <div class="container">
+        <h2>How it works</h2>
+        <ol class="timeline">
+          <li class="card">
+            <span class="icon">📞</span>
+            <div>
+              <h3>15‑min fit call</h3>
+              <p>
+                <a href="https://calendly.com" target="_blank" rel="noopener"
+                  >Book a call</a
+                >
+              </p>
+            </div>
+          </li>
+          <li class="card">
+            <span class="icon">📝</span>
+            <div>
+              <h3>Scope & fixed quote</h3>
+              <p>24h summary</p>
+            </div>
+          </li>
+          <li class="card">
+            <span class="icon">💻</span>
+            <div>
+              <h3>Build & weekly check-ins</h3>
+              <p>Progress in your inbox</p>
+            </div>
+          </li>
+          <li class="card">
+            <span class="icon">🚀</span>
+            <div>
+              <h3>Launch & 30-day support</h3>
+              <p>We're with you post-launch</p>
+            </div>
+          </li>
+        </ol>
+        <p style="margin-top: var(--space-m)">
+          What we need from you: content, brand assets.
+        </p>
+      </div>
+    </section>
+
+    <!-- Pricing & Guarantees -->
+    <section id="pricing" class="section">
+      <div class="container">
+        <h2>Pricing & Guarantees</h2>
+        <div class="pricing-cards">
+          <div class="card">
+            <h3>Starter</h3>
+            <p>From $700</p>
+          </div>
+          <div class="card">
+            <h3>Standard</h3>
+            <p>From $1,200</p>
+          </div>
+          <div class="card">
+            <h3>Pro</h3>
+            <p>From $1,800</p>
+          </div>
+        </div>
+        <p>What influences price: pages, forms, integrations.</p>
+        <div class="guarantee card">
+          Go-live Promise: We don’t mark as finished until Core Pages pass our
+          checklist.
+        </div>
+        <div class="maintenance">
+          <div class="card">
+            <strong>On-demand updates</strong>
+            <p>Pay-as-you-go tweaks.</p>
+          </div>
+          <div class="card">
+            <strong>Monthly Care</strong>
+            <p>Regular updates & monitoring.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQs -->
+    <section id="faq" class="section faq">
+      <div class="container">
+        <h2>FAQs</h2>
+        <details class="card">
+          <summary>What’s the typical timeline?</summary>
+          <p>Most sites launch within 1–2 weeks once content is ready.</p>
+        </details>
+        <details class="card">
+          <summary>How many edits do I get?</summary>
+          <p>Each package includes revision rounds noted above.</p>
+        </details>
+        <details class="card">
+          <summary>Can you help with content writing?</summary>
+          <p>Yes, we can assist or connect you with writers.</p>
+        </details>
+        <details class="card">
+          <summary>Who handles hosting & domain?</summary>
+          <p>You retain full ownership of hosting and domains.</p>
+        </details>
+        <details class="card">
+          <summary>CMS or static?</summary>
+          <p>We build static sites or light CMS depending on your needs.</p>
+        </details>
+        <details class="card">
+          <summary>Do I own the final site?</summary>
+          <p>Absolutely. You get full code and assets at hand-off.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- Conversion Block -->
+    <section id="quote" class="section">
+      <div class="container">
+        <h2>Start your quote</h2>
+        <form class="quote-form" id="quote-form">
+          <label>Name<input type="text" name="name" required /></label>
+          <label>Email<input type="email" name="email" required /></label>
+          <label
+            >Business/Project<input type="text" name="project" required
+          /></label>
+          <label
+            >Pages<select name="pages" id="pagesSelect">
+              <option value="1">1</option>
+              <option value="2-3">2-3</option>
+              <option value="4+">4+</option>
+            </select></label
+          >
+          <label
+            >Must-have features<select name="features" multiple>
+              <option value="forms">Forms</option>
+              <option value="cms">CMS</option>
+              <option value="blog">Blog</option>
+            </select></label
+          >
+          <label>Message (optional)<textarea name="message"></textarea></label>
+          <input type="hidden" name="package" id="packageField" />
+          <p>No spam. We reply within 1 business day.</p>
+          <button type="submit" class="btn">Send my quote</button>
+        </form>
+        <a
+          class="btn btn--ghost"
+          href="https://calendly.com"
+          target="_blank"
+          rel="noopener"
+          >Skip the form—book 15 min</a
+        >
+        <p class="microcopy">
+          We’ll send a 1-page quote with timeline and price.
+        </p>
+      </div>
+    </section>
+
+    <!-- Sticky CTA -->
+    <div class="sticky-cta hidden">
+      <a href="#quote" class="btn">Start Quote</a>
+      <a
+        href="https://calendly.com"
+        class="btn btn--ghost"
+        target="_blank"
+        rel="noopener"
+        >Book 15 min</a
+      >
+    </div>
+
+    <!-- Back to Top -->
+    <button
+      type="button"
+      id="backToTop"
+      class="back-to-top"
+      aria-label="Back to top"
+    >
+      <i class="fa-solid fa-angle-up" aria-hidden="true"></i>
+    </button>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div
+        class="container"
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 1rem;
+          flex-wrap: wrap;
+        "
+      >
+        <div>
+          © <span id="year"></span> TediousTech Solutions • by Logan Meriwether
+        </div>
+        <div class="nav__links">
+          <a href="mailto:loganm3210@gmail.com" aria-label="Email">Email</a>
+          <a
+            href="https://www.linkedin.com/in/logan-meriwether-679330210"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            >LinkedIn</a
+          >
+          <a
+            href="https://github.com/LoganM3120/tedioustech-solutions"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            >GitHub</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <script src="../../../js/nav.js" defer></script>
+    <script src="../../../js/active-nav.js" defer></script>
+    <script src="../../../js/includes.js" defer></script>
+    <script src="../../../js/script.js" defer></script>
+  </body>
+</html>
