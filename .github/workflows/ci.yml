@@ -1,50 +1,116 @@
-name: Deploy Notifications
+
+name: CI
 
 on:
-  # Only react to deployment status changes (not "deployment" creation)
-  deployment_status:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
 
 jobs:
-  notify:
-    name: Post selective deploy updates
+  prettier:
+    name: Prettier
     runs-on: ubuntu-latest
-    # Only run for these states
-    if: contains(fromJson('["in_progress","success","failure"]'), github.event.deployment_status.state)
-
     steps:
-      - name: Build message
-        id: msg
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: Install tooling
+        run: |
+          npm init -y >/dev/null 2>&1 || true
+          npm i -D --no-audit --no-fund prettier
+      - name: Prettier check
+        run: npx prettier --check "**/*.{html,css,js,json,md}"
+
+  eslint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: Install tooling (if configured)
+        run: |
+          npm init -y >/dev/null 2>&1 || true
+          # Only install if config exists (keeps this job green if you don't use ESLint yet)
+          if [ -f ".eslintrc" ] || [ -f ".eslintrc.json" ] || [ -f ".eslintrc.js" ] || [ -f ".eslintrc.cjs" ]; then
+            npm i -D --no-audit --no-fund eslint
+          else
+            echo "No ESLint config found; skipping install."
+          fi
+      - name: Run ESLint (if configured)
+        run: |
+          if [ -f ".eslintrc" ] || [ -f ".eslintrc.json" ] || [ -f ".eslintrc.js" ] || [ -f ".eslintrc.cjs" ]; then
+            npx eslint . --max-warnings=0
+          else
+            echo "No ESLint config found; skipping."
+          fi
+
+  stylelint:
+    name: Stylelint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: Install tooling (if configured)
+        run: |
+          npm init -y >/dev/null 2>&1 || true
+          if [ -f ".stylelintrc" ] || [ -f ".stylelintrc.json" ] || [ -f ".stylelintrc.cjs" ] || [ -f ".stylelintrc.js" ]; then
+            npm i -D --no-audit --no-fund stylelint stylelint-config-standard
+          else
+            echo "No Stylelint config found; skipping install."
+          fi
+      - name: Run Stylelint (if configured)
+        run: |
+          if [ -f ".stylelintrc" ] || [ -f ".stylelintrc.json" ] || [ -f ".stylelintrc.cjs" ] || [ -f ".stylelintrc.js" ]; then
+            npx stylelint "**/*.css"
+          else
+            echo "No Stylelint config found; skipping."
+          fi
+
+  # Aggregate job that depends on all checks; useful to require a single "CI / all-checks" if you prefer
+  all-checks:
+    name: All checks
+    runs-on: ubuntu-latest
+    needs: [prettier, eslint, stylelint]
+    steps:
+      - run: echo "All checks completed."
+
+  # Discord notifications (runs once, based on overall status)
+  notify:
+    name: Discord notify
+    runs-on: ubuntu-latest
+    needs: [all-checks]
+    if: always()
+    steps:
+      - name: Prepare message
+        id: prep
         shell: bash
         run: |
-         repo="${{ github.repository }}"
-          env="${{ github.event.deployment.environment }}"
-          state="${{ github.event.deployment_status.state }}"
-          url="${{ github.event.deployment_status.environment_url }}"
-          sha="${{ github.event.deployment.sha }}"
-          short_sha="${sha:0:7}"
-    
-            case "$state" in
-              in_progress)
-                content="🚀 Deployment started for $repo → $env (`$short_sha`)"
-                ;;
-              success)
-                content="✅ Deployment succeeded for $repo → $env (`$short_sha`)";;
-              failure|error)
-                content="❌ Deployment failed for $repo → $env (`$short_sha`)";;
-            esac
-    
-            if [ -n "$url" ] && [ "$state" = "success" ]; then
-              content="$content\n$url"
-            fi
-    
-            echo "content<<EOF" >> $GITHUB_OUTPUT
-            echo "$content" >> $GITHUB_OUTPUT
-            echo "EOF" >> $GITHUB_OUTPUT
-    
-
+          if [[ "${{ needs.all-checks.result }}" == "success" ]]; then
+            echo "msg=✅ CI passed in **${{ github.repository }}** on \`${{ github.ref_name }}\` by **${{ github.actor }}** · ${{ github.workflow }}%0A${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
+          else
+            echo "msg=❌ CI failed in **${{ github.repository }}** on \`${{ github.ref_name }}\` by **${{ github.actor }}** · ${{ github.workflow }}%0A${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
+          fi
       - name: Post to Discord (if secret present and not from fork)
-        if: ${{ secrets.DISCORD_DEPLOY != '' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) }}
+        if: ${{ secrets.DISCORD_WEBHOOK != '' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) }}
         run: |
-          jq -n --arg content "${{ steps.msg.outputs.content }}" --arg username "Deploy Bot" \
-            '{username:$username, content:$content}' \
-          | curl -sS -H "Content-Type: application/json" -d @- "${{ secrets.Discord_Deploy || secrets.DISCORD_DEPLOY }}"
+          curl -sS -H "Content-Type: application/json" \
+            -d "{\"username\":\"Build Bot\",\"content\":\"${{ steps.prep.outputs.msg }}\"}" \
+            "${{ secrets.DISCORD_WEBHOOK }}"
