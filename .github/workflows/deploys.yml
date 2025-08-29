@@ -1,0 +1,32 @@
+name: Notify Discord
+
+on:
+  deployment_status:
+  release:
+    types: [published]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build message
+        id: msg
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "deployment_status" ]; then
+            repo="${{ github.repository }}"
+            env="${{ github.event.deployment.environment }}"
+            state="${{ github.event.deployment_status.state }}"
+            url="${{ github.event.deployment_status.environment_url }}"
+            echo "content=🚀 Deployment **$state** for **$repo** → **$env**${url:+\n$url}" >> $GITHUB_OUTPUT
+          else
+            repo="${{ github.repository }}"
+            tag="${{ github.event.release.tag_name }}"
+            html="${{ github.event.release.html_url }}"
+            echo "content=🏷️ New release **$tag** in **$repo**\n$html" >> $GITHUB_OUTPUT
+          fi
+      - name: Post to Discord
+        run: |
+          curl -sS -H "Content-Type: application/json" \
+            -d "{\"content\": \"${{ steps.msg.outputs.content }}\"}" \
+            "${{ secrets.DISCORD_WEBHOOK_URL }}"
