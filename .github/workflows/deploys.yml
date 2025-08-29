@@ -1,32 +1,49 @@
-name: Notify Discord
+name: Deploy Notifications
 
 on:
+  # Only react to deployment status changes (not "deployment" creation)
   deployment_status:
-  release:
-    types: [published]
 
 jobs:
   notify:
+    name: Post selective deploy updates
     runs-on: ubuntu-latest
+    # Only run for these states
+    if: contains(fromJson('["in_progress","success","failure"]'), github.event.deployment_status.state)
+
     steps:
       - name: Build message
         id: msg
         shell: bash
         run: |
-          if [ "${{ github.event_name }}" = "deployment_status" ]; then
-            repo="${{ github.repository }}"
-            env="${{ github.event.deployment.environment }}"
-            state="${{ github.event.deployment_status.state }}"
-            url="${{ github.event.deployment_status.environment_url }}"
-            echo "content=🚀 Deployment **$state** for **$repo** → **$env**${url:+\n$url}" >> $GITHUB_OUTPUT
-          else
-            repo="${{ github.repository }}"
-            tag="${{ github.event.release.tag_name }}"
-            html="${{ github.event.release.html_url }}"
-            echo "content=🏷️ New release **$tag** in **$repo**\n$html" >> $GITHUB_OUTPUT
+          repo="${{ github.repository }}"
+          env="${{ github.event.deployment.environment }}"
+          state="${{ github.event.deployment_status.state }}"
+          url="${{ github.event.deployment_status.environment_url }}"
+          sha="${{ github.event.deployment.sha }}"
+          short_sha="${sha:0:7}"
+
+          case "$state" in
+            in_progress)
+              content="🚀 Deployment **started** for **$repo** → **$env** (\`$short_sha\`)"
+              ;;
+            success)
+              content="✅ Deployment **succeeded** for **$repo** → **$env** (\`$short_sha\`)";;
+            failure|error)
+              content="❌ Deployment **failed** for **$repo** → **$env** (\`$short_sha\`)";;
+          esac
+
+          if [ -n "$url" ] && [ "$state" = "success" ]; then
+            content="$content\n$url"
           fi
-      - name: Post to Discord
+
+          echo "content<<EOF" >> $GITHUB_OUTPUT
+          echo "$content" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Post to Discord (if secret present and not from fork)
+        if: ${{ secrets.DISCORD_DEPLOY != '' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) }}
         run: |
-          curl -sS -H "Content-Type: application/json" \
-            -d "{\"content\": \"${{ steps.msg.outputs.content }}\"}" \
-            "${{ secrets.DISCORD_DEPLOY }}"
+          jq -n --arg content "${{ steps.msg.outputs.content }}" --arg username "Deploy Bot" \
+            '{username:$username, content:$content}' \
+          | curl -sS -H "Content-Type: application/json" -d @- "${{ secrets.Discord_Deploy || secrets.DISCORD_DEPLOY }}"
