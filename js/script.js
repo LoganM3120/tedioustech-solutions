@@ -147,6 +147,9 @@
   const compareToggle = document.querySelector('.compare-toggle');
   const table = document.querySelector('.compare-table');
   const quiz = document.getElementById('plan-quiz');
+  const recommendBtn = document.getElementById('recommendBtn');
+  const modal = document.getElementById('quizModal');
+  const closeModal = modal?.querySelector('.modal__close');
   const packageField = document.getElementById('packageField');
 
   const activate = (id) => {
@@ -165,6 +168,14 @@
     });
   }
 
+  if (recommendBtn && modal) {
+    recommendBtn.addEventListener('click', () => modal.classList.add('show'));
+    closeModal?.addEventListener('click', () => modal.classList.remove('show'));
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.remove('show');
+    });
+  }
+
   if (quiz) {
     quiz.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -178,6 +189,7 @@
       activate(plan);
       if (packageField) packageField.value = plan;
       document.getElementById('quote')?.scrollIntoView({ behavior: 'smooth' });
+      modal?.classList.remove('show');
     });
   }
 })();

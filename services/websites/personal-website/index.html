@@ -22,8 +22,8 @@
         <h1>Launch a site that wins clients—fast.</h1>
         <p>We build clean, fast sites that convert more visitors into paying customers—without agency pricing.</p>
         <div class="stack stack--s">
-          <a class="btn" href="#quote">Start your quote</a>
-          <a class="btn btn--ghost" href="#examples">See live examples</a>
+          <a class="btn" href="#packages">Choose your plan</a>
+          <a class="btn btn--ghost" href="#quote">Get a quote</a>
         </div>
       </div>
       <div class="hero__proof">
@@ -72,39 +72,72 @@
         <button class="tab" data-target="standard">Standard</button>
         <button class="tab" data-target="pro">Pro</button>
       </div>
-      <div id="starter" class="package-panel active">
-        <ul class="feature-list">
-          <li>✅ 1 page site</li>
-          <li>✅ Responsive layout</li>
-          <li>✅ Contact link</li>
-          <li>✅ Basic SEO</li>
-          <li>✅ Analytics hookup</li>
-        </ul>
-        <p><strong>From $700</strong> · 1 week</p>
-        <p>Best for simple presence / link-in-bio style.</p>
+      <div class="package-grid">
+        <div id="starter" class="package-panel active">
+          <ul class="feature-list">
+            <li>✅ 1 page site</li>
+            <li>✅ Responsive layout</li>
+            <li>✅ Contact link</li>
+            <li>✅ Basic SEO</li>
+            <li>✅ Analytics hookup</li>
+          </ul>
+          <p><strong>From $700</strong> · 1 week</p>
+          <p>Best for simple presence / link-in-bio style.</p>
+        </div>
+        <div id="standard" class="package-panel">
+          <ul class="feature-list">
+            <li>✅ 2–3 pages (Home, About, Contact)</li>
+            <li>✅ Form integrations</li>
+            <li>✅ SEO foundations</li>
+            <li>✅ Analytics + basics</li>
+            <li>✅ Launch checklist</li>
+          </ul>
+          <p><strong>From $1,200</strong> · 1–2 weeks</p>
+          <p>Best for Home, About, Contact with forms.</p>
+        </div>
+        <div id="pro" class="package-panel">
+          <ul class="feature-list">
+            <li>✅ Custom sections & forms</li>
+            <li>✅ Integrations & collections</li>
+            <li>✅ CMS options</li>
+            <li>✅ Performance budgets</li>
+            <li>✅ 30-day support</li>
+            <li>✅ SEO setup</li>
+          </ul>
+          <p><strong>From $1,800</strong> · 2–3 weeks</p>
+          <p>Best for integrations, collections, CMS.</p>
+        </div>
       </div>
-      <div id="standard" class="package-panel">
-        <ul class="feature-list">
-          <li>✅ 2–3 pages (Home, About, Contact)</li>
-          <li>✅ Form integrations</li>
-          <li>✅ SEO foundations</li>
-          <li>✅ Analytics + basics</li>
-          <li>✅ Launch checklist</li>
-        </ul>
-        <p><strong>From $1,200</strong> · 1–2 weeks</p>
-        <p>Best for Home, About, Contact with forms.</p>
+      <div class="quiz">
+        <button id="recommendBtn" class="btn">Recommend for me</button>
       </div>
-      <div id="pro" class="package-panel">
-        <ul class="feature-list">
-          <li>✅ Custom sections & forms</li>
-          <li>✅ Integrations & collections</li>
-          <li>✅ CMS options</li>
-          <li>✅ Performance budgets</li>
-          <li>✅ 30-day support</li>
-          <li>✅ SEO setup</li>
-        </ul>
-        <p><strong>From $1,800</strong> · 2–3 weeks</p>
-        <p>Best for integrations, collections, CMS.</p>
+      <div id="quizModal" class="modal">
+        <div class="modal__content">
+          <button class="modal__close" aria-label="Close">&times;</button>
+          <h3>Find your plan</h3>
+          <form id="plan-quiz">
+            <label>Number of pages
+              <select name="pages">
+                <option value="1">1</option>
+                <option value="2-3">2-3</option>
+                <option value="4+">4+</option>
+              </select>
+            </label>
+            <label>Need forms?
+              <select name="forms">
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+              </select>
+            </label>
+            <label>Content readiness
+              <select name="content">
+                <option value="ready">Ready to go</option>
+                <option value="need">Need help</option>
+              </select>
+            </label>
+            <button type="submit" class="btn">Show my plan</button>
+          </form>
+        </div>
       </div>
       <p><a href="#" class="compare-toggle">Compare all</a></p>
       <table class="compare-table">
@@ -120,31 +153,6 @@
           <tr><th>Support</th><td>30 days</td><td>30 days</td><td>60 days</td></tr>
         </tbody>
       </table>
-      <div class="quiz">
-        <h3>Recommend for me</h3>
-        <form id="plan-quiz">
-          <label>Number of pages
-            <select name="pages">
-              <option value="1">1</option>
-              <option value="2-3">2-3</option>
-              <option value="4+">4+</option>
-            </select>
-          </label>
-          <label>Need forms?
-            <select name="forms">
-              <option value="no">No</option>
-              <option value="yes">Yes</option>
-            </select>
-          </label>
-          <label>Content readiness
-            <select name="content">
-              <option value="ready">Ready to go</option>
-              <option value="need">Need help</option>
-            </select>
-          </label>
-          <button type="submit" class="btn">Show my plan</button>
-        </form>
-      </div>
     </div>
   </section>
 

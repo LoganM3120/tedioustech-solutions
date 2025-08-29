@@ -416,6 +416,8 @@ a:focus-visible {
   padding: 0.75rem 1.1rem;
   border-radius: calc(var(--radius) - 6px);
   font-weight: 700;
+  font-size: var(--step-0);
+  font-family: inherit;
   border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--primary) 70%);
   background: linear-gradient(180deg, var(--accent), color-mix(in srgb, var(--accent) 40%, var(--primary) 60%));
   color: var(--bg); /* readable on teal */
@@ -807,6 +809,30 @@ body.menu-open .hamburger::after  { transform: rotate(-45deg); }
   margin-bottom: 0.25rem;
 }
 
+@media (min-width: 1024px) {
+  .package-tabs .tab {
+    background: var(--primary);
+    color: #fff;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .package-grid {
+    display: flex;
+    gap: var(--space-m);
+  }
+
+  .package-panel {
+    display: block;
+    flex: 1;
+    max-width: none;
+    margin: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-m);
+  }
+}
+
 .compare-table {
   width: 100%;
   border-collapse: collapse;
@@ -826,11 +852,45 @@ body.menu-open .hamburger::after  { transform: rotate(-45deg); }
 .quiz {
   margin-top: var(--space-l);
 }
-.quiz form {
+.quiz .btn {
+  display: block;
+  width: 100%;
+}
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+.modal.show { display: flex; }
+.modal__content {
+  background: var(--surface);
+  padding: var(--space-l);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-2);
+  max-width: 400px;
+  width: 90%;
+  position: relative;
+}
+.modal__close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--primary);
+}
+.modal form {
   display: grid;
   gap: var(--space-s);
 }
-.quiz label {
+.modal label {
   display: grid;
   gap: 0.25rem;
 }
@@ -947,6 +1007,15 @@ body.menu-open .hamburger::after  { transform: rotate(-45deg); }
 }
 .quote-form select[multiple] {
   height: 6rem;
+}
+
+.quote-form .btn {
+  justify-self: start;
+  width: auto;
+}
+
+.quote-form + .btn {
+  margin-top: var(--space-s);
 }
 
 .sticky-cta {
