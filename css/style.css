@@ -1315,6 +1315,20 @@ body.menu-open .hamburger::after {
   font-size: 1.5rem;
 }
 
+@media (min-width: 768px) {
+  #process .timeline {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  #process .card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-s);
+    padding: var(--space-s);
+  }
+}
+
 .pricing-cards {
   display: grid;
   gap: var(--space-m);
