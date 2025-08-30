@@ -1148,14 +1148,35 @@ body.menu-open .hamburger::after {
 
 .feature-list {
   list-style: none;
-  padding: 0;
   margin: 0 0 var(--space-m);
   display: inline-block;
   text-align: left;
+  padding-top: 1rem;
 }
 
 .feature-list li {
   margin-bottom: 0.25rem;
+}
+
+/* Highlighted package grid for personal website */
+#packages .package-grid--primary {
+  background: var(--surface);
+  color: var(--primary);
+  border-radius: var(--radius);
+}
+
+#packages .package-grid--primary .feature-list li {
+  display: flex;
+  align-items: center;
+  font-size: var(--step-1);
+  font-weight: inherit;
+  margin-bottom: 0.5rem;
+}
+
+#packages .package-grid--primary .feature-list li i {
+  color: var(--accent);
+  margin-right: 0.5rem;
+  font-size: 1.1em;
 }
 
 @media (min-width: 1024px) {
@@ -1164,9 +1185,10 @@ body.menu-open .hamburger::after {
     color: #fff;
     cursor: default;
     pointer-events: none;
+    font-weight: lighter;
   }
 
-  .package-grid {
+  .package-grid--primary {
     display: flex;
     gap: var(--space-m);
   }
@@ -1179,6 +1201,7 @@ body.menu-open .hamburger::after {
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: var(--space-m);
+    box-shadow: var(--shadow-1);
   }
 }
 
