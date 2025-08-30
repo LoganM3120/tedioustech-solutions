@@ -50,10 +50,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  # Your Discord webhook (Repository secret)
-  WEBHOOK: ${{ secrets.DISCORD_SECURITY }}
-
 jobs:
   workflow-change-sentry:
     name: Flag workflow changes
@@ -120,18 +116,17 @@ jobs:
   notify-discord:
     name: Notify Discord
     needs: [workflow-change-sentry, dependency-review, heartbeat]
-    if: always() && env.WEBHOOK != ''
+    if: always() && secrets.DISCORD_SECURITY != ''
     runs-on: ubuntu-latest
     steps:
       - name: Post summary to Discord
         run: |
-          STATUS="${{ job.status }}"
           EVENT="${{ github.event_name }}"
           REPO="${{ github.repository }}"
           REF="${{ github.ref }}"
           URL="https://github.com/${REPO}/actions/runs/${{ github.run_id }}"
 
-          # Derive simple status line
+          # Results from dependent jobs (may be 'success', 'failure', 'skipped', or 'cancelled')
           WFS="${{ needs.workflow-change-sentry.result }}"
           DEP="${{ needs.dependency-review.result }}"
           HB="${{ needs.heartbeat.result }}"
@@ -159,4 +154,4 @@ jobs:
                       color: $COLOR
                     }]
                   }' \
-          | curl -fsSL -H "Content-Type: application/json" -d @- "$WEBHOOK"
+          | curl -fsSL -H "Content-Type: application/json" -d @- "${{ secrets.DISCORD_SECURITY }}"
