@@ -122,14 +122,13 @@ jobs:
       WEBHOOK: ${{ secrets.DISCORD_SECURITY }}   # map secret to env for use below
     steps:
       - name: Post summary to Discord
-        if: env.WEBHOOK != ''                    # step-level check uses env.*
+        if: env.WEBHOOK != ''
         run: |
           EVENT="${{ github.event_name }}"
           REPO="${{ github.repository }}"
           REF="${{ github.ref }}"
           URL="https://github.com/${REPO}/actions/runs/${{ github.run_id }}"
 
-          # Results from dependent jobs (may be 'success', 'failure', 'skipped', or 'cancelled')
           WFS="${{ needs.workflow-change-sentry.result }}"
           DEP="${{ needs.dependency-review.result }}"
           HB="${{ needs.heartbeat.result }}"
@@ -142,19 +141,21 @@ jobs:
             COLOR=3066993
           fi
 
-          jq -nc --arg t "$TITLE" \
-                 --arg e "$EVENT" \
-                 --arg r "$REPO" \
-                 --arg ref "$REF" \
-                 --arg url "$URL" \
-                 --arg wfs "$WFS" \
-                 --arg dep "$DEP" \
-                 --arg hb  "$HB" \
-                 '{ username:"Security Sentry",
-                    embeds:[{
-                      title:$t,
-                      description:( "Repo: **" + $r + "**\nEvent: **" + $e + "**\nRef: **" + $ref + "**\n\nResults:\n• Workflow change sentry: **" + $wfs + "**\n• Dependency review: **" + $dep + "**\n• Heartbeat: **" + $hb + "**\n\n[Open run](" + $url + ")" ),
-                      color: $COLOR
-                    }]
-                  }' \
+          jq -nc \
+            --arg t "$TITLE" \
+            --arg e "$EVENT" \
+            --arg r "$REPO" \
+            --arg ref "$REF" \
+            --arg url "$URL" \
+            --arg wfs "$WFS" \
+            --arg dep "$DEP" \
+            --arg hb "$HB" \
+            --argjson color "$COLOR" \
+            '{ username:"Security Sentry",
+               embeds:[{
+                 title:$t,
+                 description:( "Repo: **" + $r + "**\nEvent: **" + $e + "**\nRef: **" + $ref + "**\n\nResults:\n• Workflow change sentry: **" + $wfs + "**\n• Dependency review: **" + $dep + "**\n• Heartbeat: **" + $hb + "**\n\n[Open run](" + $url + ")" ),
+                 color: $color
+               }]
+             }' \
           | curl -fsSL -H "Content-Type: application/json" -d @- "$WEBHOOK"
