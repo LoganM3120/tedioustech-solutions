@@ -695,6 +695,14 @@ a:focus-visible {
   box-shadow: var(--glow);
 }
 
+.btn--ghost.btn--light {
+  background: #e5e7eb;
+}
+
+.btn--ghost.btn--light:hover {
+  background-color: #abacad;
+}
+
 /* Persistent active style for filter buttons (All/Automation/Dashboards/Controls) */
 .btn[data-filter][aria-pressed="true"],
 .btn[data-filter].is-active,
