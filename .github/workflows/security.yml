@@ -4,24 +4,23 @@ on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
   schedule:
-    # Heartbeat + weekly CodeQL
-    - cron: "22 3 * * *"   # Nightly UTC
+    # Nightly heartbeat + weekly sweep for CodeQL
+    - cron: "22 3 * * *"   # nightly UTC
     - cron: "17 4 * * 1"   # Mondays UTC
   workflow_dispatch:
 
-# Least-privilege defaults
+# Least-privilege defaults; grant job-specific perms later where needed
 permissions:
   contents: read
   pull-requests: read
-  security-events: write
   actions: read
+  security-events: write
 
 concurrency:
   group: sec-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: false
 
 env:
-  DISCORD_SECURITY: ${{ secrets.DISCORD_SECURITY }}
   DEFAULT_BRANCH: main
 
 jobs:
@@ -67,16 +66,18 @@ jobs:
       - name: Set outputs & warnings
         id: set
         shell: bash
+        env:
+          W_CHANGED: "${{ steps.filter.outputs.workflows }}"
+          D_CHANGED: "${{ steps.filter.outputs.dependencies }}"
         run: |
-          CHANGED=()
-          for k in workflows dependencies; do
-            v="${{ steps.filter.outputs[k] }}"
-            if [ "$v" = "true" ]; then CHANGED+=("$k"); fi
-          done
-          if [ ${#CHANGED[@]} -gt 0 ]; then
-            echo "::warning::Sensitive areas modified: ${CHANGED[*]}"
+          CHANGED_LIST=()
+          [ "$W_CHANGED" = "true" ] && CHANGED_LIST+=("workflows")
+          [ "$D_CHANGED" = "true" ] && CHANGED_LIST+=("dependencies")
+
+          if [ ${#CHANGED_LIST[@]} -gt 0 ]; then
+            echo "::warning::Sensitive areas modified: ${CHANGED_LIST[*]}"
             echo "touched_sensitive=true" >> "$GITHUB_OUTPUT"
-            echo "touched_list=${CHANGED[*]}" >> "$GITHUB_OUTPUT"
+            echo "touched_list=${CHANGED_LIST[*]}" >> "$GITHUB_OUTPUT"
           else
             echo "touched_sensitive=false" >> "$GITHUB_OUTPUT"
             echo "touched_list=" >> "$GITHUB_OUTPUT"
@@ -104,8 +105,8 @@ jobs:
           comment-summary-in-pr: true
 
   codeql:
-    # Run on PRs and the weekly cron
-    if: ${{ github.event_name == 'pull_request' || github.event.schedule == '17 4 * * 1' }}
+    # Run on PRs and the weekly cron (no env/secrets in job-level if)
+    if: ${{ github.event_name == 'pull_request' || github.event_name == 'schedule' }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -120,7 +121,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
-      # Add if you need Node for build scripts in JS/TS repos
+      # Only needed if your build uses Node (keep/remove per repo)
       - name: Setup Node
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
@@ -131,7 +132,7 @@ jobs:
         uses: github/codeql-action/init@3c3833e0f8c1c83d449a7478aa59c036a9165498 # v3.29.11
         with:
           languages: javascript
-          # If you also want python: "javascript,python"
+          # For polyglot repos, e.g.: "javascript,python"
 
       - name: Autobuild
         uses: github/codeql-action/autobuild@3c3833e0f8c1c83d449a7478aa59c036a9165498 # v3.29.11
@@ -142,14 +143,19 @@ jobs:
           category: "/security-monitoring"
 
   heartbeat:
-    if: ${{ github.event_name == 'schedule' && env.DISCORD_SECURITY != '' }}
+    # No job-level webhook check; guard inside the step
     runs-on: ubuntu-latest
     steps:
       - name: Nightly heartbeat → Discord
         shell: bash
         env:
+          DISCORD_SECURITY: ${{ secrets.DISCORD_SECURITY }}
           COLOR: "5763719"   # green
         run: |
+          if [ -z "${DISCORD_SECURITY:-}" ]; then
+            echo "No Discord webhook configured; skipping."
+            exit 0
+          fi
           ts="$(date -u +%FT%TZ)"
           jq -n \
             --arg content "" \
@@ -162,32 +168,39 @@ jobs:
           | curl -sS -H "Content-Type: application/json" -d @- "${DISCORD_SECURITY}" >/dev/null
 
   discord_summary:
-    # Always try to post a summary if webhook is set
     needs: [changes_guard, dependency_review, codeql]
-    if: ${{ always() && env.DISCORD_SECURITY != '' }}
+    # Always attempt summary; step will skip if no webhook
+    if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
       - name: Build & post Discord summary
         id: post
         shell: bash
         env:
-          GREEN: "5763719"    # 0x57F287
-          YELLOW: "16705308"  # 0xFEE75C
-          RED: "15548997"     # 0xED4245
+          DISCORD_SECURITY: ${{ secrets.DISCORD_SECURITY }}
+          GREEN: "5763719"     # 0x57F287
+          YELLOW: "16705308"   # 0xFEE75C
+          RED: "15548997"      # 0xED4245
         run: |
-          # Determine job results (may be 'success','failure','cancelled','skipped')
+          if [ -z "${DISCORD_SECURITY:-}" ]; then
+            echo "No Discord webhook configured; skipping."
+            exit 0
+          fi
+
+          # Job results may be: success, failure, cancelled, skipped
           cg="${{ needs.changes_guard.result }}"
           dr="${{ needs.dependency_review.result }}"
           cq="${{ needs.codeql.result }}"
 
-          # Sensitives changed?
           touched="${{ needs.changes_guard.outputs.touched_sensitive }}"
           touched_list="${{ needs.changes_guard.outputs.touched_list }}"
 
-          # Pick a color
           COLOR="$GREEN"
-          if [ "$cg" = "failure" ] || [ "$dr" = "failure" ] || [ "$cq" = "failure" ]; then COLOR="$RED";
-          elif [ "$touched" = "true" ] || [ "$dr" = "success" ] && [ "$cq" = "skipped" ]; then COLOR="$YELLOW"; fi
+          if [ "$cg" = "failure" ] || [ "$dr" = "failure" ] || [ "$cq" = "failure" ]; then
+            COLOR="$RED"
+          elif [ "$touched" = "true" ] || { [ "$dr" = "success" ] && [ "$cq" = "skipped" ]; }; then
+            COLOR="$YELLOW"
+          fi
 
           ts="$(date -u +%FT%TZ)"
           title="🔐 Security workflow — ${{ github.repository }} @ ${{ github.ref_name }}"
