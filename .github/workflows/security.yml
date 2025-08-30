@@ -116,10 +116,11 @@ jobs:
   notify-discord:
     name: Notify Discord
     needs: [workflow-change-sentry, dependency-review, heartbeat]
-    if: always() && secrets.DISCORD_SECURITY != ''
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - name: Post summary to Discord
+        if: ${{ secrets.DISCORD_SECURITY != '' }}
         run: |
           EVENT="${{ github.event_name }}"
           REPO="${{ github.repository }}"
