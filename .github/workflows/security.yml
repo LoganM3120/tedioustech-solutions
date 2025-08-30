@@ -1,161 +1,223 @@
-name: Security Sentry
+name: Security Monitoring
 
 on:
-  # PRs that could impact supply chain or workflows
   pull_request:
-    branches: [ "main" ]
-    paths:
-      - ".github/workflows/**"
-      - "package.json"
-      - "package-lock.json"
-      - "yarn.lock"
-      - "pnpm-lock.yaml"
-      - "requirements.txt"
-      - "poetry.lock"
-      - "Pipfile.lock"
-      - "Dockerfile"
-      - "Dockerfile.*"
-      - ".nvmrc"
-      - ".tool-versions"
-
-  # Direct pushes to main that touch sensitive files (in case of bypass)
-  push:
-    branches: [ "main" ]
-    paths:
-      - ".github/workflows/**"
-      - "package.json"
-      - "package-lock.json"
-      - "yarn.lock"
-      - "pnpm-lock.yaml"
-      - "requirements.txt"
-      - "poetry.lock"
-      - "Pipfile.lock"
-      - "Dockerfile"
-      - "Dockerfile.*"
-
-  # Nightly heartbeat so you know the sentinel is alive
+    types: [opened, synchronize, reopened, ready_for_review]
   schedule:
-    - cron: "17 3 * * *"
-
-  # Manual run
+    # Heartbeat + weekly CodeQL
+    - cron: "22 3 * * *"   # Nightly UTC
+    - cron: "17 4 * * 1"   # Mondays UTC
   workflow_dispatch:
 
-# Default to read-only
+# Least-privilege defaults
 permissions:
   contents: read
-  actions: read
   pull-requests: read
+  security-events: write
+  actions: read
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  group: sec-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  DISCORD_SECURITY: ${{ secrets.DISCORD_SECURITY }}
+  DEFAULT_BRANCH: main
 
 jobs:
-  workflow-change-sentry:
-    name: Flag workflow changes
-    if: github.event_name == 'pull_request'
+  changes_guard:
+    if: ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      pull-requests: write   # needed to label/comment the PR
+      pull-requests: read
+    outputs:
+      touched_sensitive: ${{ steps.set.outputs.touched_sensitive }}
+      touched_list: ${{ steps.set.outputs.touched_list }}
     steps:
-      - name: Harden runner
-        uses: step-security/harden-runner@v2
+      - name: Harden runner (egress audit)
+        uses: step-security/harden-runner@ec9f2d5744a09debf3a187a3f4f675c53b671911 # v2.13.0
         with:
           egress-policy: audit
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
-      # Always try to add the label; it's idempotent
-      - name: Add "security-review" label
-        uses: actions-ecosystem/action-add-labels@v1
+      - name: Detect sensitive file changes
+        id: filter
+        uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
         with:
-          labels: security-review
+          token: ${{ github.token }}
+          filters: |
+            workflows:
+              - '.github/workflows/**'
+            dependencies:
+              - 'package-lock.json'
+              - 'pnpm-lock.yaml'
+              - 'yarn.lock'
+              - 'package.json'
+              - 'requirements*.txt'
+              - 'Pipfile.lock'
+              - 'poetry.lock'
+              - '**/Gemfile*'
+              - '**/*.gradle*'
+              - '**/go.mod'
+              - '**/go.sum'
 
-      - name: Comment notice
-        uses: thollander/actions-comment-pull-request@v2
-        with:
-          message: |
-            ⚠️ This PR modifies workflow or supply-chain files.
-            **CODEOWNERS review is required** and security checks will run.
+      - name: Set outputs & warnings
+        id: set
+        shell: bash
+        run: |
+          CHANGED=()
+          for k in workflows dependencies; do
+            v="${{ steps.filter.outputs[k] }}"
+            if [ "$v" = "true" ]; then CHANGED+=("$k"); fi
+          done
+          if [ ${#CHANGED[@]} -gt 0 ]; then
+            echo "::warning::Sensitive areas modified: ${CHANGED[*]}"
+            echo "touched_sensitive=true" >> "$GITHUB_OUTPUT"
+            echo "touched_list=${CHANGED[*]}" >> "$GITHUB_OUTPUT"
+          else
+            echo "touched_sensitive=false" >> "$GITHUB_OUTPUT"
+            echo "touched_list=" >> "$GITHUB_OUTPUT"
+          fi
 
-  dependency-review:
-    name: Dependency Review (GitHub)
-    if: github.event_name == 'pull_request'
+  dependency_review:
+    if: ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      pull-requests: read
     steps:
-      - name: Harden runner
-        uses: step-security/harden-runner@v2
+      - name: Harden runner (egress audit)
+        uses: step-security/harden-runner@ec9f2d5744a09debf3a187a3f4f675c53b671911 # v2.13.0
         with:
           egress-policy: audit
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
-      - name: Dependency review
-        uses: actions/dependency-review-action@v4
+      - name: Dependency Review
+        uses: actions/dependency-review-action@595b5aeba73380359d98a5e087f648dbb0edce1b # v4.7.3
         with:
           fail-on-severity: high
           comment-summary-in-pr: true
 
-  heartbeat:
-    name: Nightly heartbeat
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+  codeql:
+    # Run on PRs and the weekly cron
+    if: ${{ github.event_name == 'pull_request' || github.event.schedule == '17 4 * * 1' }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
     steps:
-      - name: Harden runner
-        uses: step-security/harden-runner@v2
+      - name: Harden runner (egress audit)
+        uses: step-security/harden-runner@ec9f2d5744a09debf3a187a3f4f675c53b671911 # v2.13.0
         with:
           egress-policy: audit
-      - name: Do nothing (heartbeat)
-        run: echo "Security Sentry heartbeat"
 
-  notify-discord:
-    name: Notify Discord
-    needs: [workflow-change-sentry, dependency-review, heartbeat]
-    if: always()
+      - name: Checkout
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      # Add if you need Node for build scripts in JS/TS repos
+      - name: Setup Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@3c3833e0f8c1c83d449a7478aa59c036a9165498 # v3.29.11
+        with:
+          languages: javascript
+          # If you also want python: "javascript,python"
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@3c3833e0f8c1c83d449a7478aa59c036a9165498 # v3.29.11
+
+      - name: Analyze
+        uses: github/codeql-action/analyze@3c3833e0f8c1c83d449a7478aa59c036a9165498 # v3.29.11
+        with:
+          category: "/security-monitoring"
+
+  heartbeat:
+    if: ${{ github.event_name == 'schedule' && env.DISCORD_SECURITY != '' }}
     runs-on: ubuntu-latest
-    env:
-      WEBHOOK: ${{ secrets.DISCORD_SECURITY }}   # map secret to env for use below
     steps:
-      - name: Post summary to Discord
-        if: env.WEBHOOK != ''
+      - name: Nightly heartbeat → Discord
+        shell: bash
+        env:
+          COLOR: "5763719"   # green
         run: |
-          EVENT="${{ github.event_name }}"
-          REPO="${{ github.repository }}"
-          REF="${{ github.ref }}"
-          URL="https://github.com/${REPO}/actions/runs/${{ github.run_id }}"
+          ts="$(date -u +%FT%TZ)"
+          jq -n \
+            --arg content "" \
+            --arg title "Nightly Security Heartbeat" \
+            --arg desc "Repo: ${{ github.repository }}\nWorkflow: ${{ github.workflow }}\nRun at: ${ts}" \
+            --arg url "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --arg ts "${ts}" \
+            --argjson color ${COLOR} \
+            '{content: $content, embeds: [{title:$title, description:$desc, url:$url, timestamp:$ts, color:$color}]}' \
+          | curl -sS -H "Content-Type: application/json" -d @- "${DISCORD_SECURITY}" >/dev/null
 
-          WFS="${{ needs.workflow-change-sentry.result }}"
-          DEP="${{ needs.dependency-review.result }}"
-          HB="${{ needs.heartbeat.result }}"
+  discord_summary:
+    # Always try to post a summary if webhook is set
+    needs: [changes_guard, dependency_review, codeql]
+    if: ${{ always() && env.DISCORD_SECURITY != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build & post Discord summary
+        id: post
+        shell: bash
+        env:
+          GREEN: "5763719"    # 0x57F287
+          YELLOW: "16705308"  # 0xFEE75C
+          RED: "15548997"     # 0xED4245
+        run: |
+          # Determine job results (may be 'success','failure','cancelled','skipped')
+          cg="${{ needs.changes_guard.result }}"
+          dr="${{ needs.dependency_review.result }}"
+          cq="${{ needs.codeql.result }}"
 
-          if [ "$WFS" = "failure" ] || [ "$DEP" = "failure" ] || [ "$HB" = "failure" ] || [ "$EVENT" = "push" ]; then
-            TITLE="🔴 Security Sentry: Attention required"
-            COLOR=15158332
-          else
-            TITLE="🟢 Security Sentry: Completed"
-            COLOR=3066993
-          fi
+          # Sensitives changed?
+          touched="${{ needs.changes_guard.outputs.touched_sensitive }}"
+          touched_list="${{ needs.changes_guard.outputs.touched_list }}"
 
-          jq -nc \
-            --arg t "$TITLE" \
-            --arg e "$EVENT" \
-            --arg r "$REPO" \
-            --arg ref "$REF" \
-            --arg url "$URL" \
-            --arg wfs "$WFS" \
-            --arg dep "$DEP" \
-            --arg hb "$HB" \
-            --argjson color "$COLOR" \
-            '{ username:"Security Sentry",
-               embeds:[{
-                 title:$t,
-                 description:( "Repo: **" + $r + "**\nEvent: **" + $e + "**\nRef: **" + $ref + "**\n\nResults:\n• Workflow change sentry: **" + $wfs + "**\n• Dependency review: **" + $dep + "**\n• Heartbeat: **" + $hb + "**\n\n[Open run](" + $url + ")" ),
-                 color: $color
-               }]
-             }' \
-          | curl -fsSL -H "Content-Type: application/json" -d @- "$WEBHOOK"
+          # Pick a color
+          COLOR="$GREEN"
+          if [ "$cg" = "failure" ] || [ "$dr" = "failure" ] || [ "$cq" = "failure" ]; then COLOR="$RED";
+          elif [ "$touched" = "true" ] || [ "$dr" = "success" ] && [ "$cq" = "skipped" ]; then COLOR="$YELLOW"; fi
+
+          ts="$(date -u +%FT%TZ)"
+          title="🔐 Security workflow — ${{ github.repository }} @ ${{ github.ref_name }}"
+          desc="• Changes Guard: ${cg:-n/a}\n• Dependency Review: ${dr:-n/a}\n• CodeQL: ${cq:-n/a}"
+          [ "$touched" = "true" ] && desc="${desc}\n\n⚠️ Sensitive areas changed: ${touched_list}"
+
+          run_url="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          alerts_url="https://github.com/${{ github.repository }}/security/code-scanning"
+          dep_url="https://github.com/${{ github.repository }}/security/dependabot"
+
+          jq -n \
+            --arg title "$title" \
+            --arg desc "$desc" \
+            --arg url "$run_url" \
+            --arg ts "$ts" \
+            --arg alerts "$alerts_url" \
+            --arg deps "$dep_url" \
+            --argjson color ${COLOR} \
+            '{
+              content: "",
+              embeds: [{
+                title: $title,
+                description: $desc,
+                url: $url,
+                timestamp: $ts,
+                color: $color,
+                fields: [
+                  {name:"🔎 Code Scanning Alerts", value:$alerts, inline:true},
+                  {name:"🧩 Dependency Alerts", value:$deps, inline:true}
+                ]
+              }]
+            }' \
+          | curl -sS -H "Content-Type: application/json" -d @- "${DISCORD_SECURITY}" >/dev/null
