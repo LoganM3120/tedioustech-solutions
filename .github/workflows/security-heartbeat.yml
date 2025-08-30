@@ -1,0 +1,38 @@
+name: Security Heartbeat (Nightly)
+
+on:
+  schedule:
+    - cron: "22 3 * * *"   # Nightly UTC heartbeat
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sec-heartbeat-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  heartbeat:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Nightly heartbeat → Discord
+        shell: bash
+        env:
+          DISCORD_HEARTBEAT: ${{ secrets.DISCORD_SECURITY }}
+          COLOR: "5763719"   # green
+        run: |
+          if [ -z "${DISCORD_HEARTBEAT:-}" ]; then
+            echo "No Discord webhook configured; skipping."
+            exit 0
+          fi
+          ts="$(date -u +%FT%TZ)"
+          jq -n \
+            --arg content "" \
+            --arg title "Nightly Security Heartbeat" \
+            --arg desc "Repo: ${{ github.repository }}\nWorkflow: ${{ github.workflow }}\nRun at: ${ts}" \
+            --arg url "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --arg ts "${ts}" \
+            --argjson color ${COLOR} \
+            '{content: $content, embeds: [{title:$title, description:$desc, url:$url, timestamp:$ts, color:$color}]}' \
+          | curl -sS -H "Content-Type: application/json" -d @- "${DISCORD_HEARTBEAT}" >/dev/null

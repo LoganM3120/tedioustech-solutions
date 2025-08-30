@@ -1,15 +1,17 @@
-name: Security Monitoring
+name: Security Monitoring (PRs, Push, Weekly)
 
 on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
+  push:
+    branches: [ main ]
+    paths:
+      - '**/*.js'
+      - '**/*.py'
   schedule:
-    # Nightly heartbeat + weekly sweep for CodeQL
-    - cron: "22 3 * * *"   # nightly UTC
-    - cron: "17 4 * * 1"   # Mondays UTC
+    - cron: "17 4 * * 1"   # Mondays UTC — weekly CodeQL sweep
   workflow_dispatch:
 
-# Least-privilege defaults; grant job-specific perms later where needed
 permissions:
   contents: read
   pull-requests: read
@@ -33,6 +35,7 @@ jobs:
     outputs:
       touched_sensitive: ${{ steps.set.outputs.touched_sensitive }}
       touched_list: ${{ steps.set.outputs.touched_list }}
+      code_changed: ${{ steps.set.outputs.code_changed }}
     steps:
       - name: Harden runner (egress audit)
         uses: step-security/harden-runner@ec9f2d5744a09debf3a187a3f4f675c53b671911 # v2.13.0
@@ -42,7 +45,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
-      - name: Detect sensitive file changes
+      - name: Detect sensitive & code file changes
         id: filter
         uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
         with:
@@ -62,6 +65,10 @@ jobs:
               - '**/*.gradle*'
               - '**/go.mod'
               - '**/go.sum'
+            code_js:
+              - '**/*.js'
+            code_py:
+              - '**/*.py'
 
       - name: Set outputs & warnings
         id: set
@@ -69,6 +76,8 @@ jobs:
         env:
           W_CHANGED: "${{ steps.filter.outputs.workflows }}"
           D_CHANGED: "${{ steps.filter.outputs.dependencies }}"
+          JS_CHANGED: "${{ steps.filter.outputs.code_js }}"
+          PY_CHANGED: "${{ steps.filter.outputs.code_py }}"
         run: |
           CHANGED_LIST=()
           [ "$W_CHANGED" = "true" ] && CHANGED_LIST+=("workflows")
@@ -81,6 +90,12 @@ jobs:
           else
             echo "touched_sensitive=false" >> "$GITHUB_OUTPUT"
             echo "touched_list=" >> "$GITHUB_OUTPUT"
+          fi
+
+          if [ "$JS_CHANGED" = "true" ] || [ "$PY_CHANGED" = "true" ]; then
+            echo "code_changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "code_changed=false" >> "$GITHUB_OUTPUT"
           fi
 
   dependency_review:
@@ -105,8 +120,12 @@ jobs:
           comment-summary-in-pr: true
 
   codeql:
-    # Run on PRs and the weekly cron (no env/secrets in job-level if)
-    if: ${{ github.event_name == 'pull_request' || github.event_name == 'schedule' }}
+    # Run on PR (only if code changed), push to main (paths gate at trigger),
+    # weekly cron, and manual dispatch.
+    if: ${{ github.event_name == 'pull_request' && needs.changes_guard.outputs.code_changed == 'true'
+          || github.event_name == 'push'
+          || github.event_name == 'schedule'
+          || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -121,7 +140,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
-      # Only needed if your build uses Node (keep/remove per repo)
+      # Keep only if your build uses Node; otherwise remove.
       - name: Setup Node
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
@@ -131,8 +150,7 @@ jobs:
       - name: Initialize CodeQL
         uses: github/codeql-action/init@3c3833e0f8c1c83d449a7478aa59c036a9165498 # v3.29.11
         with:
-          languages: javascript
-          # For polyglot repos, e.g.: "javascript,python"
+          languages: javascript,python
 
       - name: Autobuild
         uses: github/codeql-action/autobuild@3c3833e0f8c1c83d449a7478aa59c036a9165498 # v3.29.11
@@ -142,39 +160,12 @@ jobs:
         with:
           category: "/security-monitoring"
 
-  heartbeat:
-    # No job-level webhook check; guard inside the step
-    runs-on: ubuntu-latest
-    steps:
-      - name: Nightly heartbeat → Discord
-        shell: bash
-        env:
-          DISCORD_SECURITY: ${{ secrets.DISCORD_SECURITY }}
-          COLOR: "5763719"   # green
-        run: |
-          if [ -z "${DISCORD_SECURITY:-}" ]; then
-            echo "No Discord webhook configured; skipping."
-            exit 0
-          fi
-          ts="$(date -u +%FT%TZ)"
-          jq -n \
-            --arg content "" \
-            --arg title "Nightly Security Heartbeat" \
-            --arg desc "Repo: ${{ github.repository }}\nWorkflow: ${{ github.workflow }}\nRun at: ${ts}" \
-            --arg url "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
-            --arg ts "${ts}" \
-            --argjson color ${COLOR} \
-            '{content: $content, embeds: [{title:$title, description:$desc, url:$url, timestamp:$ts, color:$color}]}' \
-          | curl -sS -H "Content-Type: application/json" -d @- "${DISCORD_SECURITY}" >/dev/null
-
   discord_summary:
     needs: [changes_guard, dependency_review, codeql]
-    # Always attempt summary; step will skip if no webhook
     if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
-      - name: Build & post Discord summary
-        id: post
+      - name: Post summary to Discord (skips if no webhook)
         shell: bash
         env:
           DISCORD_SECURITY: ${{ secrets.DISCORD_SECURITY }}
@@ -187,11 +178,9 @@ jobs:
             exit 0
           fi
 
-          # Job results may be: success, failure, cancelled, skipped
-          cg="${{ needs.changes_guard.result }}"
-          dr="${{ needs.dependency_review.result }}"
-          cq="${{ needs.codeql.result }}"
-
+          cg="${{ needs.changes_guard.result || 'skipped' }}"
+          dr="${{ needs.dependency_review.result || 'skipped' }}"
+          cq="${{ needs.codeql.result || 'skipped' }}"
           touched="${{ needs.changes_guard.outputs.touched_sensitive }}"
           touched_list="${{ needs.changes_guard.outputs.touched_list }}"
 
@@ -204,7 +193,7 @@ jobs:
 
           ts="$(date -u +%FT%TZ)"
           title="🔐 Security workflow — ${{ github.repository }} @ ${{ github.ref_name }}"
-          desc="• Changes Guard: ${cg:-n/a}\n• Dependency Review: ${dr:-n/a}\n• CodeQL: ${cq:-n/a}"
+          desc="• Changes Guard: ${cg}\n• Dependency Review: ${dr}\n• CodeQL: ${cq}"
           [ "$touched" = "true" ] && desc="${desc}\n\n⚠️ Sensitive areas changed: ${touched_list}"
 
           run_url="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
