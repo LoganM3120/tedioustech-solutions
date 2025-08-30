@@ -118,9 +118,11 @@ jobs:
     needs: [workflow-change-sentry, dependency-review, heartbeat]
     if: always()
     runs-on: ubuntu-latest
+    env:
+      WEBHOOK: ${{ secrets.DISCORD_SECURITY }}   # map secret to env for use below
     steps:
       - name: Post summary to Discord
-        if: ${{ secrets.DISCORD_SECURITY != '' }}
+        if: env.WEBHOOK != ''                    # step-level check uses env.*
         run: |
           EVENT="${{ github.event_name }}"
           REPO="${{ github.repository }}"
@@ -155,4 +157,4 @@ jobs:
                       color: $COLOR
                     }]
                   }' \
-          | curl -fsSL -H "Content-Type: application/json" -d @- "${{ secrets.DISCORD_SECURITY }}"
+          | curl -fsSL -H "Content-Type: application/json" -d @- "$WEBHOOK"
