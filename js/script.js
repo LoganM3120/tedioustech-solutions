@@ -197,52 +197,7 @@
   }
 })();
 
-// 7) Back to top button
-(function () {
-  const btn = document.getElementById("backToTop");
-  if (!btn) return;
-
-  const mq = window.matchMedia("(min-width: 769px)");
-
-  const onScroll = () => {
-    btn.classList.toggle("show", window.scrollY > 400);
-  };
-
-  const setup = () => {
-    if (mq.matches) {
-      window.addEventListener("scroll", onScroll);
-      onScroll();
-    } else {
-      window.removeEventListener("scroll", onScroll);
-      btn.classList.remove("show");
-    }
-  };
-
-  mq.addEventListener
-    ? mq.addEventListener("change", setup)
-    : mq.addListener(setup);
-  setup();
-
-  btn.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-
-  const footer = document.querySelector(".footer");
-  if (footer) {
-    const rootStyles = getComputedStyle(document.documentElement);
-    const gap = parseFloat(rootStyles.getPropertyValue("--space-m")) || 0;
-
-    const observer = new IntersectionObserver(([entry]) => {
-      btn.style.bottom = entry.isIntersecting
-        ? `${footer.offsetHeight + gap}px`
-        : "";
-    });
-
-    observer.observe(footer);
-  }
-})();
-
-// 8) Hide sticky CTA when quote section is reached
+// 7) Hide sticky CTA when quote section is reached
 (function () {
   const cta = document.querySelector(".sticky-cta");
   const hero = document.querySelector(".hero");
