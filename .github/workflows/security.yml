@@ -1,0 +1,162 @@
+name: Security Sentry
+
+on:
+  # PRs that could impact supply chain or workflows
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - ".github/workflows/**"
+      - "package.json"
+      - "package-lock.json"
+      - "yarn.lock"
+      - "pnpm-lock.yaml"
+      - "requirements.txt"
+      - "poetry.lock"
+      - "Pipfile.lock"
+      - "Dockerfile"
+      - "Dockerfile.*"
+      - ".nvmrc"
+      - ".tool-versions"
+
+  # Direct pushes to main that touch sensitive files (in case of bypass)
+  push:
+    branches: [ "main" ]
+    paths:
+      - ".github/workflows/**"
+      - "package.json"
+      - "package-lock.json"
+      - "yarn.lock"
+      - "pnpm-lock.yaml"
+      - "requirements.txt"
+      - "poetry.lock"
+      - "Pipfile.lock"
+      - "Dockerfile"
+      - "Dockerfile.*"
+
+  # Nightly heartbeat so you know the sentinel is alive
+  schedule:
+    - cron: "17 3 * * *"
+
+  # Manual run
+  workflow_dispatch:
+
+# Default to read-only
+permissions:
+  contents: read
+  actions: read
+  pull-requests: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Your Discord webhook (Repository secret)
+  WEBHOOK: ${{ secrets.DISCORD_SECURITY }}
+
+jobs:
+  workflow-change-sentry:
+    name: Flag workflow changes
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write   # needed to label/comment the PR
+    steps:
+      - name: Harden runner
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Always try to add the label; it's idempotent
+      - name: Add "security-review" label
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          labels: security-review
+
+      - name: Comment notice
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            ⚠️ This PR modifies workflow or supply-chain files.
+            **CODEOWNERS review is required** and security checks will run.
+
+  dependency-review:
+    name: Dependency Review (GitHub)
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Harden runner
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Dependency review
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: high
+          comment-summary-in-pr: true
+
+  heartbeat:
+    name: Nightly heartbeat
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Harden runner
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+      - name: Do nothing (heartbeat)
+        run: echo "Security Sentry heartbeat"
+
+  notify-discord:
+    name: Notify Discord
+    needs: [workflow-change-sentry, dependency-review, heartbeat]
+    if: always() && env.WEBHOOK != ''
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post summary to Discord
+        run: |
+          STATUS="${{ job.status }}"
+          EVENT="${{ github.event_name }}"
+          REPO="${{ github.repository }}"
+          REF="${{ github.ref }}"
+          URL="https://github.com/${REPO}/actions/runs/${{ github.run_id }}"
+
+          # Derive simple status line
+          WFS="${{ needs.workflow-change-sentry.result }}"
+          DEP="${{ needs.dependency-review.result }}"
+          HB="${{ needs.heartbeat.result }}"
+
+          if [ "$WFS" = "failure" ] || [ "$DEP" = "failure" ] || [ "$HB" = "failure" ] || [ "$EVENT" = "push" ]; then
+            TITLE="🔴 Security Sentry: Attention required"
+            COLOR=15158332
+          else
+            TITLE="🟢 Security Sentry: Completed"
+            COLOR=3066993
+          fi
+
+          jq -nc --arg t "$TITLE" \
+                 --arg e "$EVENT" \
+                 --arg r "$REPO" \
+                 --arg ref "$REF" \
+                 --arg url "$URL" \
+                 --arg wfs "$WFS" \
+                 --arg dep "$DEP" \
+                 --arg hb  "$HB" \
+                 '{ username:"Security Sentry",
+                    embeds:[{
+                      title:$t,
+                      description:( "Repo: **" + $r + "**\nEvent: **" + $e + "**\nRef: **" + $ref + "**\n\nResults:\n• Workflow change sentry: **" + $wfs + "**\n• Dependency review: **" + $dep + "**\n• Heartbeat: **" + $hb + "**\n\n[Open run](" + $url + ")" ),
+                      color: $COLOR
+                    }]
+                  }' \
+          | curl -fsSL -H "Content-Type: application/json" -d @- "$WEBHOOK"
